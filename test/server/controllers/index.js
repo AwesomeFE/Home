@@ -1,0 +1,7 @@
+require('./Country.test')
+require('./Province.test')
+require('./City.test')
+// require('./District.test')
+// require('./Address.test')
+// require('./User.test')
+// require('./IntegrationTesting.test')

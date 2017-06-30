@@ -1,0 +1,6 @@
+export cleanPlugin from './cleanPlugin'
+export definePlugin from './definePlugin'
+export uglifyJsPlugin from './uglifyJsPlugin'
+export extractTextPlugin from './extractTextPlugin'
+export htmlWebpackPlugin from './htmlWebpackPlugin'
+export commonsChunkPlugin from './commonsChunkPlugin'

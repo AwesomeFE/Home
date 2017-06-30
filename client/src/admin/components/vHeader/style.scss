@@ -1,0 +1,65 @@
+@import "../../scss/index";
+
+$font-grey: #889097;
+$font-menu-grey: #A8ACB1;
+$menu-hover-background: #232A2F;
+$menu-active-background: #00ACAC;
+
+.Header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: $header-height;
+  background: $white;
+  box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.3);
+}
+
+.Header__Logo {
+  height: 100%;
+  float: left;
+  display: table;
+  padding: 5px 15px;
+  width: 220px;
+}
+
+.Header__Logo--image {
+  vertical-align: middle;
+  height: 40px;
+}
+
+.Header__Logo--name {
+  vertical-align: middle;
+  margin: 0 10px;
+}
+
+.Header__Logo {
+  height: inherit;
+  float: left;
+  display: table;
+  padding: 5px 15px;
+  width: 220px;
+}
+
+.Header__menus {
+  height: inherit;
+  list-style: none;
+  padding: 0;
+  float: right;
+  margin: 0;
+  display: table;
+}
+
+.Header__menu {
+  height: inherit;
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.Header__search--input {
+
+}
+
+.Header__search--icon {
+  position: absolute;
+}

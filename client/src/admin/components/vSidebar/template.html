@@ -1,0 +1,43 @@
+<div class="Sidebar" @click="checkRouter">
+  <div class="Sidebar__Profile">
+    <div class="Sidebar__Profile--avatar">
+      <img class="Sidebar__Profile--avatar-image" src="./assets/images/avatar.jpg">
+    </div>
+    <div class="Sidebar__Profile--info">
+      <p class="Sidebar__Profile--info-name">{{$store.state.loggedStaff.name}}</p>
+      <p class="Sidebar__Profile--info-job">Web Developer</p>
+    </div>
+  </div>
+  <ul class="Sidebar__Menus">
+    <template v-for="menu in menus">
+
+      <li v-if="!menu.buttons" :class="['Sidebar__Menu', currentPath === menu.path ? 'active' : null]" @click="toggleMenu(menu.path)">
+        <router-link class="Sidebar__Menu--button" :to="menu.path" exact>
+          {{menu.text}}
+        </router-link>
+      </li>
+
+      <li v-if="menu.buttons"
+          :class="[
+            'Sidebar__Menu',
+            currentPath.indexOf(menu.path) === 0 ? 'active' : null,
+            openMenu === menu.path ? 'isOpen' : null]">
+        <a class="Sidebar__Menu--button" @click="toggleMenu(menu.path)">
+          {{menu.text}}
+        </a>
+        <ul class="Sidebar__SubMenus">
+          <template v-for="button in menu.buttons">
+
+            <li class="Sidebar__SubMenu">
+              <router-link class="Sidebar__SubMenu--button" active-class="active" :to="button.path">
+                {{button.text}}
+              </router-link>
+            </li>
+
+          </template>
+        </ul>
+      </li>
+
+    </template>
+  </ul>
+</div>

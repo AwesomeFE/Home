@@ -1,0 +1,22 @@
+<div>
+  <h1>登陆</h1>
+  {{message}}
+  {{$store.state.loggedUser}}
+  <div>
+    <input type="text" placeholder="用户名/邮箱/手机" v-model="credential">
+    <span v-show="$validation.credentialRequired">必填项</span>
+  </div>
+
+  <div>
+    <input type="password" placeholder="密码" v-model="password">
+    <span v-show="$validation.passwordRequired">必填项</span>
+  </div>
+
+  <div>
+    <input type="text" placeholder="验证码" v-model="captcha" @blur="verifyCaptcha">
+    <span v-show="$validation.captchaRequired">必填项</span>
+    <img src="/apis/captchas">
+  </div>
+
+  <button @click="login">递交</button>
+</div>

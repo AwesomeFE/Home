@@ -1,0 +1,35 @@
+<div class="StaffNew">
+  <h1>创建客服</h1>
+  <p>错误信息:{{message}}</p>
+  <div>
+    <label>
+      用户名<input v-model="username" />
+    </label>
+    <p v-show="$validation.usernameRequired">必填项</p>
+  </div>
+  <div>
+    <label>
+      密码<input v-model="password" />
+    </label>
+    <p v-show="$validation.passwordRequired">必填项</p>
+  </div>
+  <div>
+    <label>
+      手机号<input v-model="mobile" />
+    </label>
+    <p v-show="$validation.mobileRequired">必填项</p>
+  </div>
+  <div>
+    <label>
+      邮箱<input v-model="email" />
+    </label>
+    <p v-show="$validation.emailRequired">必填项</p>
+  </div>
+  <div>
+    <label>
+      头像<input type="file" @change="uploadAvatar" />
+    </label>
+    <p v-show="$validation.emailRequired">必填项</p>
+  </div>
+  <a href="javascript:void(0)" @click="createStaff">创建</a>
+</div>

@@ -1,0 +1,8 @@
+@import "../../scss/index";
+
+.Dashboard {
+  min-width: $windows-width;
+  height: 100vh;
+  padding: $header-height 0 0 $sidebar-width;
+  position: relative;
+}
