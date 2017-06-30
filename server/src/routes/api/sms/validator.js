@@ -1,4 +1,4 @@
-export default  {
+export default {
   '/sms'(req, res, next) {
     next()
   },
