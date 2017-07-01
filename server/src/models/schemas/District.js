@@ -1,5 +1,4 @@
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema
+import {Schema} from 'mongoose'
 
 const DistrictSchema = new Schema({
   name: {
@@ -12,4 +11,4 @@ const DistrictSchema = new Schema({
   }
 }, {timestamps: true})
 
-module.exports = DistrictSchema
+export default DistrictSchema

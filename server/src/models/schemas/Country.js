@@ -1,5 +1,4 @@
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema
+import {Schema} from 'mongoose'
 
 const CountrySchema = new Schema({
   name: {
@@ -22,4 +21,4 @@ const CountrySchema = new Schema({
   }
 }, {timestamps: true})
 
-module.exports = CountrySchema
+export default CountrySchema

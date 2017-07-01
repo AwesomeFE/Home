@@ -1,5 +1,4 @@
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema
+import {Schema} from 'mongoose'
 
 const EntryLogSchema = new Schema({
   userId: {
@@ -31,4 +30,4 @@ const EntryLogSchema = new Schema({
   }
 })
 
-module.exports = EntryLogSchema
+export default EntryLogSchema

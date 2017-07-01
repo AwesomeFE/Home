@@ -1,7 +1,5 @@
-const mongoose = require('mongoose')
-const validator = require('validator')
-const Schema = mongoose.Schema
-const {Address} = require('./Address')
+import {Schema} from 'mongoose'
+import validator from 'validator'
 
 const User = new Schema({
   username:  {
@@ -41,4 +39,4 @@ const User = new Schema({
   }]
 }, {timestamps: true});
 
-module.exports = User;
+export default User;

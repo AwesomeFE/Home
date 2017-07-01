@@ -2,7 +2,8 @@ import {Schema} from 'mongoose'
 
 const BlogSchema = new Schema({
   userId: {
-    type: Schema.Types.ObjectId
+    type: Schema.Types.ObjectId,
+    refs: 'Users'
   },
   title: {
     type: String
@@ -10,10 +11,14 @@ const BlogSchema = new Schema({
   content: {
     type: String
   },
-  reply: {
+  comments: [{
     type: Schema.Types.ObjectId,
-    refs: 'BlogReplies'
-  }
+    refs: 'Comments'
+  }],
+  attachments: [{
+    type: Schema.Types.ObjectId,
+    refs: 'Attachments'
+  }]
 }, {timestamps: true})
 
-module.exports = BlogSchema
+export default BlogSchema

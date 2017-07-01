@@ -1,5 +1,4 @@
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema
+import {Schema} from 'mongoose'
 
 const GeoLocationSchema = new Schema({
   type: {
@@ -11,4 +10,4 @@ const GeoLocationSchema = new Schema({
   }
 })
 
-module.exports = GeoLocationSchema
+export default GeoLocationSchema

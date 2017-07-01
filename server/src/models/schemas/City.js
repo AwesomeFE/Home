@@ -1,5 +1,4 @@
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema
+import {Schema} from 'mongoose'
 
 const CitySchema = new Schema({
   name: {
@@ -16,4 +15,4 @@ const CitySchema = new Schema({
   }
 }, {timestamps: true})
 
-module.exports = CitySchema
+export default CitySchema
