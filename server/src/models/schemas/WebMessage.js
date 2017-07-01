@@ -1,5 +1,4 @@
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema
+import {Schema} from 'mongoose'
 
 const WebMessageSchema = new Schema({
   topic: {
@@ -20,4 +19,4 @@ const WebMessageSchema = new Schema({
   }
 }, {timestamps: true})
 
-module.exports = WebMessageSchema
+export default WebMessageSchema

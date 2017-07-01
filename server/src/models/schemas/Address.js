@@ -1,7 +1,5 @@
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema
-
-const GeoLocation = require('./GeoLocation')
+import {Schema} from 'mongoose'
+import GeoLocation from './GeoLocation'
 
 const AddressSchema = new Schema({
   country: {
@@ -39,4 +37,4 @@ const AddressSchema = new Schema({
 
 AddressSchema.index({geoLocation: '2dsphere'})
 
-module.exports = AddressSchema
+export default AddressSchema

@@ -2,15 +2,22 @@ import {Schema} from 'mongoose'
 
 const CommentSchema = new Schema({
   userId: {
+    type: Schema.Types.ObjectId,
+    refs: 'Users'
+  },
+  commentType: {
+    type: String
+  },
+  commentId: {
     type: Schema.Types.ObjectId
   },
   content: {
     type: String
   },
-  reply: {
+  attachments: [{
     type: Schema.Types.ObjectId,
-    refs: 'BlogReplies'
-  }
+    refs: 'Attachments'
+  }]
 }, {timestamps: true})
 
-module.exports = CommentSchema
+export default CommentSchema
