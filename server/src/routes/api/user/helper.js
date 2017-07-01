@@ -42,7 +42,7 @@ export function setLoginFailedSession(req) {
 }
 
 export function cleanAllSession(req) {
-  Object.keys(req.session).forEach(key => delete req.session[key])
+  Object.keys(req.session).filter(key => key !== 'cookie').forEach(key => delete req.session[key])
 }
 
 function _isUpToMaxFailedTimes(loginFailedTimes) {

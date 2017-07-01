@@ -57,7 +57,7 @@
     },
 
     async mounted() {
-      if(!this.$store.state.user) {
+      if(this.$store.state.user) {
         return this.$router.replace({name: 'Home'})
       }
 

@@ -36,6 +36,9 @@
         <div class="TopHeader__navItem">
           欢迎{{userInfo.username||userInfo.mobile||userInfo.email}}
         </div>
+        <div class="TopHeader__navItem">
+          <a class="TopHeader__navItem--link" @click="logout">登出</a>
+        </div>
       </li>
       <li class="TopHeader__navList tel">
         <div class="TopHeader__navItem">
@@ -62,13 +65,21 @@
   </nav>
 </template>
 <script>
+  import * as UserService from '../../services/UserService'
+
   export default {
     computed: {
       userInfo() {
-        return this.$store.state.user;
+        return this.$store.state.user
       }
     },
     mounted() {
+    },
+    methods: {
+      async logout() {
+        await UserService.logout()
+        this.$store.commit('setLoginUser', null)
+      }
     }
   }
 </script>
