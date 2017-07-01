@@ -1,8 +1,11 @@
-// 用户重登陆
+// 用户重登录
 export const GET_SESSION_USER = () => `/api/user`
 
 // 用户登录
 export const LOGIN = () => `/api/user/login`
+
+// 用户登出
+export const LOGOUT = () => `/api/user/logout`
 
 // 用户注册
 export const REGISTER = () => `/api/user/register`

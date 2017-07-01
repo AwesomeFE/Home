@@ -1,16 +1,16 @@
-exports.isMobileRegister = (userInfo) => {
+export function isMobileRegister(userInfo) {
   return !!userInfo.mobile
 }
 
-exports.isSmsVerifyFailed = (session) => {
+export function isSmsVerifyFailed(session) {
   return !session.isSmsVerifyPass
 }
 
-exports.isCaptchaVerifyFailed = (session) => {
+export function isCaptchaVerifyFailed(session) {
   return !session.isCaptchaVerifyPass
 }
 
-exports.shouldCheckCaptcha = (session) => {
+export function shouldCheckCaptcha(session) {
   if(_isUpToMaxFailedDuration(session.loginFailedAt)) {
     session.loginFailedTimes = 0
   }
@@ -18,31 +18,31 @@ exports.shouldCheckCaptcha = (session) => {
   return _isUpToMaxFailedTimes(session.loginFailedTimes)
 }
 
-exports.cleanRegisterSession = (req) => {
+export function cleanRegisterSession(req) {
   req.session.smsCode = ''
   req.session.captcha = ''
   req.session.isSmsVerifyPass = false
   req.session.isCaptchaVerifyPass = false
 }
 
-exports.cleanLoginSession = (req) => {
+export function cleanLoginSession(req) {
   req.session.captcha = ''
   req.session.loginFailedAt = 0
   req.session.loginFailedTimes = 0
   req.session.isCaptchaVerifyPass = false
 }
 
-exports.setUserSession = (req, user) => {
+export function setUserSession(req, user) {
   req.session.user = user
 }
 
-exports.setLoginFailedSession = (req) => {
+export function setLoginFailedSession(req) {
   req.session.loginFailedTimes++
   req.session.loginFailedAt = Date.now()
 }
 
-exports.cleanAllSession = (req) => {
-  Object.keys(req.session).forEach(key => delete req.session[key])
+export function cleanAllSession(req) {
+  Object.keys(req.session).filter(key => key !== 'cookie').forEach(key => delete req.session[key])
 }
 
 function _isUpToMaxFailedTimes(loginFailedTimes) {

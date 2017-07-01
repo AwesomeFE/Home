@@ -57,7 +57,7 @@
     },
 
     async mounted() {
-      if(!this.$store.state.user) {
+      if(this.$store.state.user) {
         return this.$router.replace({name: 'Home'})
       }
 
@@ -103,6 +103,7 @@
 
           this.$router.push({name: 'Home'})
         } catch (error) {
+          this.freshCaptchaImage()
           console.log(error)
         }
       },

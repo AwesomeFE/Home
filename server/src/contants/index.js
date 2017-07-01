@@ -16,5 +16,5 @@ export const DEFAULT_SESSION = {
   isCaptchaVerifyPass: false,
   loginFailedTimes: 0,
   loginFailedAt: 0,
-  user: {}
+  user: null
 }
