@@ -14,9 +14,9 @@
     },
     methods: {
       async getSessionUser() {
-        const userInfo = await UserService.getSessionUser()
+        const {user} = await UserService.getSessionUser()
 
-        this.$store.commit('setLoginUser', userInfo)
+        this.$store.commit('setLoginUser', user)
       }
     }
   }

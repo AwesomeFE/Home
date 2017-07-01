@@ -64,5 +64,8 @@ export function logout(req, res) {
 }
 
 export function getSessionUser(req, res) {
-  res.json(req.session.user)
+  res.json({
+    ...ResponseService.SESSION_USER_SUCCESSS,
+    user: req.session.user
+  })
 }

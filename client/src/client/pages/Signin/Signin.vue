@@ -103,6 +103,7 @@
 
           this.$router.push({name: 'Home'})
         } catch (error) {
+          this.freshCaptchaImage()
           console.log(error)
         }
       },
