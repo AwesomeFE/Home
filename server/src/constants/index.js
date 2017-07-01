@@ -18,3 +18,7 @@ export const DEFAULT_SESSION = {
   loginFailedAt: 0,
   user: null
 }
+
+export const DATABASE_ERROR = {
+  DUPLICATE_DATA: 11000
+}

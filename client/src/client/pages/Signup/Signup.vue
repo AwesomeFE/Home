@@ -67,7 +67,7 @@
     },
 
     async mounted() {
-      if(!this.$store.state.user) {
+      if(this.$store.state.user) {
         return this.$router.replace({name: 'Home'})
       }
 
@@ -106,9 +106,9 @@
 
           await SmsService.verifySmsCode(this.formValue.smsCode)
           await CaptchaService.verifyCaptcha(this.formValue.captcha)
-          const userInfo = await UserService.register(this.passport)
+          const {user} = await UserService.register(this.passport)
 
-          this.$store.commit('setLoginUser', userInfo)
+          this.$store.commit('setLoginUser', user)
 
           this.$router.push({name: 'Home'})
         } catch (error) {

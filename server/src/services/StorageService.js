@@ -1,6 +1,6 @@
-const multer = require('multer')
-const uuid = require('node-uuid')
-const ErrorService = require('../services/ErrorService')
+import multer from 'multer'
+import uuid from 'node-uuid'
+import ErrorService from '../services/ErrorService'
 
 class StorageService {
   constructor(folderName, fileController) {

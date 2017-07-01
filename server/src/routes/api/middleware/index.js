@@ -1,6 +1,6 @@
 import {
   DEFAULT_SESSION,
-} from '../../../contants'
+} from '../../../constants'
 
 /**
  * 检查session是否需要重置

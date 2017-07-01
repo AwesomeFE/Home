@@ -8,10 +8,10 @@ import {
 } from './helper'
 
 export function getCaptcha(req, res, next) {
-  const session = req.session
-  const isLogin = req.query['isLogin']
-
   try {
+    const session = req.session
+    const isLogin = req.query['isLogin'] === 'true'
+
     if(isLogin && !shouldCheckCaptcha(session)) {
       return res.json(ResponseService.NO_NEED_CAPTCHA_VERIFY)
     }

@@ -1,10 +1,8 @@
 import crypto from 'crypto'
-import {
-  User
-} from '../models'
+import {User} from '../models'
+import ErrorService from '../services/ErrorService'
 const AddressController = require('./Address')
 const EntryLogController = require('./EntryLog')
-const ErrorService = require('../services/ErrorService')
 
 /**
  * Controller Method: User login function
@@ -13,7 +11,7 @@ const ErrorService = require('../services/ErrorService')
  * @param {Object} entryLogData: user login recode
  * @returns {Object} user: user account details
  */
-async function login(loginData = {}, entryLogData = {}) {
+export async function login(loginData = {}, entryLogData = {}) {
 
   await checkUserLoginType(loginData)
   await checkUserPassword(loginData)
@@ -47,7 +45,7 @@ async function login(loginData = {}, entryLogData = {}) {
  * @param {Object} userData
  * @returns {Object} userInfo
  */
-async function createUser(userData = {}) {
+export async function createUser(userData = {}) {
 
   await checkUserLoginType(userData)
   await checkUserPassword(userData)
@@ -170,8 +168,3 @@ function encryptPassword(password = '') {
     .digest('base64')
     : undefined
 }
-
-exports.login = login
-exports.createUser = createUser
-//exports.getUserDetailById = getUserDetailById
-//exports.editAccountById = editAccountById

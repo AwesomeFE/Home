@@ -1,6 +1,7 @@
-import UserController from '../../../controllers/User'
+import * as UserController from '../../../controllers/User'
 import ErrorService from '../../../services/ErrorService'
 import ResponseService from '../../../services/ResponseService'
+import {DATABASE_ERROR} from '../../../constants'
 import {
   isMobileRegister,
   isSmsVerifyFailed,
@@ -18,21 +19,36 @@ export async function register(req, res, next) {
   const userData = req.body
 
   try {
+    // 如果是手机注册用户，如果验证码验证失败，报错
     if (isMobileRegister(userData) && isSmsVerifyFailed(session)) {
       throw ErrorService.SMS_VERIFY_ERROR
     }
 
+    // 如果图形验证码验证失败，报错
     if (isCaptchaVerifyFailed(session)) {
       throw ErrorService.CAPTCHA_VERIFY_FAILED
     }
 
-    const userInfo = await UserController.createUser(userData)
+    // 通过验证则创建用户，清除注册时的session数据
+    const user = await UserController.createUser(userData)
     cleanRegisterSession(req)
 
-    setUserSession(req, userInfo)
-    res.json(userInfo)
+    // 设置创建完成的用户session，并且将用户数据发给前端
+    setUserSession(req, user)
+    res.json({
+      ...ResponseService.ACCOUNT_REGISTER_SUCCESS,
+      user
+    })
+
   } catch (error) {
-    next(error)
+
+    // 如果用户存在，报错
+    if(error.code === DATABASE_ERROR.DUPLICATE_DATA) {
+      next(ErrorService.USER_IS_EXISTED)
+    } else {
+      // 非法报错
+      next(error)
+    }
   }
 }
 
@@ -41,18 +57,27 @@ export async function login(req, res, next) {
   const loginData = req.body
 
   try {
+    // 如果三次登陆失败，则需要检查图形验证码；如果验证码检测失败，报错
     if (shouldCheckCaptcha(session) && isCaptchaVerifyFailed(session)) {
       throw ErrorService.CAPTCHA_VERIFY_FAILED
     }
 
+    // 记录登陆IP数据，用户登录并且创建登陆数据
     const entryLog = {ip: req.ip}
-    const userInfo = await UserController.login(loginData, entryLog)
+    const user = await UserController.login(loginData, entryLog)
 
+    // 登陆成功，清空登陆session，并且设置用户session
     cleanLoginSession(req)
-    setUserSession(req, userInfo)
-    res.json(userInfo)
+    setUserSession(req, user)
+
+    //将用户信息发送给前端
+    res.json({
+      ...ResponseService.ACCOUNT_LOGIN_SUCCESS,
+      user
+    })
 
   } catch (error) {
+    // 如果登陆失败，设置登录失败session
     setLoginFailedSession(req)
     next(error)
   }
@@ -60,12 +85,12 @@ export async function login(req, res, next) {
 
 export function logout(req, res) {
   cleanAllSession(req)
-  res.json(ResponseService.ACCOUNT_LOGOUT_SUCCESSS)
+  res.json(ResponseService.ACCOUNT_LOGOUT_SUCCESS)
 }
 
 export function getSessionUser(req, res) {
   res.json({
-    ...ResponseService.SESSION_USER_SUCCESSS,
+    ...ResponseService.SESSION_USER_SUCCESS,
     user: req.session.user
   })
 }

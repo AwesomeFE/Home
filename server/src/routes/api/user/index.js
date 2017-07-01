@@ -5,7 +5,7 @@ import * as handler from './handler'
 const router = express.Router()
 const upload = multer({dest: 'uploads/users/'})
 
-router.get('/', handler.getSessionUser)
+router.get('/session', handler.getSessionUser)
 router.get('/logout', handler.logout)
 
 router.post('/login', handler.login)
