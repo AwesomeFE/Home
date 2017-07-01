@@ -5,20 +5,28 @@ const BlogSchema = new Schema({
     type: Schema.Types.ObjectId,
     refs: 'Users'
   },
+  addressId: {
+    type: Schema.Types.ObjectId,
+    refs: 'Addresses'
+  },
   title: {
     type: String
   },
   content: {
     type: String
   },
-  comments: [{
-    type: Schema.Types.ObjectId,
-    refs: 'Comments'
-  }],
   attachments: [{
     type: Schema.Types.ObjectId,
     refs: 'Attachments'
-  }]
+  }],
+  visible: {
+    type: String,
+    default: 'all',
+    enum: ['all', 'friend', 'none']
+  },
+  isShortBlog: {
+    type: Boolean
+  }
 }, {timestamps: true})
 
 export default BlogSchema

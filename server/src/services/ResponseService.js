@@ -8,5 +8,6 @@ module.exports = {
   ACCOUNT_REGISTER_SUCCESS:   {status: 200, message: 'Account register successfully.', type: 'ACCOUNT_REGISTER_SUCCESS'},
   SESSION_USER_SUCCESS:       {status: 200, message: 'Get session user successfully.', type: 'SESSION_USER_SUCCESS'},
   STAFF_LOGOUT_SUCCESS:       {status: 200, message: 'Staff logout successfully.', type: 'STAFF_LOGOUT_SUCCESS'},
-  CAPTCHA_VERIFY_SUCCESS:     {status: 200, message: 'Captcha verify successfully.', type: 'CAPTCHA_VERIFY_SUCCESS'},
+  SEARCH_SUCCESS:             {status: 200, message: 'Search successfully.', type: 'SEARCH_SUCCESS'},
+  CREATE_SUCCESS:             {status: 200, message: 'Create successfully.', type: 'CREATE_SUCCESS'},
 }

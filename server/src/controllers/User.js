@@ -62,6 +62,14 @@ export async function createUser(userData = {}) {
   return await userInfo.save()
 }
 
+export async function getRelationshipBetween(userIdA, userIdB) {
+  if(userIdA === userIdB) {
+    return 'same'
+  } else {
+    return ''
+  }
+}
+
 async function searchUser(searchText = '', searchFields = '') {
 
 }
