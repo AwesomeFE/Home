@@ -97,9 +97,9 @@
           if(this.captchaImage) {
             await CaptchaService.verifyCaptcha(this.formValue.captcha)
           }
-          const userInfo = await UserService.login(this.passport)
+          const {user} = await UserService.login(this.passport)
 
-          this.$store.commit('setLoginUser', userInfo)
+          this.$store.commit('setLoginUser', user)
 
           this.$router.push({name: 'Home'})
         } catch (error) {

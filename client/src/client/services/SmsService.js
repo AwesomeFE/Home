@@ -2,7 +2,7 @@ import axios from 'axios'
 import {
   GET_SMS_CODE,
   VERIFY_SMS_CODE
-} from '../contants/apiUrls'
+} from '../constants/apiUrls'
 
 export const getSmsCode = mobile => axios.get(GET_SMS_CODE(mobile))
 

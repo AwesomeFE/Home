@@ -1,5 +1,5 @@
 // 用户重登录
-export const GET_SESSION_USER = () => `/api/user`
+export const GET_SESSION_USER = () => `/api/user/session`
 
 // 用户登录
 export const LOGIN = () => `/api/user/login`

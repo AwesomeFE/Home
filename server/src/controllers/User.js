@@ -1,10 +1,8 @@
 import crypto from 'crypto'
-import {
-  User
-} from '../models'
+import {User} from '../models'
+import ErrorService from '../services/ErrorService'
 const AddressController = require('./Address')
 const EntryLogController = require('./EntryLog')
-const ErrorService = require('../services/ErrorService')
 
 /**
  * Controller Method: User login function

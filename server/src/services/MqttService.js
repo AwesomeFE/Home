@@ -1,5 +1,5 @@
 import mosca from 'mosca'
-import {dummyMessage} from '../contants'
+import {dummyMessage} from '../constants'
 
 class MqttService {
   constructor(expressServer) {

@@ -1,7 +1,7 @@
 import * as UserController from '../../../controllers/User'
 import ErrorService from '../../../services/ErrorService'
 import ResponseService from '../../../services/ResponseService'
-import {DATABASE_ERROR} from '../../../contants'
+import {DATABASE_ERROR} from '../../../constants'
 import {
   isMobileRegister,
   isSmsVerifyFailed,
@@ -30,12 +30,15 @@ export async function register(req, res, next) {
     }
 
     // 通过验证则创建用户，清除注册时的session数据
-    const userInfo = await UserController.createUser(userData)
+    const user = await UserController.createUser(userData)
     cleanRegisterSession(req)
 
     // 设置创建完成的用户session，并且将用户数据发给前端
-    setUserSession(req, userInfo)
-    res.json(userInfo)
+    setUserSession(req, user)
+    res.json({
+      ...ResponseService.ACCOUNT_REGISTER_SUCCESS,
+      user
+    })
 
   } catch (error) {
 
@@ -61,14 +64,17 @@ export async function login(req, res, next) {
 
     // 记录登陆IP数据，用户登录并且创建登陆数据
     const entryLog = {ip: req.ip}
-    const userInfo = await UserController.login(loginData, entryLog)
+    const user = await UserController.login(loginData, entryLog)
 
     // 登陆成功，清空登陆session，并且设置用户session
     cleanLoginSession(req)
-    setUserSession(req, userInfo)
+    setUserSession(req, user)
 
     //将用户信息发送给前端
-    res.json(userInfo)
+    res.json({
+      ...ResponseService.ACCOUNT_LOGIN_SUCCESS,
+      user
+    })
 
   } catch (error) {
     // 如果登陆失败，设置登录失败session
@@ -79,12 +85,12 @@ export async function login(req, res, next) {
 
 export function logout(req, res) {
   cleanAllSession(req)
-  res.json(ResponseService.ACCOUNT_LOGOUT_SUCCESSS)
+  res.json(ResponseService.ACCOUNT_LOGOUT_SUCCESS)
 }
 
 export function getSessionUser(req, res) {
   res.json({
-    ...ResponseService.SESSION_USER_SUCCESSS,
+    ...ResponseService.SESSION_USER_SUCCESS,
     user: req.session.user
   })
 }
