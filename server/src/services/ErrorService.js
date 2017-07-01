@@ -38,6 +38,7 @@ ErrorService.PASSWORD_ERROR             = {status: 401, message: 'Password is wr
 ErrorService.PASSWORD_EMPTY             = {status: 404, message: 'Password is empty.', type: 'PASSWORD_EMPTY'}
 ErrorService.SMS_VERIFY_ERROR           = {status: 401, message: 'SMS verify error.', type: 'SMS_VERIFY_ERROR'}
 ErrorService.CAPTCHA_VERIFY_FAILED      = {status: 401, message: 'Captcha verify Error.', type: 'CAPTCHA_VERIFY_FAILED'}
+ErrorService.USER_IS_EXISTED            = {status: 400, message: 'User is existed.', type: 'USER_IS_EXISTED'}
 ErrorService.USER_NOT_FOUND             = {status: 404, message: 'Cannot find the user.', type: 'USER_NOT_FOUND'}
 ErrorService.NO_ENTRY_LOG               = {status: 404, message: 'Login information don\'t have entry log.', type: 'NO_ENTRY_LOG'}
 ErrorService.UNKNOW_LOGIN_TYPE          = {status: 404, message: 'Unknow login type. It isn\'t from wechat or desktop.', type: 'UNKNOW_LOGIN_TYPE'}
@@ -64,4 +65,4 @@ ErrorService.SOCKET_PARSE_MESSAGE_FAIL   = {status: 404, message: 'Parse the web
 ErrorService.FILE_UPLOAD_TYPE_ERROR      = {status: 404, message: 'Don\'t support the file type.', type: 'FILE_UPLOAD_TYPE_ERROR'}
 ErrorService.FILE_UPLOAD_SAVE_ERROR      = {status: 500, message: 'Saving file info error.', type: 'FILE_UPLOAD_SAVE_ERROR'}
 
-module.exports = ErrorService
+export default ErrorService
