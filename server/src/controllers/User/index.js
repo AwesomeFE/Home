@@ -1,5 +1,6 @@
 import {User} from '../../models'
 import ErrorService from '../../services/ErrorService'
+import * as RelationshipController from '../Relationship'
 import * as AddressController from '../Address'
 import * as EntryLogController from '../EntryLog'
 import {
@@ -82,12 +83,46 @@ export async function createUser(userData = {}) {
   return await user.save()
 }
 
-export async function getRelationshipBetween(userIdA, userIdB) {
-  if(userIdA === userIdB) {
+export async function getRelationshipStatusBetween(thisUserId, thatUserId, type) {
+  // 如果id相同，那么判断是相同User
+  if(thisUserId === thatUserId) {
     return 'same'
-  } else {
-    return ''
   }
+  // 获取用户document实例
+  const thatUser = await this.getUserById(thatUserId)
+  const thisUser = await this.getUserById(thisUserId)
+
+  // 获取用户间关系数据，并且检查用户关系是否存在
+  const relationship = await RelationshipController.getRelationship(thisUser, thatUser, type)
+  const isRelationshipExisted = relationship.from || relationship.to
+
+  // 如果用户关系存在并相等，则确立关系
+  if(isRelationshipExisted) {
+    if(relationship.from === relationship.to) {
+      return relationship.from
+      // 如果用户去关系存在，那就是需要对方确认，pending状态
+    } else if(relationship.from) {
+      return 'pending'
+      // 如果用户去关系不存在，但存在关系，那么就是需要confirm的状态
+    } else {
+      return 'confirm'
+    }
+  } else {
+    // 如果没有关系，那就是none
+    return 'none'
+  }
+}
+
+export async function makeRelation(thisUserId, thatUserId, type) {
+  // 获取用户document实例
+  const thatUser = await this.getUserById(thatUserId)
+  const thisUser = await this.getUserById(thisUserId)
+  // 建立document间关系数据
+  return await RelationshipController.makeRelationship(thisUser, thatUser, type)
+}
+
+export async function getUserById(userId) {
+  return await User.findById(userId)
 }
 
 async function searchUser(searchText = '', searchFields = '') {
