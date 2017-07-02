@@ -1,7 +1,7 @@
 import {
   Province,
   City,
-} from '../models'
+} from '../../models'
 
 /**
  * Controller Method: Create city/cities

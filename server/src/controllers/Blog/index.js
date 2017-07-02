@@ -1,9 +1,9 @@
 import {
   Blog,
   Comment
-} from '../models'
-import * as UserController from './User'
-import * as FileController from './File'
+} from '../../models'
+import * as UserController from '../User'
+import * as FileController from '../File'
 
 export async function createBlog(user = {}, blogData = {}, files = []) {
   blogData.userId = user._id

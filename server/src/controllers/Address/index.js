@@ -1,10 +1,10 @@
+import {Address} from '../../models'
 import {
-  Address,
-  Country,
-  Province,
-  City,
-  District,
-  } from '../models'
+  mappingAddressCountry,
+  mappingAddressProvince,
+  mappingAddressCity,
+  mappingAddressDistrict
+} from './helper'
 
 /**
  * Controller Method: Create address/addresses
@@ -12,7 +12,7 @@ import {
  * @param {Object} addressInfo
  * @returns {Object} address
  */
-async function createAddress(addressInfo = {}) {
+export async function createAddress(addressInfo = {}) {
   if(addressInfo instanceof Array) {
     const addresses = []
 
@@ -41,7 +41,7 @@ async function createAddress(addressInfo = {}) {
  * @param {Object} query
  * @returns {Object} deleted address
  */
-async function deleteAddress(query) {
+export async function deleteAddress(query) {
   return await Address.findOneAndUpdate(query, {status: 'isDeleted'}, {new: true})
 }
 
@@ -50,7 +50,7 @@ async function deleteAddress(query) {
  * @param {Object} query
  * @returns {Object} address
  */
-async function recoverAddress(query) {
+export async function recoverAddress(query) {
   query = Object.assign({}, query, {status: {$eq: 'isDeleted'}})
   return await Address.findOneAndUpdate(query, {status: 'isUsing'}, {new: true})
 }
@@ -61,7 +61,7 @@ async function recoverAddress(query) {
  * @param {Object} query
  * @returns {Object} city
  */
-async function findAddress(query) {
+export async function findAddress(query) {
   query = Object.assign({}, query, {status: {$ne: 'isDeleted'}})
   return await Address.find(query)
     .populate('country', 'name')
@@ -78,7 +78,7 @@ async function findAddress(query) {
  * @param {Object} query
  * @returns {Object} city
  */
-async function findAddressNear(centerAddress, range, query = {}) {
+export async function findAddressNear(centerAddress, range, query = {}) {
   query = Object.assign({}, query, {
     _id: {
       $ne: centerAddress._id
@@ -96,57 +96,3 @@ async function findAddressNear(centerAddress, range, query = {}) {
 
   return await findAddress(query)
 }
-
-/**
- * Helper Method: Mapping country in to address country
- *
- * @param address
- * @returns {*|SchemaType|void}
- */
-async function mappingAddressCountry(address) {
-  return !address.country._id
-    ? await Country.findById(address.country).select('name')
-    : address.country
-}
-
-/**
- * Helper Method: Mapping province in to address province
- *
- * @param address
- * @returns {*|SchemaType|void}
- */
-async function mappingAddressProvince(address) {
-  return !address.province._id
-    ? await Province.findById(address.province).select('name')
-    : address.province
-}
-
-/**
- * Helper Method: Mapping city in to address city
- *
- * @param address
- * @returns {*|SchemaType|void}
- */
-async function mappingAddressCity(address) {
-  return !address.city._id
-    ? await City.findById(address.city).select('name')
-    : address.city
-}
-
-/**
- * Helper Method: Mapping district in to address district
- *
- * @param address
- * @returns {*|SchemaType|void}
- */
-async function mappingAddressDistrict(address) {
-  return !address.district._id
-    ? await District.findById(address.district).select('name')
-    : address.district
-}
-
-exports.findAddress = findAddress
-exports.createAddress = createAddress
-exports.deleteAddress = deleteAddress
-exports.recoverAddress = recoverAddress
-exports.findAddressNear = findAddressNear
