@@ -1,13 +1,9 @@
-const {Files} = require('../models')
+import {File} from '../models'
 
-function findFileById(id) {
-  return Files.findById(id)
+export async function saveFile(fileInfo) {
+  return await File.create(fileInfo)
 }
 
-function saveFile(fileInfo) {
-  const fileModel = new Files(fileInfo)
-  return fileModel.save()
+export async function getFile(fileId) {
+  return await File.findById(fileId)
 }
-
-exports.saveFile = saveFile
-exports.findFileById = findFileById

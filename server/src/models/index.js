@@ -1,7 +1,8 @@
 import mongoose from 'mongoose'
-import CitySchema from './schemas/City'
-import UserSchema from './schemas/User'
 import BlogSchema from './schemas/Blog'
+import CitySchema from './schemas/City'
+import FileSchema from './schemas/File'
+import UserSchema from './schemas/User'
 import CommentSchema from './schemas/Comment'
 import AddressSchema from './schemas/Address'
 import CountrySchema from './schemas/Country'
@@ -19,4 +20,5 @@ export const Country = mongoose.model('Countries', CountrySchema)
 export const Province = mongoose.model('Provinces', ProvinceSchema)
 export const District = mongoose.model('Districts', DistrictSchema)
 export const EntryLog = mongoose.model('EntryLogs', EntryLogSchema)
+export const File = mongoose.model('Files', FileSchema)
 export const WebMessage = mongoose.model('WebMessages', WebMessageSchema)

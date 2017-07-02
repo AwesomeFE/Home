@@ -9,4 +9,7 @@ node_modules
 client/dist/*
 
 # Server config
-*.env.keep
+*.keep
+
+# User upload files
+uploads/*
