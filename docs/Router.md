@@ -76,8 +76,10 @@
 | /api/user/register | POST | null | username/email/mobile='string'&password='string' | 用户注册 |
 | /api/user/session | GET | null | null | 获取session登录用户信息 |
 | /api/user/logout | GET | null | null | 用户登出 |
+| /api/user/:id/friend | POST | null | null | 对某用户申请一次加好友 |
+| /api/user/:id/friend | GET | null | null | 获取好友关系状态(降级->也可用作关注状态) |
 | /api/user[未完成] | GET | query?? | null | 用户搜索 |
-| /api/user[未完成] | UPDATE | null | ??? | 更新用户资料 |
+| /api/user[未完成] | PUT | null | ??? | 更新用户资料 |
 | /api/user/:id[未完成] | GET | query?? | null | 获取某用户资料 |
 | /api/user/:id[未完成] | POST | query?? | null | 对指定用户编辑昵称 |
 
@@ -124,14 +126,35 @@
 }
 ```
 
+### /api/user/:id/friend POST
+
+```json
+{
+  "status":200,
+  "message":"Relationship successfully.",
+  "type":"RELATIONSHIP_SUCCESS"
+}
+```
+
+### /api/user/:id/friend GET
+
+```json
+{
+  "status":200,
+  "message":"Relationship successfully.",
+  "type":"RELATIONSHIP_SUCCESS",
+  "relationship": "pending"
+}
+```
+
 ## 微博API
 
 | Path | Method | Query | Body | Description |
 |---|---|---|---|---|
-| /api/blog | GET | [userId='string'] | null | 查询微博 |
-| /api/blog | POST | null | blogData | 发表微博 |
-| /api/blog/:id[未完成] | GET | null | null | 获取微博详情 |
-| /api/blog/:id[未完成] | UPDATE | null | blogData | 更新微博 |
+| /api/blog | GET | [userId='string',query='{json字符串}',page,length] | null | 查询微博 |
+| /api/blog | POST | null | blogData(title,content,visible=[none/friend/all]) | 发表微博 |
+| /api/blog/:id[未完成] | GET | null | null | 获取微博详情(带上评论) |
+| /api/blog/:id[未完成] | PUT | null | blogData | 更新微博 |
 | /api/blog/:id[未完成] | DELETE | null | null | 删除微博 |
 
 ### /api/blog GET

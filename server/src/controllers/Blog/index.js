@@ -15,7 +15,7 @@ export async function createBlog(user = {}, blogData = {}, files = []) {
 export async function searchBlog(userId, query = {}, sessionUserId, pagination) {
   const limit = pagination.length
   const skip = pagination.page * pagination.length
-  let relationship = await UserController.getRelationshipBetween(userId, sessionUserId)
+  let relationship = await UserController.getRelationshipBetween(sessionUserId, userId)
 
   switch (relationship) {
     case 'same':

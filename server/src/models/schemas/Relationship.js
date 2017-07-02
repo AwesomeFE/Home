@@ -17,7 +17,7 @@ const RelationshipSchema = new Schema({
       type: Schema.Types.ObjectId
     }
   },
-  relationship: {
+  type: {
     type: String
   }
 })

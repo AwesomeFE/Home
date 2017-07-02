@@ -10,4 +10,5 @@ module.exports = {
   STAFF_LOGOUT_SUCCESS:       {status: 200, message: 'Staff logout successfully.', type: 'STAFF_LOGOUT_SUCCESS'},
   SEARCH_SUCCESS:             {status: 200, message: 'Search successfully.', type: 'SEARCH_SUCCESS'},
   CREATE_SUCCESS:             {status: 200, message: 'Create successfully.', type: 'CREATE_SUCCESS'},
+  RELATIONSHIP_SUCCESS:       {status: 200, message: 'Relationship successfully.', type: 'RELATIONSHIP_SUCCESS'}
 }
