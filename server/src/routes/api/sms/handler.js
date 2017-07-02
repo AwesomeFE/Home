@@ -32,7 +32,7 @@ export async function verifySMSCode (req, res, next) {
     const {SMSCode} = req.query
 
     // 如果短信验证码通过
-    if(req.session.SMSCode === SMSCode || process.env.NODE_ENV === 'development') {
+    if(req.session.SMSCode === SMSCode/* || process.env.NODE_ENV === 'development'*/) {
       // session中设置通过，并且通知前端
       req.session.isSmsVerifyPass = true
       res.json(ResponseService.SMS_VERIFY_SUCCESS)

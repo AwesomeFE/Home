@@ -94,3 +94,28 @@ export function getSessionUser(req, res) {
     user: req.session.user
   })
 }
+
+export async function makeFriend(req, res, next) {
+  const userId = req.params['userId']
+  const sessionUser = req.session.user || {}
+
+  await UserController.makeRelation(sessionUser._id, userId, 'friend')
+
+  res.json(ResponseService.RELATIONSHIP_SUCCESS)
+}
+
+export async function checkFriendStatus(req, res, next) {
+  const userId = req.params['userId']
+  const sessionUser = req.session.user || {}
+
+  const relationship = await UserController.getRelationshipStatusBetween(sessionUser._id, userId, 'friend')
+
+  res.json({
+    ...ResponseService.RELATIONSHIP_SUCCESS,
+    relationship
+  })
+}
+
+export async function deleteFriend(req, res, next) {
+
+}

@@ -7,9 +7,11 @@ const upload = multer({dest: 'uploads/users/'})
 
 router.get('/session', handler.getSessionUser)
 router.get('/logout', handler.logout)
-
 router.post('/login', handler.login)
 router.post('/register', handler.register)
+router.post('/:userId/friend', handler.makeFriend)
+router.get('/:userId/friend', handler.checkFriendStatus)
+router.delete('/:userId/friend', handler.deleteFriend)
 
 //router.get('/:accountId', getUserById)
 //router.post('/:accountId', upload.single('avatar'), editAccountById)
