@@ -22,6 +22,8 @@
   export default {
     data() {
       return {
+        page: 0,
+        length: 10,
         content: '',
         blogs: []
       }
@@ -37,12 +39,20 @@
       },
       async freshBlog() {
         const {blogs} = await BlogService.searchBlog({
-          page: 0,
-          length: 10
+          page: this.page,
+          length: this.length
         })
 
-        for(const blog of blogs) {
-          this.blogs.push(blog)
+        for(const newBlog of blogs) {
+          if(!this.blogs.some(blog => blog._id === newBlog._id)) {
+            this.blogs.push(newBlog)
+          }
+        }
+
+        if(blogs.length < this.length) {
+
+        } else {
+          this.page++
         }
       }
     }
