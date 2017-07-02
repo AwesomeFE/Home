@@ -1,6 +1,6 @@
 import {
   EntryLog
-} from '../models'
+} from '../../models'
 
 /**
  * Controller Method: Create an entry log
@@ -8,7 +8,7 @@ import {
  * @param {Object} entryLogData
  * @returns {Object} entryLog
  */
-async function createEntryLog(entryLogData = {}) {
+export async function createEntryLog(entryLogData = {}) {
   return await new EntryLog(entryLogData).save()
 }
 
@@ -18,7 +18,7 @@ async function createEntryLog(entryLogData = {}) {
  * @param {Object} query
  * @returns {Object} deleted entry log
  */
-async function deleteEntryLog(query) {
+export async function deleteEntryLog(query) {
   return await EntryLog.findOneAndUpdate(query, {status: 'isDeleted'}, {new: true})
 }
 
@@ -27,7 +27,7 @@ async function deleteEntryLog(query) {
  * @param {Object} query
  * @returns {Object} entry log
  */
-async function recoverEntryLog(query) {
+export async function recoverEntryLog(query) {
   query = Object.assign({}, query, {status: {$eq: 'isDeleted'}})
   return await EntryLog.findOneAndUpdate(query, {status: 'isActive'}, {new: true})
 }
@@ -38,12 +38,7 @@ async function recoverEntryLog(query) {
  * @param {Object} query
  * @returns {Object} EntryLogs
  */
-async function findEntryLog(query) {
+export async function findEntryLog(query) {
   query = Object.assign({}, query, {status: {$ne: 'isDeleted'}})
   return await EntryLog.find(query)
 }
-
-exports.findEntryLog = findEntryLog
-exports.createEntryLog = createEntryLog
-exports.deleteEntryLog = deleteEntryLog
-exports.recoverEntryLog = recoverEntryLog

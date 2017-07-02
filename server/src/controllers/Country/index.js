@@ -1,6 +1,6 @@
 import {
   Country
-} from '../models'
+} from '../../models'
 
 /**
  * Controller Method: Create country/countries
