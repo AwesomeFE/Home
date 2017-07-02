@@ -16,7 +16,7 @@ export async function searchBlog(req, res, next) {
     let query = {}
     try {
       query = JSON.stringify(req.query['query'])
-    }
+    } catch (e) {}
 
     // 搜索结果
     const blogs = await BlogController.searchBlog(userId, query, sessionUser._id, pagination)
