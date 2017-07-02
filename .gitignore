@@ -12,4 +12,4 @@ client/dist/*
 *.keep
 
 # User upload files
-uploads
+uploads/*
