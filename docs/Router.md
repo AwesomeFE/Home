@@ -143,7 +143,7 @@
   "status":200,
   "message":"Relationship successfully.",
   "type":"RELATIONSHIP_SUCCESS",
-  "relationship": "pending"
+  "relationship": "friend->代表彼此关注,pending->代表本人关注对方,confirm->代表对方关注本人,none->代表没有任何关系"
 }
 ```
 
