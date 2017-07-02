@@ -13,6 +13,8 @@ export async function createBlog(user = {}, blogData = {}) {
 }
 
 export async function searchBlog(userId, query = {}, sessionUserId, pagination) {
+  const limit = pagination.length
+  const skip = pagination.page * pagination.length
   let relationship = await UserController.getRelationshipBetween(userId, sessionUserId)
 
   switch (relationship) {
@@ -33,5 +35,5 @@ export async function searchBlog(userId, query = {}, sessionUserId, pagination) 
     query.userId = userId
   }
 
-  return await Blog.find(query)
+  return await Blog.find(query, null, { skip, limit })
 }

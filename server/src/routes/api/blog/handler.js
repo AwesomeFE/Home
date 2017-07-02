@@ -5,9 +5,9 @@ import ResponseService from '../../../services/ResponseService'
 export async function searchBlog(req, res, next) {
   try {
     // 获取分页信息
-    const length = req.query['length'] || 10
-    const start = req.query['start'] || 0
-    const pagination = {start, length}
+    const length = +req.query['length'] || 10
+    const page = +req.query['page'] || 0
+    const pagination = {page, length}
     // 获取用户信息
     const userId = req.query['userId'] || ''
     const sessionUser = req.session.user || {}
@@ -16,7 +16,7 @@ export async function searchBlog(req, res, next) {
     let query = {}
     try {
       query = JSON.stringify(req.query['query'])
-    }
+    } catch (e) {}
 
     // 搜索结果
     const blogs = await BlogController.searchBlog(userId, query, sessionUser._id, pagination)

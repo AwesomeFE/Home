@@ -24,3 +24,9 @@ export const GET_SMS_CODE = mobile => `/api/sms?mobile=${mobile}`
 
 // 校验短信验证码
 export const VERIFY_SMS_CODE = smsCode => `/api/sms/verify?SMSCode=${smsCode}`
+
+// 创建博客
+export const CREATE_BLOG = () => `/api/blog`
+
+// 搜索博客
+export const SEARCH_BLOG = () => `/api/blog`

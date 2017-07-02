@@ -128,9 +128,30 @@
 
 | Path | Method | Query | Body | Description |
 |---|---|---|---|---|
-| /api/blog[未完成] | GET | [userId='string'] | null | 查询微博 |
-| /api/blog[未完成] | POST | null | blogData | 发表微博 |
+| /api/blog | GET | [userId='string'] | null | 查询微博 |
+| /api/blog | POST | null | blogData | 发表微博 |
 | /api/blog/:id[未完成] | GET | null | null | 获取微博详情 |
 | /api/blog/:id[未完成] | UPDATE | null | blogData | 更新微博 |
 | /api/blog/:id[未完成] | DELETE | null | null | 删除微博 |
 
+### /api/blog GET
+
+```json
+{
+  "status":200,
+  "message":"Search successfully.",
+  "type":"SEARCH_SUCCESS",
+  "blogs": "[blogs]"
+}
+```
+
+### /api/blog POST
+
+```json
+{
+  "status":200,
+  "message":"Create successfully.",
+  "type":"CREATE_SUCCESS",
+  "blog": "blog"
+}
+```
