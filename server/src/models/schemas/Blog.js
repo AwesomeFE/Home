@@ -1,4 +1,5 @@
 import {Schema} from 'mongoose'
+import File from './File'
 
 const BlogSchema = new Schema({
   userId: {
@@ -17,7 +18,7 @@ const BlogSchema = new Schema({
   },
   attachments: [{
     type: Schema.Types.ObjectId,
-    refs: 'Attachments'
+    refs: 'Files'
   }],
   visible: {
     type: String,

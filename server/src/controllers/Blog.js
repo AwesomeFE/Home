@@ -3,13 +3,13 @@ import {
   Comment
 } from '../models'
 import * as UserController from './User'
+import * as FileController from './File'
 
-export async function createBlog(user = {}, blogData = {}) {
+export async function createBlog(user = {}, blogData = {}, files = []) {
   blogData.userId = user._id
+  blogData.attachments = await FileController.saveFile(files)
 
-  const blog = await Blog.create(blogData)
-
-  return await blog.save()
+  return await Blog.create(blogData)
 }
 
 export async function searchBlog(userId, query = {}, sessionUserId, pagination) {

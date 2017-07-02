@@ -1,7 +1,9 @@
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema
+import {Schema} from 'mongoose'
 
 const FileSchema = new Schema({
+  fieldname: {
+    type: String
+  },
   originalname: {
     type: String
   },
@@ -23,6 +25,6 @@ const FileSchema = new Schema({
   size: {
     type: Number
   }
-}, {timestamps: true})
+})
 
-module.exports = FileSchema
+export default FileSchema
