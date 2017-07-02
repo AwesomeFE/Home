@@ -9,8 +9,8 @@ router.use('/sms', require('./sms'))
 router.use('/user', require('./user'))
 router.use('/captcha', require('./captcha'))
 router.use('/blog', require('./blog'))
+router.use('/file', require('./file'))
 
 //router.use('/staff', require('./staff'))
-//router.use('/files', require('./files'))
 
 module.exports = router

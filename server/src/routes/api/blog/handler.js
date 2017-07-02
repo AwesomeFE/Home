@@ -36,6 +36,7 @@ export async function createBlog(req, res, next) {
     // 拿出blog数据和session user
     const blogData = req.body
     const userId = req.session.user
+    const attachments = req.files
 
     // 如果session user为空，报错
     if(!userId) {
@@ -48,7 +49,7 @@ export async function createBlog(req, res, next) {
     }
 
     // 创建blog
-    const blog = await BlogController.createBlog(userId, blogData)
+    const blog = await BlogController.createBlog(userId, blogData, attachments)
 
     // 返回blog数据
     res.json({

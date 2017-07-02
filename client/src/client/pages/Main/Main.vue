@@ -2,6 +2,7 @@
   <div>
     <div>
       <textarea v-model="content"></textarea>
+      <input type="file" @change="addFiles" multiple>
       <button @click="createBlog">
         创建
       </button>
@@ -12,6 +13,9 @@
     <div v-for="blog in blogs">
       <div>{{blog.user}}</div>
       <div>{{blog.content}}</div>
+      <div v-for="attachmentId in blog.attachments">
+        <img :src="'/api/file/' + attachmentId">
+      </div>
     </div>
   </div>
 </template>
@@ -25,6 +29,7 @@
         page: 0,
         length: 10,
         content: '',
+        form: new FormData(),
         blogs: []
       }
     },
@@ -32,10 +37,17 @@
       this.freshBlog()
     },
     methods: {
-      async createBlog() {
-        const content = this.content
+      addFiles(event) {
+        const files = event.target.files
 
-        await BlogService.createBlog({content})
+        for(const file of files) {
+          this.form.append('files', file)
+        }
+      },
+      async createBlog() {
+        this.form.append('content', this.content)
+
+        await BlogService.createBlog(this.form)
       },
       async freshBlog() {
         const {blogs} = await BlogService.searchBlog({
@@ -60,4 +72,7 @@
 </script>
 
 <style type="text/scss" lang="scss">
+  img {
+    max-width: 100px;
+  }
 </style>
