@@ -1,7 +1,7 @@
 import {
   City,
   District,
-} from '../models'
+} from '../../models'
 
 /**
  * Controller Method: Create district/districts
@@ -10,7 +10,7 @@ import {
  * @param {Object|Array} districtInfo
  * @returns {Object} district
  */
-async function createDistrictInCity(cityId, districtInfo = {}) {
+export async function createDistrictInCity(cityId, districtInfo = {}) {
   const district = await District.create(districtInfo)
   const city = await City.findById(cityId)
 
@@ -32,7 +32,7 @@ async function createDistrictInCity(cityId, districtInfo = {}) {
  * @param {Object} query
  * @returns {Object} deleted district
  */
-async function deleteDistrict(query) {
+export async function deleteDistrict(query) {
   return await District.findOneAndUpdate(query, {status: 'isDeleted'}, {new: true})
 }
 
@@ -42,7 +42,7 @@ async function deleteDistrict(query) {
  * @param {Object} query
  * @returns {Object} district
  */
-async function recoverDistrict(query) {
+export async function recoverDistrict(query) {
   query = Object.assign({}, query, {status: {$eq: 'isDeleted'}})
   return await District.findOneAndUpdate(query, {status: 'isUnpublished'}, {new: true})
 }
@@ -53,12 +53,7 @@ async function recoverDistrict(query) {
  * @param {Object} query
  * @returns {Object} district
  */
-async function findDistrict(query) {
+export async function findDistrict(query) {
   query = Object.assign({}, query, {status: {$ne: 'isDeleted'}})
   return await District.find(query)
 }
-
-exports.findDistrict = findDistrict
-exports.deleteDistrict = deleteDistrict
-exports.recoverDistrict = recoverDistrict
-exports.createDistrictInCity = createDistrictInCity

@@ -1,4 +1,4 @@
-import {File} from '../models'
+import {File} from '../../models'
 
 export async function saveFile(fileInfo) {
   return await File.create(fileInfo)
