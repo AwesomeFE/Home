@@ -8,7 +8,8 @@ import {
   checkUserLoginType,
   encryptPassword,
   getUserLoginType,
-  fetchAddressFromUserInfo
+  fetchAddressFromUserInfo,
+  isSameUser
 } from './helper'
 
 /**
@@ -84,33 +85,35 @@ export async function createUser(userData = {}) {
 }
 
 export async function getRelationshipStatusBetween(thisUserId, thatUserId, type) {
-  // 如果id相同，那么判断是相同User
-  if(thisUserId === thatUserId) {
-    return 'same'
-  }
   // 获取用户document实例
-  const thatUser = await this.getUserById(thatUserId)
+  let relationshipStatus = 'none'
   const thisUser = await this.getUserById(thisUserId)
+  const thatUser = await this.getUserById(thatUserId)
 
-  // 获取用户间关系数据，并且检查用户关系是否存在
-  const relationship = await RelationshipController.getRelationship(thisUser, thatUser, type)
-  const isRelationshipExisted = relationship.from || relationship.to
-
-  // 如果用户关系存在并相等，则确立关系
-  if(isRelationshipExisted) {
-    if(relationship.from === relationship.to) {
-      return relationship.from
-      // 如果用户去关系存在，那就是需要对方确认，pending状态
-    } else if(relationship.from) {
-      return 'pending'
-      // 如果用户去关系不存在，但存在关系，那么就是需要confirm的状态
-    } else {
-      return 'confirm'
+  if(thisUser && thatUser) {
+    if(isSameUser(thisUser, thatUser)) {
+      return 'same'
     }
-  } else {
-    // 如果没有关系，那就是none
-    return 'none'
+
+    // 获取用户间关系数据，并且检查用户关系是否存在
+    const relationship = await RelationshipController.getRelationship(thisUser, thatUser, type)
+    const isRelationshipExisted = relationship.from || relationship.to
+
+    // 如果用户关系存在并相等，则确立关系
+    if(isRelationshipExisted) {
+      if(relationship.from === relationship.to) {
+        return relationship.from
+        // 如果用户去关系存在，那就是需要对方确认，pending状态
+      } else if(relationship.from) {
+        relationshipStatus = 'pending'
+        // 如果用户去关系不存在，但存在关系，那么就是需要confirm的状态
+      } else {
+        relationshipStatus = 'confirm'
+      }
+    }
   }
+
+  return relationshipStatus
 }
 
 export async function makeRelation(thisUserId, thatUserId, type) {

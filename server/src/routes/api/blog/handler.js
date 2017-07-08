@@ -9,7 +9,7 @@ export async function searchBlog(req, res, next) {
     const page = +req.query['page'] || 0
     const pagination = {page, length}
     // 获取用户信息
-    const userId = req.query['userId'] || ''
+    const userId = req.query['userId']
     const sessionUser = req.session.user || {}
 
     // 获取搜索信息

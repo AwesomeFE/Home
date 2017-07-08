@@ -43,6 +43,10 @@ export function fetchAddressFromUserInfo(userInfo = {}) {
   return userAddresses
 }
 
+export function isSameUser(thisUser, thatUser) {
+  return thisUser._id === thatUser._id
+}
+
 function isFromWeb(userData) {
   return !!(userData.username || userData.mobile || userData.email)
 }
