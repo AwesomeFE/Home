@@ -71,7 +71,7 @@
   }
 </script>
 
-<style type="text/scss" lang="scss">
+<style type="text/scss" lang="scss" scoped>
   img {
     max-width: 100px;
   }
