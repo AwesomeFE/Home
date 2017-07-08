@@ -14,9 +14,9 @@
           </router-link>
         </li>
         <li class="PageNav__item">
-          <router-link class="PageNav__link" to="/case">
-            <strong class="PageNav__link--text">婚礼案例</strong>
-            <span class="PageNav__link--text">Case</span>
+          <router-link class="PageNav__link" to="/main">
+            <strong class="PageNav__link--text">微博</strong>
+            <span class="PageNav__link--text">Blog</span>
           </router-link>
         </li>
         <li class="PageNav__item">
