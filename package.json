@@ -18,7 +18,6 @@
   },
   "dependencies": {
     "axios": "^0.15.2",
-    "vue-axios": "^2.0.2",
     "body-parser": "^1.15.2",
     "bootstrap": "^3.3.7",
     "casual": "^1.5.8",
