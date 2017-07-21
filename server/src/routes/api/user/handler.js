@@ -21,7 +21,7 @@ export async function register(req, res, next) {
   try {
     // 如果是手机注册用户，如果验证码验证失败，报错
     if (isMobileRegister(userData) && isSmsVerifyFailed(session)) {
-      throw ErrorService.SMS_VERIFY_ERROR
+      throw ErrorService.SMS_VERIFY_FAILED
     }
 
     // 如果图形验证码验证失败，报错
@@ -113,6 +113,18 @@ export async function checkFriendStatus(req, res, next) {
   res.json({
     ...ResponseService.RELATIONSHIP_SUCCESS,
     relationship
+  })
+}
+
+export async function getUserDetailById(req, res, next) {
+  const userId = req.params['userId']
+  const sessionUser = req.session.user || {}
+
+  const user = await UserController.getUserDetailById(userId, sessionUser._id)
+
+  res.json({
+    ...ResponseService.SEARCH_SUCCESS,
+    user
   })
 }
 

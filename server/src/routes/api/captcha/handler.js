@@ -22,6 +22,7 @@ export function getCaptcha(req, res, next) {
     const [captchaText, captchaImage] = captchaService.get()
 
     req.session.captcha = captchaText
+
     res.json({
       ...ResponseService.SHOULD_CAPTCHA_VERIFY,
       captchaImage: captchaImage.toString('base64')

@@ -21,11 +21,9 @@ export async function searchBlog(userId, query = {}, sessionUserId, pagination) 
     case 'same':
       query.visible = { $in: ['all', 'friend', 'none'] }
       break
-
     case 'friend':
       query.visible = { $in: ['all', 'friend'] }
-      break
-
+    break
     default:
       query.visible = { $in: ['all'] }
       break

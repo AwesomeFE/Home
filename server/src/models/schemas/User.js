@@ -36,7 +36,11 @@ const User = new Schema({
   addresses: [{
     type: Schema.Types.ObjectId,
     ref: 'Addresses'
-  }]
+  }],
+  projection: {
+    type: String,
+    default: '-addresses -password'
+  }
 }, {timestamps: true});
 
 export default User;
