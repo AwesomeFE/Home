@@ -7,6 +7,7 @@ import connectMongo from 'connect-mongo'
 
 import WebRoutes from './routes/web'
 import ApiRoutes from './routes/api'
+import * as middleware from './routes/middleware'
 
 import MqttService from './services/MqttService'
 import ErrorService from './services/ErrorService'
@@ -56,7 +57,7 @@ class App {
     this.sessionStore = session({
       secret: this.SERVER_SESSION_SECRET,
       store: new MongoStore({mongooseConnection: DatabaseService.connection}),
-      resave: true,
+      resave: false, // 平行的请求, session store会竞争
       saveUninitialized: true
     })
     this.server.use(this.sessionStore)
@@ -73,6 +74,7 @@ class App {
   }
 
   initRouter() {
+    this.server.use(middleware.setDefaultSession)
     this.server.use('/api', ApiRoutes)
     this.server.use('/', WebRoutes)
   }

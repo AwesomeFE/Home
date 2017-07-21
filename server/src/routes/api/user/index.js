@@ -12,8 +12,8 @@ router.post('/register', handler.register)
 router.post('/:userId/friend', handler.makeFriend)
 router.get('/:userId/friend', handler.checkFriendStatus)
 router.delete('/:userId/friend', handler.deleteFriend)
+router.get('/:userId', handler.getUserDetailById)
 
-//router.get('/:accountId', getUserById)
 //router.post('/:accountId', upload.single('avatar'), editAccountById)
 
 module.exports = router

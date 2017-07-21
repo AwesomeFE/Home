@@ -84,11 +84,19 @@ export async function createUser(userData = {}) {
   return await user.save()
 }
 
+/**
+ * Controller Method: 获取用户间关系
+ *
+ * @param thisUserId
+ * @param thatUserId
+ * @param type
+ * @returns {Promise.<String>}
+ */
 export async function getRelationshipStatusBetween(thisUserId, thatUserId, type) {
   // 获取用户document实例
   let relationshipStatus = 'none'
-  const thisUser = await this.getUserById(thisUserId)
-  const thatUser = await this.getUserById(thatUserId)
+  const thisUser = await User.findById(thisUserId)
+  const thatUser = await User.findById(thatUserId)
 
   if(thisUser && thatUser) {
     if(isSameUser(thisUser, thatUser)) {
@@ -116,19 +124,38 @@ export async function getRelationshipStatusBetween(thisUserId, thatUserId, type)
   return relationshipStatus
 }
 
+/**
+ * Controller Method: 创建用户关系
+ * @param thisUserId
+ * @param thatUserId
+ * @param type
+ * @returns {Promise.<*>}
+ */
 export async function makeRelation(thisUserId, thatUserId, type) {
   // 获取用户document实例
-  const thatUser = await this.getUserById(thatUserId)
-  const thisUser = await this.getUserById(thisUserId)
+  const thatUser = await User.findById(thatUserId)
+  const thisUser = await User.findById(thisUserId)
   // 建立document间关系数据
   return await RelationshipController.makeRelationship(thisUser, thatUser, type)
 }
 
-export async function getUserById(userId) {
-  return await User.findById(userId)
+export async function getUserDetailById(userId, sessionUserId) {
+  let projection = ''
+  const user = await User.findById(userId)
+  const relationship = await this.getRelationshipStatusBetween(sessionUserId, userId, 'friend')
+
+  switch (relationship) {
+    case 'same': break
+    case 'friend': break
+    default:
+      projection = '-addresses'
+      break
+  }
+
+  return user
 }
 
-async function searchUser(searchText = '', searchFields = '') {
+async function searchUser(query = {}, sessionUserId) {
 
 }
 
