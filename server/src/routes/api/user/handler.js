@@ -88,11 +88,19 @@ export function logout(req, res) {
   res.json(ResponseService.ACCOUNT_LOGOUT_SUCCESS)
 }
 
-export function getSessionUser(req, res) {
-  res.json({
-    ...ResponseService.SESSION_USER_SUCCESS,
-    user: req.session.user
-  })
+export async function getSessionUser(req, res, next) {
+  const sessionUser = req.session.user || {}
+
+  try {
+    const user = await UserController.getUserDetailById(sessionUser._id, sessionUser._id)
+
+    res.json({
+      ...ResponseService.SESSION_USER_SUCCESS,
+      user
+    })
+  } catch(error) {
+    next(error)
+  }
 }
 
 export async function makeFriend(req, res, next) {
@@ -141,4 +149,21 @@ export async function getUserDetailById(req, res, next) {
 
 export async function deleteFriend(req, res, next) {
 
+}
+
+export async function updateUser(req, res, next) {
+  const sessionUser = req.session.user || {}
+  const avatar = req.file
+  const userData = req.body
+
+  try {
+    const userDoc = await UserController.updateUser(sessionUser._id, userData, avatar)
+
+    res.json({
+      ...ResponseService.SEARCH_SUCCESS,
+      user: userDoc
+    })
+  } catch (error) {
+    next(error)
+  }
 }

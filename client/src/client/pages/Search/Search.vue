@@ -1,6 +1,8 @@
 <template>
-  <input v-model="search">
-  <button @click="onSearch"></button>
+  <div>
+    <input v-model="search">
+    <button @click="onSearch"></button>
+  </div>
 </template>
 
 <script>

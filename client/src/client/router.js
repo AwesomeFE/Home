@@ -8,6 +8,7 @@ import Search from './pages/Search/Search.vue'
 import Signin from './pages/Signin/Signin.vue'
 import Signup from './pages/Signup/Signup.vue'
 import NotFound from './pages/NotFound/NotFound.vue'
+import Profile from './pages/Profile/Profile.vue'
 
 export default () => new VueRouter({
   mode: 'history',
@@ -40,6 +41,11 @@ export default () => new VueRouter({
           name: 'User',
           path: 'user/:userId',
           component: User
+        },
+        {
+          name: 'Profile',
+          path: 'setting/profile',
+          component: Profile
         },
         {
           name: 'Search',

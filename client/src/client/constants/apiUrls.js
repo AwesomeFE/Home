@@ -10,6 +10,9 @@ export const LOGOUT = () => `/api/user/logout`
 // 用户注册
 export const REGISTER = () => `/api/user/register`
 
+// 用户资料更新
+export const UPDATE_USER = () => `/api/user`
+
 // 获取用户详情信息页
 export const GET_USER_PROFILE = userId => `/api/user/${userId}`
 
@@ -39,3 +42,6 @@ export const CREATE_BLOG = () => `/api/blog`
 
 // 搜索博客
 export const SEARCH_BLOG = () => `/api/blog`
+
+// 文件获取地址
+export const GET_FILE = fileId => `/api/file/${fileId}`

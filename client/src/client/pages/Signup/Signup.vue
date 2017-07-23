@@ -106,9 +106,7 @@
 
           await SmsService.verifySmsCode(this.formValue.smsCode)
           await CaptchaService.verifyCaptcha(this.formValue.captcha)
-          const {user} = await UserService.register(this.passport)
-
-          this.$store.commit('setLoginUser', user)
+          await this.$store.dispatch('register', this.passport)
 
           this.$router.push({name: 'Home'})
         } catch (error) {

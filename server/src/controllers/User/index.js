@@ -1,8 +1,9 @@
 import {User} from '../../models'
 import ErrorService from '../../services/ErrorService'
-import * as RelationshipController from '../Relationship'
+import * as FileController from '../File'
 import * as AddressController from '../Address'
 import * as EntryLogController from '../EntryLog'
+import * as RelationshipController from '../Relationship'
 import * as relationshipTypes from '../../constants/relationshipTypes'
 import {
   checkUserPassword,
@@ -155,6 +156,7 @@ async function searchUser(query = {}, sessionUserId) {
 
 }
 
-async function updateUser(userData = {}) {
-  const userInfo = await User.findByIdAndUpdate(userData._id, userData, {new: true})
+export async function updateUser(userId, userData = {}, avatar) {
+  userData.avatar = await FileController.saveFile(avatar)
+  return await User.findByIdAndUpdate(userId, userData, {new: true})
 }
