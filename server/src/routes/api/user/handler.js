@@ -160,10 +160,26 @@ export async function updateUser(req, res, next) {
     const userDoc = await UserController.updateUser(sessionUser._id, userData, avatar)
 
     res.json({
-      ...ResponseService.SEARCH_SUCCESS,
+      ...ResponseService.UPDATE_SUCCESS,
       user: userDoc
     })
   } catch (error) {
+    next(error)
+  }
+}
+
+export async function searchUser(req, res, next) {
+  const query = req.body
+  const sessionUser = req.session.user || {}
+
+  try {
+    const users = await UserController.searchUser(query, sessionUser._id)
+
+    res.json({
+      ...ResponseService.SEARCH_SUCCESS,
+      users
+    })
+  } catch(error) {
     next(error)
   }
 }

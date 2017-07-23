@@ -26,7 +26,7 @@
           </router-link>
         </li>
         <li class="PageNav__item">
-          <router-link class="PageNav__link" to="/setting">
+          <router-link class="PageNav__link" to="/setting/profile">
             <strong class="PageNav__link--text">设置</strong>
             <span class="PageNav__link--text">Setting</span>
           </router-link>

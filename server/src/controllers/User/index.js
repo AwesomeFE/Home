@@ -152,8 +152,18 @@ export async function getUserDetailById(userId, sessionUserId) {
   return formatUserJson(user, relationship)
 }
 
-async function searchUser(query = {}, sessionUserId) {
+export async function searchUser(query = {}, sessionUserId) {
+  const user = []
+  const usersDoc = await User.find(query)
 
+  for(const userDoc of usersDoc) {
+    if(sessionUserId !== userDoc._id.toString()) {
+      const relationship = await this.getRelationshipStatusBetween(sessionUserId, userDoc._id, 'friend')
+      user.push(formatUserJson(userDoc, relationship))
+    }
+  }
+
+  return user
 }
 
 export async function updateUser(userId, userData = {}, avatar) {
