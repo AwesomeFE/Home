@@ -2,6 +2,7 @@ import * as UserService from '../../services/UserService'
 
 export default {
 
+  // 用户api
   async getSessionUser({ commit, state }) {
     const {user} = await UserService.getSessionUser()
     commit('setLoginUser', user)
@@ -25,5 +26,17 @@ export default {
   async updateUser({ commit, state }, form) {
     const {user} = await UserService.updateUser(form)
     commit('setLoginUser', user)
+  },
+
+  // 搜索api
+  async searchUsers({}, search) {
+    if(typeof search === 'string') {
+      search = {
+        nickname: {$regex: search},
+        name: {$regex: search}
+      }
+    }
+
+    return await UserService.searchUsers(search)
   }
 }

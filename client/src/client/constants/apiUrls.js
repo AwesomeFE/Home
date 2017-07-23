@@ -25,6 +25,9 @@ export const CHECK_FRIEND_WITH = userId => `/api/user/${userId}/friend`
 // 用户信息编辑
 export const EDIT_USER = userId => `/api/user/${userId}`
 
+// 搜索用户
+export const SEARCH_USER = () => `/api/user/search`
+
 // 获取验证码
 export const GET_CAPTCHA = isLogin => `/api/captcha${isLogin ? '?isLogin=true' : ''}`
 

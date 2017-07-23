@@ -8,7 +8,8 @@ import {
   GET_USER_PROFILE,
   MAKE_FRIEND_WITH,
   CHECK_FRIEND_WITH,
-  UPDATE_USER
+  UPDATE_USER,
+  SEARCH_USER
 } from '../constants/apiUrls'
 
 export const getSessionUser = () => axios.get(GET_SESSION_USER())
@@ -20,3 +21,4 @@ export const getUserProfile = userId => axios.get(GET_USER_PROFILE(userId))
 export const makeFriendWith = userId => axios.post(MAKE_FRIEND_WITH(userId))
 export const checkFiendWith = userId => axios.get(CHECK_FRIEND_WITH(userId))
 export const updateUser = form => axios.put(UPDATE_USER(), form)
+export const searchUsers = query => axios.post(SEARCH_USER(), query)

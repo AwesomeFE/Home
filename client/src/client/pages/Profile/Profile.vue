@@ -8,20 +8,20 @@
         <input type="file" @change="changeAvatar">
       </label>
 
-      <label>
-        <span>用户名：</span>
-        <input v-model="formValue.username">
-      </label>
+      <!--<label>-->
+        <!--<span>用户名：</span>-->
+        <!--<input v-model="formValue.username">-->
+      <!--</label>-->
 
-      <label>
-        <span>密码：</span>
-        <input v-model="formValue.password">
-      </label>
+      <!--<label>-->
+        <!--<span>密码：</span>-->
+        <!--<input v-model="formValue.password">-->
+      <!--</label>-->
 
-      <label>
-        <span>手机号：</span>
-        <input v-model="formValue.mobile">
-      </label>
+      <!--<label>-->
+        <!--<span>手机号：</span>-->
+        <!--<input v-model="formValue.mobile">-->
+      <!--</label>-->
 
       <label>
         <span>邮箱：</span>
