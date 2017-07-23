@@ -1,7 +1,8 @@
 import {Schema} from 'mongoose'
-import validator from 'validator'
+import {isMobilePhone, isEmail} from 'validator'
+import Projection from './Projection'
 
-const User = new Schema({
+const UserSchema = new Schema({
   username:  {
     type: String,
     unique: true,
@@ -14,13 +15,13 @@ const User = new Schema({
     type: String,
     unique: true,
     sparse: true,
-    validate: (value) => validator.isMobilePhone(value, 'zh-CN')
+    validate: (value) => isMobilePhone(value, 'zh-CN')
   },
   email:   {
     type: String,
     unique: true,
     sparse: true,
-    validate: validator.isEmail
+    validate: isEmail
   },
   unionId: {
     type: String,
@@ -37,10 +38,9 @@ const User = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Addresses'
   }],
-  projection: {
-    type: String,
-    default: '-addresses -password'
+  projections: {
+    type: [Projection]
   }
-}, {timestamps: true});
+}, {timestamps: true})
 
-export default User;
+export default UserSchema

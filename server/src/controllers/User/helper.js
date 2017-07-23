@@ -1,4 +1,5 @@
 import crypto from 'crypto'
+import * as relationship from '../../constants/relationshipTypes'
 import ErrorService from '../../services/ErrorService'
 
 export function getUserLoginType(loginData = {}) {
@@ -14,6 +15,48 @@ export function getUserLoginType(loginData = {}) {
   } else if (loginData.unionId || loginData.openId) {
     return 'wechat'
   }
+}
+
+export function formatUserJson(userDoc = {}, relationshipType = '') {
+  let user = null
+
+  if(userDoc) {
+    user = userDoc.toObject ? userDoc.toObject() : userDoc
+    const projections = user.projections || []
+
+    if(relationshipType === 'pending' || relationshipType === 'confirm') {
+      relationshipType = 'none'
+    }
+
+    for(const projection of projections) {
+      if(relationshipType === projection.type) {
+        const projectionKeys = projection.projection.split(/\s*-/g)
+
+        for(const key of projectionKeys) {
+          delete user[key]
+        }
+      }
+    }
+  }
+
+  return user
+}
+
+export function getDefaultProjection() {
+  return [
+    {
+      type: relationship.USER.SELF,
+      projection: '-password'
+    },
+    {
+      type: relationship.USER.FRIEND,
+      projection: '-addresses -password'
+    },
+    {
+      type: relationship.USER.NONE,
+      projection: '-mobile -email -addresses -password'
+    }
+  ]
 }
 
 export async function checkUserLoginType(userData = {}) {

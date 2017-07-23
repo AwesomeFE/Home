@@ -99,33 +99,44 @@ export async function makeFriend(req, res, next) {
   const userId = req.params['userId']
   const sessionUser = req.session.user || {}
 
-  await UserController.makeRelation(sessionUser._id, userId, 'friend')
-
-  res.json(ResponseService.RELATIONSHIP_SUCCESS)
+  try {
+    await UserController.makeRelation(sessionUser._id, userId, 'friend')
+    res.json(ResponseService.RELATIONSHIP_SUCCESS)
+  } catch (error) {
+    next(error)
+  }
 }
 
 export async function checkFriendStatus(req, res, next) {
   const userId = req.params['userId']
   const sessionUser = req.session.user || {}
 
-  const relationship = await UserController.getRelationshipStatusBetween(sessionUser._id, userId, 'friend')
+  try {
+    const relationship = await UserController.getRelationshipStatusBetween(sessionUser._id, userId, 'friend')
 
-  res.json({
-    ...ResponseService.RELATIONSHIP_SUCCESS,
-    relationship
-  })
+    res.json({
+      ...ResponseService.RELATIONSHIP_SUCCESS,
+      relationship
+    })
+  } catch (error) {
+    next(error)
+  }
 }
 
 export async function getUserDetailById(req, res, next) {
   const userId = req.params['userId']
   const sessionUser = req.session.user || {}
 
-  const user = await UserController.getUserDetailById(userId, sessionUser._id)
+  try {
+    const user = await UserController.getUserDetailById(userId, sessionUser._id)
 
-  res.json({
-    ...ResponseService.SEARCH_SUCCESS,
-    user
-  })
+    res.json({
+      ...ResponseService.SEARCH_SUCCESS,
+      user
+    })
+  } catch(error) {
+    next(error)
+  }
 }
 
 export async function deleteFriend(req, res, next) {

@@ -3,13 +3,10 @@ import VueRouter from 'vue-router'
 import App from './pages/App/App.vue'
 import Home from './pages/Home/Home.vue'
 import Main from './pages/Main/Main.vue'
+import User from './pages/User/User.vue'
 import Signin from './pages/Signin/Signin.vue'
 import Signup from './pages/Signup/Signup.vue'
 import NotFound from './pages/NotFound/NotFound.vue'
-// import Activity from './pages/Activity'
-// import NotFound from './pages/NotFound'
-// import Classroom from './pages/Classroom'
-// import Superiority from './pages/Superiority'
 
 export default () => new VueRouter({
   mode: 'history',
@@ -39,39 +36,16 @@ export default () => new VueRouter({
           component: Main
         },
         {
+          name: 'User',
+          path: 'user/:userId',
+          component: User
+        },
+        {
           path: '*',
           component: NotFound
         }
       ]
-    },
-    // {
-    //   path: '/case',
-    //   component: Case
-    // },
-    // {
-    //   path: '/team',
-    //   component: Team
-    // },
-    // {
-    //   path: '/classroom',
-    //   component: Classroom
-    // },
-    // {
-    //   path: '/superiority',
-    //   component: Superiority
-    // },
-    // {
-    //   path: '/activity',
-    //   component: Activity
-    // },
-    // {
-    //   path: '/user',
-    //   component: User
-    // },
-    // {
-    //   path: '*',
-    //   component: NotFound
-    // }
+    }
   ],
   scrollBehavior(to, from, savedPosition) {
     if (savedPosition) {
