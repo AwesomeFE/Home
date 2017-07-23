@@ -20,9 +20,9 @@
           </router-link>
         </li>
         <li class="PageNav__item">
-          <router-link class="PageNav__link" to="/team">
-            <strong class="PageNav__link--text">服务团队</strong>
-            <span class="PageNav__link--text">Team</span>
+          <router-link class="PageNav__link" to="/search">
+            <strong class="PageNav__link--text">搜索</strong>
+            <span class="PageNav__link--text">Search</span>
           </router-link>
         </li>
         <li class="PageNav__item">

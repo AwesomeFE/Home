@@ -50,11 +50,11 @@ export function getDefaultProjection() {
     },
     {
       type: relationship.USER.FRIEND,
-      projection: '-addresses -password'
+      projection: '-addresses -password -projections'
     },
     {
       type: relationship.USER.NONE,
-      projection: '-mobile -email -addresses -password'
+      projection: '-mobile -email -addresses -password -projections'
     }
   ]
 }

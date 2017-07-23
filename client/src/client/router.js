@@ -4,6 +4,7 @@ import App from './pages/App/App.vue'
 import Home from './pages/Home/Home.vue'
 import Main from './pages/Main/Main.vue'
 import User from './pages/User/User.vue'
+import Search from './pages/Search/Search.vue'
 import Signin from './pages/Signin/Signin.vue'
 import Signup from './pages/Signup/Signup.vue'
 import NotFound from './pages/NotFound/NotFound.vue'
@@ -39,6 +40,11 @@ export default () => new VueRouter({
           name: 'User',
           path: 'user/:userId',
           component: User
+        },
+        {
+          name: 'Search',
+          path: 'search',
+          component: Search
         },
         {
           path: '*',

@@ -19,7 +19,7 @@
     data() {
       return {
         user: null,
-        relationship: 'none'
+        relationship: ''
       }
     },
     async mounted() {
