@@ -13,7 +13,6 @@ router.post('/:userId/friend', handler.makeFriend)
 router.get('/:userId/friend', handler.checkFriendStatus)
 router.delete('/:userId/friend', handler.deleteFriend)
 router.get('/:userId', handler.getUserDetailById)
-
-//router.post('/:accountId', upload.single('avatar'), editAccountById)
+router.put('/', upload.single('avatar'), handler.updateUser)
 
 module.exports = router

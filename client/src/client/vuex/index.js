@@ -1,18 +1,13 @@
 import Vuex from 'vuex'
-import actions from './actions'
-import mutations from './mutations'
-
-let state = {
-  user: null
-}
+import state from './root/state'
+import actions from './root/actions'
+import getters from './root/getters'
+import mutations from './root/mutations'
 
 export default () => new Vuex.Store({
   state,
-  actions,
   mutations,
-
-  modules: {
-  },
-
+  actions,
+  getters,
   strict: process.env.NODE_ENV !== 'production'
 })

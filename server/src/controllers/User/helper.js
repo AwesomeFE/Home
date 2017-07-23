@@ -87,7 +87,7 @@ export function fetchAddressFromUserInfo(userInfo = {}) {
 }
 
 export function isSameUser(thisUser, thatUser) {
-  return thisUser._id === thatUser._id
+  return thisUser._id.toString() === thatUser._id.toString()
 }
 
 function isFromWeb(userData) {

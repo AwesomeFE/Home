@@ -26,9 +26,9 @@
           </router-link>
         </li>
         <li class="PageNav__item">
-          <router-link class="PageNav__link" to="/classroom">
-            <strong class="PageNav__link--text">婚礼课堂</strong>
-            <span class="PageNav__link--text">Classroom</span>
+          <router-link class="PageNav__link" to="/setting">
+            <strong class="PageNav__link--text">设置</strong>
+            <span class="PageNav__link--text">Setting</span>
           </router-link>
         </li>
         <li class="PageNav__item">

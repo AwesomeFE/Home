@@ -77,8 +77,7 @@
     },
     methods: {
       async logout() {
-        await UserService.logout()
-        this.$store.commit('setLoginUser', null)
+        await this.$store.dispatch('logout')
       }
     }
   }

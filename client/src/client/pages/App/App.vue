@@ -1,10 +1,8 @@
 <template>
-  <router-view v-if="isPageInitialized"></router-view>
+  <router-view v-if=""></router-view>
 </template>
 
 <script>
-  import * as UserService from '../../services/UserService'
-
   export default {
     data() {
       return {
@@ -12,15 +10,13 @@
       }
     },
     async mounted() {
-      await this.getSessionUser()
+      await this.$store.dispatch('getSessionUser')
 
       this.isPageInitialized = true
     },
     methods: {
       async getSessionUser() {
-        const {user} = await UserService.getSessionUser()
-
-        this.$store.commit('setLoginUser', user)
+        await this.$store.dispatch('getSessionUser')
       }
     }
   }
