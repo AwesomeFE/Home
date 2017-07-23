@@ -4,7 +4,6 @@ import * as FileController from '../../../controllers/File'
 
 export async function getFile(req, res, next) {
   const fileId = req.params['fileId']
-  console.log(fileId)
 
   const fileInfo = await FileController.getFile(fileId)
 
