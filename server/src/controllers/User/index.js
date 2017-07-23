@@ -157,6 +157,8 @@ async function searchUser(query = {}, sessionUserId) {
 }
 
 export async function updateUser(userId, userData = {}, avatar) {
-  userData.avatar = await FileController.saveFile(avatar)
+  if(avatar) {
+    userData.avatar = await FileController.saveFile(avatar)
+  }
   return await User.findByIdAndUpdate(userId, userData, {new: true})
 }
