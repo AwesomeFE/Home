@@ -1,14 +1,22 @@
 <template>
+  <input v-model="search">
+  <button @click="onSearch"></button>
 </template>
 
 <script>
   export default {
     data() {
-      return {}
+      return {
+        search: ''
+      }
     },
     mounted() {
     },
-    methods: {}
+    methods: {
+      onSearch() {
+
+      }
+    }
   }
 </script>
 

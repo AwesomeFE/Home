@@ -10,6 +10,15 @@ export const LOGOUT = () => `/api/user/logout`
 // 用户注册
 export const REGISTER = () => `/api/user/register`
 
+// 获取用户详情信息页
+export const GET_USER_PROFILE = userId => `/api/user/${userId}`
+
+// 和某用户发送好友申请
+export const MAKE_FRIEND_WITH = userId => `/api/user/${userId}/friend`
+
+// 检查用户是否为好友
+export const CHECK_FRIEND_WITH = userId => `/api/user/${userId}/friend`
+
 // 用户信息编辑
 export const EDIT_USER = userId => `/api/user/${userId}`
 

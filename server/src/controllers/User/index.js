@@ -3,13 +3,16 @@ import ErrorService from '../../services/ErrorService'
 import * as RelationshipController from '../Relationship'
 import * as AddressController from '../Address'
 import * as EntryLogController from '../EntryLog'
+import * as relationshipTypes from '../../constants/relationshipTypes'
 import {
   checkUserPassword,
   checkUserLoginType,
   encryptPassword,
   getUserLoginType,
   fetchAddressFromUserInfo,
-  isSameUser
+  isSameUser,
+  getDefaultProjection,
+  formatUserJson
 } from './helper'
 
 /**
@@ -31,10 +34,10 @@ export async function login(loginData = {}, entryLogData = {}) {
 
   // 查找用户
   delete loginData.password
-  const user = await User.findOne(loginData)
+  const userDoc = await User.findOne(loginData)
 
   // 如果用户不存在，则报错
-  if (!user) {
+  if (!userDoc) {
     throw ErrorService.USER_NOT_FOUND
 
     // 如果用户ip不存在，报错
@@ -42,17 +45,17 @@ export async function login(loginData = {}, entryLogData = {}) {
     throw ErrorService.NO_ENTRY_LOG
 
     // 如果用户密码不正确，报错
-  } else if (password !== user.password) {
+  } else if (password !== userDoc.password) {
     throw ErrorService.PASSWORD_ERROR
   }
 
   // 创建登陆数据
   entryLogData.loginBy = getUserLoginType(loginData)
-  entryLogData.userId = user._id
+  entryLogData.userId = userDoc._id
   await EntryLogController.createEntryLog(entryLogData)
 
   // 返回登录用户数据
-  return user
+  return formatUserJson(userDoc, relationshipTypes.USER.SELF)
 }
 
 /**
@@ -73,15 +76,17 @@ export async function createUser(userData = {}) {
   const userAddresses = fetchAddressFromUserInfo(userData)
 
   // 创建用户
-  let user = await User.create(userData)
+  let userDoc = await User.create(userData)
 
   // 如果有地址信息，创建地址信息
   if (userAddresses) {
-    user.addresses = await AddressController.createAddress(userAddresses)
+    userDoc.addresses = await AddressController.createAddress(userAddresses)
   }
 
+  userDoc.projections = getDefaultProjection()
+
   // 返回用户数据
-  return await user.save()
+  return formatUserJson(await userDoc.save(), relationshipTypes.USER.SELF)
 }
 
 /**
@@ -94,13 +99,13 @@ export async function createUser(userData = {}) {
  */
 export async function getRelationshipStatusBetween(thisUserId, thatUserId, type) {
   // 获取用户document实例
-  let relationshipStatus = 'none'
+  let relationshipStatus = relationshipTypes.USER.NONE
   const thisUser = await User.findById(thisUserId)
   const thatUser = await User.findById(thatUserId)
 
   if(thisUser && thatUser) {
     if(isSameUser(thisUser, thatUser)) {
-      return 'same'
+      return relationshipTypes.USER.SELF
     }
 
     // 获取用户间关系数据，并且检查用户关系是否存在
@@ -140,19 +145,10 @@ export async function makeRelation(thisUserId, thatUserId, type) {
 }
 
 export async function getUserDetailById(userId, sessionUserId) {
-  let projection = ''
   const user = await User.findById(userId)
   const relationship = await this.getRelationshipStatusBetween(sessionUserId, userId, 'friend')
 
-  switch (relationship) {
-    case 'same': break
-    case 'friend': break
-    default:
-      projection = '-addresses'
-      break
-  }
-
-  return user
+  return formatUserJson(user, relationship)
 }
 
 async function searchUser(query = {}, sessionUserId) {

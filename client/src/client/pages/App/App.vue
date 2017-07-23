@@ -1,5 +1,5 @@
 <template>
-  <router-view></router-view>
+  <router-view v-if="isPageInitialized"></router-view>
 </template>
 
 <script>
@@ -7,10 +7,14 @@
 
   export default {
     data() {
-      return {}
+      return {
+        isPageInitialized: false
+      }
     },
     async mounted() {
       await this.getSessionUser()
+
+      this.isPageInitialized = true
     },
     methods: {
       async getSessionUser() {
