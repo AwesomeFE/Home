@@ -1,6 +1,13 @@
 <template>
-  <div>
-    <h1>登陆</h1>
+  <div class="Signin">
+    <div class="Avatar">
+      <img v-if="user" class="Avatar__Image" :src="user.avatar">
+      <img v-else class="Avatar__Image" src="./assets/default-avatar.png">
+    </div>
+
+    <div>
+
+    </div>
     <div>
       <input
         type="text"
@@ -132,4 +139,18 @@
 </script>
 
 <style type="text/scss" lang="scss">
+  .Signin {
+    height: 100vh;
+    width: 100vw;
+    .Avatar {
+      text-align: center;
+      margin: 80px 0 27px 0;
+    }
+    .Avatar__Image {
+      display: block;
+      margin: 0 auto;
+      width: 70px;
+      height: 70px;
+    }
+  }
 </style>

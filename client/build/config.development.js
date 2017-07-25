@@ -7,5 +7,12 @@ export default [
     extract: false,
     minimize: false,
     sourceMap: true
+  }),
+  webpackTask({
+    appName: 'mobile',
+    chunkHash: '',
+    extract: false,
+    minimize: false,
+    sourceMap: true
   })
 ]
