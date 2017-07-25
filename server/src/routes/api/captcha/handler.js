@@ -10,7 +10,7 @@ import {
 export function getCaptcha(req, res, next) {
   try {
     const session = req.session
-    const isLogin = req.query['isLogin'] === 'true'
+    const { isLogin, width, height, offset, quality, fontsize } = req.query
 
     if(isLogin && !shouldCheckCaptcha(session)) {
       return res.json(ResponseService.NO_NEED_CAPTCHA_VERIFY)
@@ -18,7 +18,14 @@ export function getCaptcha(req, res, next) {
 
     cleanVerifyCaptchaSession(req)
 
-    const captchaService = new CaptchaService()
+    const captchaService = new CaptchaService({
+      width,
+      height,
+      offset,
+      quality,
+      fontsize
+    })
+
     const [captchaText, captchaImage] = captchaService.get()
 
     req.session.captcha = captchaText

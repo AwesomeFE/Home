@@ -29,7 +29,7 @@ export const EDIT_USER = userId => `/api/user/${userId}`
 export const SEARCH_USER = () => `/api/user/search`
 
 // 获取验证码
-export const GET_CAPTCHA = isLogin => `/api/captcha${isLogin ? '?isLogin=true' : ''}`
+export const GET_CAPTCHA = isLogin => `/api/captcha`
 
 // 校验验证码
 export const VERIFY_CAPTCHA = () => `/api/captcha`

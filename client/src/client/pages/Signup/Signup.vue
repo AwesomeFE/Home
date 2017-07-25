@@ -35,10 +35,12 @@
 
     <div>
       <input type="text" placeholder="验证码" v-model="formValue.captcha">
-      <vImage
-        :src="captchaImage"
-        :clickHandler="freshCaptchaImage">
-      </vImage>
+      <div style="width: 100px; height: 50px;">
+        <vImage
+          :src="captchaImage"
+          :clickHandler="freshCaptchaImage">
+        </vImage>
+      </div>
     </div>
 
     <button type="button" @click="register">递交</button>
@@ -62,7 +64,13 @@
           captcha: '',
           smsCode: ''
         },
-        captchaImage: ''
+        captchaImage: '',
+        captchaOption: {
+          width: 100,
+          height: 40,
+          fontsize: 30,
+          offset: 25
+        }
       }
     },
 
@@ -115,7 +123,7 @@
       },
 
       async freshCaptchaImage() {
-        const {captchaImage} = await CaptchaService.getCaptcha()
+        const {captchaImage} = await CaptchaService.getCaptcha(this.captchaOption)
         this.captchaImage = captchaImage ? `data:image/png;base64,${captchaImage}` : ''
       },
 
