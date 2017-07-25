@@ -1,16 +1,26 @@
-const path = require('path')
-const express = require('express')
+import path from 'path'
+import express from 'express'
+import UA from 'ua-parser-js'
+
 const router = express.Router()
 
-router.get('/admin/*', adminHomeHandler)
-router.get('/*', userHomeHandler)
+router.get('/admin/*', adminHandler)
+router.get('/*', userHandler)
 
-function userHomeHandler(req, res, next) {
-  res.sendFile(path.join(__dirname, '../../../../client/dist/client/index.html'))
+function userHandler(req, res, next) {
+  const ua = new UA(req.headers['user-agent'])
+
+  console.log(ua.getDevice().type)
+
+  if(ua.getDevice().type) {
+    res.sendFile(path.join(__dirname, '../../../../client/dist/mobile/index.html'))
+  } else {
+    res.sendFile(path.join(__dirname, '../../../../client/dist/client/index.html'))
+  }
 }
 
-function adminHomeHandler(req, res, next) {
+function adminHandler(req, res, next) {
   res.sendFile(path.join(__dirname, '../../../../client/dist/dashboard.html'))
 }
 
-module.exports = router
+export default router
