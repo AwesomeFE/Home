@@ -5,29 +5,28 @@
       <img v-else class="Avatar__Image" src="./assets/default-avatar.png">
     </div>
 
-    <div>
+    <div class="Form">
+      <div class="Form__field">
+        <span class="Form__field--icon fa fa-user-o"></span>
+        <input class="Form__field--input" type="text" name="credential" placeholder="用户名/邮箱/手机"
+               v-model="formValue.credential"
+               v-validate="getValidate('credential')"/>
+        <span class="Form__field--warning"
+              v-show="errors.has('credential')">
+          必填项
+        </span>
+      </div>
 
-    </div>
-    <div>
-      <input
-        type="text"
-        name="credential"
-        v-model="formValue.credential"
-        placeholder="用户名/邮箱/手机"
-        v-validate="getValidate('credential')"
-      />
-      <span v-show="errors.has('credential')">必填项</span>
-    </div>
-
-    <div>
-      <input
-        type="password"
-        name="password"
-        placeholder="密码"
-        v-model="formValue.password"
-        v-validate="getValidate('password')"
-      />
-      <span v-show="errors.has('password')">必填项</span>
+      <div class="Form__field">
+        <span class="Form__field--icon fa fa-lock"></span>
+        <input class="Form__field--input" type="password" name="password" placeholder="密码"
+               v-model="formValue.password"
+               v-validate="getValidate('password')"/>
+        <span class="Form__field--warning"
+              v-show="errors.has('password')">
+          必填项
+        </span>
+      </div>
     </div>
 
     <div v-if="captchaImage">
@@ -67,12 +66,13 @@
           height: 40,
           fontsize: 30,
           offset: 25
-        }
+        },
+        user: null
       }
     },
 
     async mounted() {
-      if(this.$store.state.user) {
+      if (this.$store.state.user) {
         return this.$router.replace({name: 'Home'})
       }
 
@@ -86,7 +86,7 @@
           password
         } = this.formValue
 
-        let passport = { password }
+        let passport = {password}
 
         if (isMobilePhone(credential, 'zh-CN')) {
           passport.mobile = credential
@@ -107,9 +107,9 @@
         try {
           await this.$validator.validateAll()
 
-          if(this.errors.errors.length !== 0) return
+          if (this.errors.errors.length !== 0) return
 
-          if(this.captchaImage) {
+          if (this.captchaImage) {
             await CaptchaService.verifyCaptcha(this.formValue.captcha)
           }
 
@@ -151,6 +151,40 @@
       margin: 0 auto;
       width: 70px;
       height: 70px;
+    }
+    .Form {
+      margin: 27px 0;
+      padding: 0 20px;
+      border-top: 1px solid #d7d7d7;
+      border-bottom: 1px solid #d7d7d7;
+    }
+    .Form__field {
+      height: 40px;
+      &:not(:last-child) {
+        border-bottom: 1px solid #d7d7d7;
+      }
+    }
+    .Form__field--icon {
+      margin-right: 20px;
+      display: block;
+      float: left;
+      width: 20px;
+      height: 40px;
+      text-align: center;
+      line-height: 40px;
+      font-size: 1.5rem;
+    }
+    input.Form__field--input {
+      display: block;
+      float: left;
+      height: 40px;
+      box-sizing: border-box;
+      border: 0;
+      outline: none;
+      background-color: transparent !important;
+      &:-webkit-autofill {
+        background-color: transparent!important;
+      }
     }
   }
 </style>
