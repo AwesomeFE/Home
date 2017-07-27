@@ -5,7 +5,7 @@
       <img v-else class="Avatar__Image" src="./assets/default-avatar.png">
     </div>
 
-    <div class="Form">
+    <form class="Form">
       <div class="Form__field">
         <span class="Form__field--icon fa fa-user-o"></span>
         <input class="Form__field--input" type="text" name="credential" placeholder="用户名/邮箱/手机"
@@ -27,7 +27,7 @@
           必填项
         </span>
       </div>
-    </div>
+    </form>
 
     <div v-if="captchaImage">
       <input type="text" placeholder="验证码" v-model="formValue.captcha">
@@ -174,17 +174,14 @@
       line-height: 40px;
       font-size: 1.5rem;
     }
-    input.Form__field--input {
+    .Form__field--input {
       display: block;
       float: left;
       height: 40px;
       box-sizing: border-box;
       border: 0;
       outline: none;
-      background-color: transparent !important;
-      &:-webkit-autofill {
-        background-color: transparent!important;
-      }
+      background-color: rgb(255, 255, 255);
     }
   }
 </style>
