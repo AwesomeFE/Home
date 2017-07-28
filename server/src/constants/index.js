@@ -22,3 +22,5 @@ export const DEFAULT_SESSION = {
 export const DATABASE_ERROR = {
   DUPLICATE_DATA: 11000
 }
+
+export const WEB_VERSION = '0.0.1'
