@@ -18,7 +18,7 @@
       <div class="Form__field">
         <span class="Form__field--icon fa fa-lock"></span>
         <div class="Form__field--body">
-          <input class="Form__field--input" type="password" name="password" placeholder="密码"
+          <input class="Form__field--input" type="password" name="password" placeholder="请输入密码"
                  v-model="formValue.password"
                  v-validate="getValidate('password')"/>
         </div>
@@ -27,14 +27,16 @@
 
     <form class="Form__addition" v-if="captchaImage">
       <label class="Form__label" for="captcha">验证码</label>
-      <input class="Form__field--input" type="text" name="captcha" id="captcha" placeholder="验证码"
-             v-model="formValue.captcha"
-             v-validate="getValidate('captcha')"/>
-      <div class="Form__captcha">
-        <vImage
-          :src="captchaImage"
-          :clickHandler="freshCaptchaImage">
-        </vImage>
+      <div class="Form__field">
+        <input class="Form__field--input" type="text" name="captcha" id="captcha" placeholder="请输入验证码"
+               v-model="formValue.captcha"
+               v-validate="getValidate('captcha')"/>
+        <div class="Form__captcha">
+          <vImage
+            :src="captchaImage"
+            :clickHandler="freshCaptchaImage">
+          </vImage>
+        </div>
       </div>
     </form>
 
@@ -169,8 +171,7 @@
       border: rgba(0, 0, 0, 0.1) solid 1px;
       box-shadow: 0 1px 1px rgba(0, 0, 0, 0.17);
     }
-    .Form__main,
-    .Form__addition{
+    .Form__main {
       margin: 27px 0 0 0;
       position: relative;
       padding: 0 20px;
@@ -209,15 +210,20 @@
       box-sizing: border-box;
       background-color: transparent;
     }
+    .Form__addition .Form__field {
+      position: relative;
+      padding: 0 10px;
+      border-top: 1px solid #d7d7d7;
+      border-bottom: 1px solid #d7d7d7;
+      background: white;
+    }
     .Form__label {
-      position: absolute;
-      top: 0;
-      left: 0;
-      transform: translateY(-100%);
+      display: block;
+      padding: 10px;
     }
     .Form__captcha {
       position: absolute;
-      right: 30px;
+      right: 20px;
       top: 50%;
       transform: translateY(-50%);
       width: $Form__field--height / 50 * 100 * 0.7;
