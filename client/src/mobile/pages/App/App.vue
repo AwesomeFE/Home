@@ -1,5 +1,5 @@
 <template>
-  <router-view v-if=""></router-view>
+  <router-view v-if="isPageInitialized"></router-view>
 </template>
 
 <script>

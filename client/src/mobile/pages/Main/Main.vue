@@ -1,11 +1,17 @@
 <template>
-  <div>
-    <div>
-      <textarea v-model="content"></textarea>
-      <input type="file" @change="addFiles" multiple>
-      <button @click="createBlog">
-        创建
-      </button>
+  <div class="Main">
+    <div class="Main__header">
+      <div class="Main__viewSelector">
+        <span class="Main__viewMode--text">{{user.mobile}}</span>
+        <ul class="Main__viewList" style="display: none">
+          <li class="Main__viewItem">全部</li>
+          <li class="Main__viewItem">好友圈</li>
+          <li class="Main__viewItem">个人</li>
+        </ul>
+      </div>
+      <div class="Main__actions">
+        <div class="Main__action fa fa-pencil-square-o" @click="createNewBlog"></div>
+      </div>
     </div>
 
     <button @click="freshBlog">刷新</button>
@@ -33,10 +39,18 @@
         blogs: []
       }
     },
+    computed: {
+      user() {
+        return this.$store.state.user
+      }
+    },
     mounted() {
       this.freshBlog()
     },
     methods: {
+      createNewBlog() {
+        this.$router.push({name: 'NewBlog'})
+      },
       addFiles(event) {
         const files = event.target.files
 

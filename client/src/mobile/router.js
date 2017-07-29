@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import App from './pages/App/App.vue'
 import Home from './pages/Home/Home.vue'
 import Main from './pages/Main/Main.vue'
+import NewBlog from './pages/NewBlog/NewBlog.vue'
 import User from './pages/User/User.vue'
 import Search from './pages/Search/Search.vue'
 import Signin from './pages/Signin/Signin.vue'
@@ -36,6 +37,11 @@ export default () => new VueRouter({
           name: 'Main',
           path: 'main',
           component: Main
+        },
+        {
+          name: 'NewBlog',
+          path: 'newBlog',
+          component: NewBlog
         },
         {
           name: 'User',
