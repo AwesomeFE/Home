@@ -4,12 +4,12 @@
       <div class="NewBlog__header">
         <span class="NewBlog__close" @click="closeEditor">&times;</span>
         <span class="NewBlog__middle">
-        <img class="NewBlog__avatar" v-if="avatarUrl" :src="avatarUrl">
-        <img class="NewBlog__avatar" v-else src="./assets/default-avatar.png">
-      </span>
+          <img class="NewBlog__avatar" v-if="avatarUrl" :src="avatarUrl">
+          <img class="NewBlog__avatar" v-else src="./assets/default-avatar.png">
+        </span>
         <span class="NewBlog__action">
-        <button @click="createBlog" :disabled="formValue.content === ''">发送</button>
-      </span>
+          <button class="NewBlog__submit" @click="createBlog" :disabled="formValue.content === ''">发送</button>
+        </span>
       </div>
 
       <div class="NewBlog__body">
@@ -107,8 +107,11 @@
   $NewBlog__header--height: 50px;
 
   .NewBlog {
+    width: 100%;
+    height: 100%;
+    background-color: white;
     .NewBlog__header {
-      height: 50px;
+      height: $NewBlog__header--height;
       padding: 8px;
       box-sizing: border-box;
       width: 100%;
@@ -139,8 +142,22 @@
       display: inline-block;
       border-radius: 50%;
     }
+    .NewBlog__submit {
+      color: #fff;
+      background: #ff8200;
+      border: 0;
+      padding: 0 10px;
+      box-sizing: border-box;
+      height: 34px;
+      border-radius: 3px;
+    }
+    .NewBlog__submit[disabled] {
+      background: #efefef;
+      color: #afafaf;
+      border: 1px solid #afafaf;
+    }
     .NewBlog__body {
-      padding: 50px .6rem 83px .6rem;
+      padding: $NewBlog__header--height .6rem 83px .6rem;
     }
     .NewBlog__textarea {
       width: 100%;
@@ -216,6 +233,7 @@
     &.NewBlog-enter-active,
     &.NewBlog-leave-active {
       transition: transform .3s ease;
+      position: absolute;
     }
     &.NewBlog-enter {
       transform: translateX(100%);
