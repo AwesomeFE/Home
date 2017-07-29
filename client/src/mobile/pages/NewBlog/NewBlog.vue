@@ -1,44 +1,52 @@
 <template>
-  <div class="NewBlog">
-    <div class="NewBlog__header">
-      <span class="NewBlog__close" @click="closeEditor">&times;</span>
-      <span class="NewBlog__middle">
+  <transition name="NewBlog">
+    <div class="NewBlog">
+      <div class="NewBlog__header">
+        <span class="NewBlog__close" @click="closeEditor">&times;</span>
+        <span class="NewBlog__middle">
         <img class="NewBlog__avatar" v-if="avatarUrl" :src="avatarUrl">
         <img class="NewBlog__avatar" v-else src="./assets/default-avatar.png">
       </span>
-      <span class="NewBlog__action">
+        <span class="NewBlog__action">
         <button @click="createBlog" :disabled="formValue.content === ''">发送</button>
       </span>
-    </div>
+      </div>
 
-    <div class="NewBlog__body">
-      <textarea class="NewBlog__textarea" placeholder="分享新鲜事..." v-model="formValue.content"></textarea>
-    </div>
-
-    <div class="NewBlog__footer">
-      <div class="NewBlog__labels">
-        <div class="NewBlog__label">
-          <i class="NewBlog__label--icon fa fa-globe"></i>
-          <span class="NewBlog__label--text">公开</span>
+      <div class="NewBlog__body">
+        <textarea class="NewBlog__textarea" placeholder="分享新鲜事..." v-model="formValue.content"></textarea>
+        <div class="NewBlog__images" v-if="images.length">
+          <div class="NewBlog__image" v-for="image in images">
+            <img class="NewBlog__image--img" :src="image">
+          </div>
+          <div class="NewBlog__clearFloat"></div>
         </div>
       </div>
-      <div class="NewBlog__panel">
-        <div class="NewBlog__panel--action">
-          <div class="NewBlog__panel--icon fa fa-image"></div>
-          <input class="NewBlog__upload" type="file" @change="addFiles" accept="image/*" multiple />
+
+      <div class="NewBlog__footer">
+        <div class="NewBlog__labels">
+          <div class="NewBlog__label">
+            <i class="NewBlog__label--icon fa fa-globe"></i>
+            <span class="NewBlog__label--text">公开</span>
+          </div>
         </div>
-        <div class="NewBlog__panel--action">
-          <div class="NewBlog__panel--icon fa fa-at"></div>
-        </div>
-        <div class="NewBlog__panel--action">
-          <div class="NewBlog__panel--icon fa fa-hashtag"></div>
-        </div>
-        <div class="NewBlog__panel--action">
-          <div class="NewBlog__panel--icon fa fa-smile-o"></div>
+        <div class="NewBlog__panel">
+          <div class="NewBlog__panel--action">
+            <div class="NewBlog__panel--icon fa fa-image"></div>
+            <input class="NewBlog__upload" type="file" @change="addFiles" accept="image/*" multiple/>
+          </div>
+          <div class="NewBlog__panel--action">
+            <div class="NewBlog__panel--icon fa fa-at"></div>
+          </div>
+          <div class="NewBlog__panel--action">
+            <div class="NewBlog__panel--icon fa fa-hashtag"></div>
+          </div>
+          <div class="NewBlog__panel--action">
+            <div class="NewBlog__panel--icon fa fa-smile-o"></div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </transition>
 </template>
 
 <script>
@@ -50,7 +58,8 @@
         form: new FormData(),
         formValue: {
           content: ''
-        }
+        },
+        images: []
       }
     },
     computed: {
@@ -77,8 +86,14 @@
       addFiles(event) {
         const files = event.target.files
 
-        for(const file of files) {
+        for (const file of files) {
           this.form.append('files', file)
+
+          const reader = new FileReader()
+
+          reader.readAsDataURL(file)
+
+          reader.onload = (event) => this.images.push(event.target.result)
         }
       },
       closeEditor() {
@@ -132,6 +147,7 @@
       box-sizing: border-box;
       outline: none;
       resize: none;
+      height: 200px;
     }
     .NewBlog__footer {
       position: fixed;
@@ -178,6 +194,40 @@
       width: 100%;
       height: 100%;
       opacity: 0;
+    }
+    .NewBlog__image {
+      float: left;
+      width: 100px;
+      height: 100px;
+      position: relative;
+      overflow: hidden;
+    }
+    .NewBlog__image--img {
+      max-width: 100%;
+      max-height: 100%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate3d(-50%, -50%, 0);
+    }
+    .NewBlog__clearFloat {
+      clear: both;
+    }
+    &.NewBlog-enter-active,
+    &.NewBlog-leave-active {
+      transition: transform .3s ease;
+    }
+    &.NewBlog-enter {
+      transform: translateX(100%);
+    }
+    &.NewBlog-enter-to {
+      transform: translateX(0);
+    }
+    &.NewBlog-leave {
+      transform: translateX(0);
+    }
+    &.NewBlog-leave-to {
+      transform: translateX(100%);
     }
   }
 </style>
