@@ -8,6 +8,13 @@ module.exports = [
     minimize: true,
     sourceMap: false
   }),
+  webpackTask({
+    appName: 'mobile',
+    chunkHash: '.[chunkhash]',
+    extract: true,
+    minimize: true,
+    sourceMap: false
+  })
   // webpackTask({
   //   appName: 'admin',
   //   chunkHash: '.[chunkhash]',

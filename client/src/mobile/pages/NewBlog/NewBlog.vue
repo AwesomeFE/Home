@@ -59,7 +59,7 @@
         formValue: {
           content: ''
         },
-        images: []
+        images: [],
       }
     },
     computed: {
@@ -84,15 +84,13 @@
         this.$router.push({name: 'Main'})
       },
       addFiles(event) {
-        const files = event.target.files
+        const files = Array.from(event.target.files)  // 类数组转换，for...of语法在低安卓版本下直接崩掉
 
         for (const file of files) {
           this.form.append('files', file)
 
           const reader = new FileReader()
-
           reader.readAsDataURL(file)
-
           reader.onload = (event) => this.images.push(event.target.result)
         }
       },
