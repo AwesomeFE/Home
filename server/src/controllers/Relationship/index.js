@@ -1,56 +1,98 @@
-import {Types} from 'mongoose'
 import {Relationship} from '../../models'
+import {
+  getRelationshipTwoWayQuery,
+  getRelationshipBetweenQuery,
+  createNewRelationship,
+  isRecordInRelationship,
+  getRelationshipNewRecord,
+} from './helper'
 
+/**
+ * 给两个文档创建关系
+ * @param doc1
+ * @param doc2
+ * @param type
+ * @returns {Promise.<*>}
+ */
 export async function makeRelationship(doc1 = {}, doc2 = {}, type = '') {
-  const query = {
-    'from.collection': doc1.collection.name,
-    'from.id': Types.ObjectId(doc1._id),
-    'to.collection': doc2.collection.name,
-    'to.id': Types.ObjectId(doc2._id)
+  const query = getRelationshipBetweenQuery(doc1, doc2, type)
+  const newRecord = getRelationshipNewRecord(doc1, doc2)
+
+  let relationship = await Relationship.findOne(query)
+
+  if (relationship) {
+    if (!isRecordInRelationship(newRecord, relationship)) {
+
+      relationship.records.push(newRecord)
+      relationship = await relationship.save()
+    }
+  } else {
+    relationship = createNewRelationship(doc1, doc2, type)
   }
 
-  const relationship = {
-    from: {
-      collection: doc1.collection.name,
-      id: doc1._id
-    }, to: {
-      collection: doc2.collection.name,
-      id: doc2._id
-    },
-    type
-  }
-
-  const options = {
-    new: true,
-    upsert: true
-  }
-
-  return await Relationship.findOneAndUpdate(query, relationship, options)
+  return relationship
 }
 
-export async function getRelationship(doc1 = {}, doc2 = {}, type) {
-  // 从doc1向doc2的关系查询
-  const fromQuery = {
-    'from.collection': doc1.collection.name,
-    'from.id': Types.ObjectId(doc1._id),
-    'to.collection': doc2.collection.name,
-    'to.id': Types.ObjectId(doc2._id),
-    'type': type
-  }
-  // 从doc2向doc1的关系查询
-  const toQuery = {
-    'from.collection': doc2.collection.name,
-    'from.id': Types.ObjectId(doc2._id),
-    'to.collection': doc1.collection.name,
-    'to.id': Types.ObjectId(doc1._id),
-    'type': type
-  }
+/**
+ * 获取两个文档结果之间的关系
+ * @param doc1
+ * @param doc2
+ * @param type
+ * @returns {Promise.<{from, to}>}
+ */
+export async function getRelationshipBetween(doc1 = {}, doc2 = {}, type) {
+  const query = getRelationshipBetweenQuery(doc1, doc2, type)
 
-  const fromRelationship = (await Relationship.findOne(fromQuery)) || {}
-  const toRelationship = (await Relationship.findOne(toQuery)) || {}
+  return await Relationship.findOne(query)
+}
 
-  return {
-    from: fromRelationship.type,
-    to: toRelationship.type
-  }
+/**
+ * 获取某个文档存在关系的所有该类型的文档id
+ *
+ * @param doc
+ * @param thatCollection
+ * @param type
+ * @returns {Promise.<*|Array>}
+ */
+export async function getRelationshipTwoWayIds(doc = {}, thatCollection = '', type = '') {
+  const [result = {}] = await Relationship.aggregate([
+    {
+      $match: getRelationshipTwoWayQuery(doc, thatCollection, type)
+    },
+    {
+      $redact: {
+        $cond: {
+          if: {
+            $ne: ['$from.id', doc._id]
+          },
+          then: '$$DESCEND',
+          else: '$$PRUNE'
+        }
+      }
+    },
+    {
+      $unwind: '$records'
+    },
+    {
+      $group: {
+        _id: null,
+        ids: {
+          $push: "$records.from.id"
+        }
+      }
+    },
+    {
+      $project: {_id: 0}
+    }
+  ])
+
+  return result.ids || []
+}
+
+export async function getRelationshipPending() {
+
+}
+
+export async function getRelationshipConfirm() {
+
 }

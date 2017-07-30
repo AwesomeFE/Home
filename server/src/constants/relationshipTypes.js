@@ -1,5 +1,7 @@
 export const USER = {
   FRIEND: 'friend',
   SELF: 'self',
-  NONE: 'none'
+  NONE: 'none',
+  PENDING: 'pending',
+  CONFIRM: 'confirm'
 }

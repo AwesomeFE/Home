@@ -6,14 +6,14 @@ import * as EntryLogController from '../EntryLog'
 import * as RelationshipController from '../Relationship'
 import * as relationshipTypes from '../../constants/relationshipTypes'
 import {
-  checkUserPassword,
-  checkUserLoginType,
+  isSameUser,
+  formatUserJson,
   encryptPassword,
   getUserLoginType,
-  fetchAddressFromUserInfo,
-  isSameUser,
+  checkUserPassword,
+  checkUserLoginType,
   getDefaultProjection,
-  formatUserJson
+  fetchAddressFromUserInfo,
 } from './helper'
 
 /**
@@ -100,30 +100,37 @@ export async function createUser(userData = {}) {
  */
 export async function getRelationshipStatusBetween(thisUserId, thatUserId, type) {
   // 获取用户document实例
-  let relationshipStatus = relationshipTypes.USER.NONE
   const thisUser = await User.findById(thisUserId)
   const thatUser = await User.findById(thatUserId)
+  let relationshipStatus = relationshipTypes.USER.NONE
 
   if(thisUser && thatUser) {
+
+    // 如果是用户本身，则返回self
     if(isSameUser(thisUser, thatUser)) {
       return relationshipTypes.USER.SELF
     }
 
-    // 获取用户间关系数据，并且检查用户关系是否存在
-    const relationship = await RelationshipController.getRelationship(thisUser, thatUser, type)
-    const isRelationshipExisted = relationship.from || relationship.to
+    // 获取用户间关系数据
+    const relationship = await RelationshipController.getRelationshipBetween(thisUser, thatUser, type)
 
-    // 如果用户关系存在并相等，则确立关系
-    if(isRelationshipExisted) {
-      if(relationship.from === relationship.to) {
-        return relationship.from
-        // 如果用户去关系存在，那就是需要对方确认，pending状态
-      } else if(relationship.from) {
-        relationshipStatus = 'pending'
-        // 如果用户去关系不存在，但存在关系，那么就是需要confirm的状态
-      } else {
-        relationshipStatus = 'confirm'
-      }
+    // 如果没有关系，则返回none
+    if(!relationship) {
+      return relationshipTypes.USER.NONE
+    }
+
+    const hasPendingRelationship = relationship.records.some(record => record.from.id.toString() === thisUser._id.toString())
+    const hasConfirmRelationship = relationship.records.some(record => record.to.id.toString() === thisUser._id.toString())
+
+    // 如果来回确认都是Friend，则返回friend
+    if(hasPendingRelationship && hasConfirmRelationship) {
+      relationshipStatus = relationshipTypes.USER.FRIEND
+
+    } else if(hasPendingRelationship) {
+      relationshipStatus = relationshipTypes.USER.PENDING
+
+    } else if(hasConfirmRelationship) {
+      relationshipStatus = relationshipTypes.USER.CONFIRM
     }
   }
 
@@ -145,6 +152,13 @@ export async function makeRelation(thisUserId, thatUserId, type) {
   return await RelationshipController.makeRelationship(thisUser, thatUser, type)
 }
 
+/**
+ * Controller Method: 获取用户详细信息
+ *
+ * @param userId
+ * @param sessionUserId
+ * @returns {Promise.<*>}
+ */
 export async function getUserDetailById(userId, sessionUserId) {
   const user = await User.findById(userId)
   const relationship = await this.getRelationshipStatusBetween(sessionUserId, userId, 'friend')
@@ -152,6 +166,13 @@ export async function getUserDetailById(userId, sessionUserId) {
   return formatUserJson(user, relationship)
 }
 
+/**
+ * Controller Method: 搜索用户
+ *
+ * @param query
+ * @param sessionUserId
+ * @returns {Promise.<Array>}
+ */
 export async function searchUser(query = {}, sessionUserId) {
   const user = []
   const usersDoc = await User.find(query)
@@ -166,9 +187,29 @@ export async function searchUser(query = {}, sessionUserId) {
   return user
 }
 
+/**
+ * Controller Method: 更新用户数据
+ *
+ * @param userId
+ * @param userData
+ * @param avatar
+ * @returns {Promise.<*>}
+ */
 export async function updateUser(userId, userData = {}, avatar) {
   if(avatar) {
     userData.avatar = await FileController.saveFile(avatar)
   }
   return formatUserJson(await User.findByIdAndUpdate(userId, userData, {new: true}), relationshipTypes.USER.SELF)
+}
+
+/**
+ * Controller Method: 获取用户所有好友id
+ *
+ * @param userId
+ * @returns {Promise.<void>}
+ */
+export async function getUserFriendsId(userId) {
+  const user = await User.findById(userId)
+
+  return await RelationshipController.getRelationshipTwoWayIds(user, 'users', relationshipTypes.USER.FRIEND)
 }

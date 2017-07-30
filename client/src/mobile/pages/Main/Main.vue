@@ -10,7 +10,7 @@
         </ul>
       </div>
       <div class="Main__actions">
-        <div class="Main__action fa fa-pencil-square-o" @click="createNewBlog"></div>
+        <div class="Main__action fa fa-pencil-square-o" @click="goToNewBlog"></div>
       </div>
     </div>
 
@@ -34,8 +34,6 @@
       return {
         page: 0,
         length: 10,
-        content: '',
-        form: new FormData(),
         blogs: []
       }
     },
@@ -48,20 +46,8 @@
       this.freshBlog()
     },
     methods: {
-      createNewBlog() {
+      goToNewBlog() {
         this.$router.push({name: 'NewBlog'})
-      },
-      addFiles(event) {
-        const files = event.target.files
-
-        for(const file of files) {
-          this.form.append('files', file)
-        }
-      },
-      async createBlog() {
-        this.form.append('content', this.content)
-
-        await BlogService.createBlog(this.form)
       },
       async freshBlog() {
         const {blogs} = await BlogService.searchBlog({
@@ -85,8 +71,11 @@
   }
 </script>
 
-<style type="text/scss" lang="scss" scoped>
-  img {
-    max-width: 100px;
+<style type="text/scss" lang="scss">
+  .Main {
+    img {
+      max-height: 100px;
+      max-width: 100px;
+    }
   }
 </style>
