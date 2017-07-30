@@ -108,6 +108,13 @@ export async function makeFriend(req, res, next) {
   const sessionUser = req.session.user || {}
 
   try {
+    if(!sessionUser._id) {
+      throw ErrorService.NO_SESSION_USER
+    }
+    if(sessionUser._id === userId) {
+      throw ErrorService.DONT_MAKE_SELF_FRIEND
+    }
+
     await UserController.makeRelation(sessionUser._id, userId, 'friend')
     res.json(ResponseService.RELATIONSHIP_SUCCESS)
   } catch (error) {
@@ -120,6 +127,10 @@ export async function checkFriendStatus(req, res, next) {
   const sessionUser = req.session.user || {}
 
   try {
+    if(!sessionUser._id) {
+      throw ErrorService.NO_SESSION_USER
+    }
+
     const relationship = await UserController.getRelationshipStatusBetween(sessionUser._id, userId, 'friend')
 
     res.json({

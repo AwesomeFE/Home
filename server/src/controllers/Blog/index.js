@@ -13,25 +13,35 @@ export async function createBlog(user = {}, blogData = {}, files = []) {
 }
 
 export async function searchBlog(userId, query = {}, sessionUserId, pagination) {
+  // 组装分页信息
   const limit = pagination.length
   const skip = pagination.page * pagination.length
-  let relationship = await UserController.getRelationshipStatusBetween(sessionUserId, userId)
+  let relationship = ''
+
+  if (userId) {
+    query.userId = userId
+    relationship = await UserController.getRelationshipStatusBetween(sessionUserId, userId)
+  } else {
+    query.userId = {
+      $in: [...await UserController.getUserFriendsId(sessionUserId), sessionUserId]
+    }
+
+    relationship = 'friend'
+  }
 
   switch (relationship) {
     case 'same':
-      query.visible = { $in: ['all', 'friend', 'none'] }
+      query.visible = {$in: ['all', 'friend', 'none']}
       break
     case 'friend':
-      query.visible = { $in: ['all', 'friend'] }
-    break
+      query.visible = {$in: ['all', 'friend']}
+      break
     default:
-      query.visible = { $in: ['all'] }
+      query.visible = 'all'
       break
   }
 
-  if(userId) {
-    query.userId = userId
-  }
+  console.log(query)
 
-  return await Blog.find(query, null, { skip, limit })
+  return await Blog.find(query, null, {skip, limit})
 }

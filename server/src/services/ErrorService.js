@@ -42,6 +42,7 @@ ErrorService.USER_NOT_FOUND             = {status: 400, message: 'Cannot find th
 ErrorService.NO_SESSION_USER            = {status: 401, message: 'Session user is empty.', type: 'NO_SESSION_USER'}
 ErrorService.NO_ENTRY_LOG               = {status: 400, message: 'Login information don\'t have entry log.', type: 'NO_ENTRY_LOG'}
 ErrorService.UNKNOW_LOGIN_TYPE          = {status: 401, message: 'Unknow login type. It isn\'t from wechat or desktop.', type: 'UNKNOW_LOGIN_TYPE'}
+ErrorService.DONT_MAKE_SELF_FRIEND      = {status: 400, message: 'Cannot make friend with self.', type: 'DONT_MAKE_SELF_FRIEND'}
 
 // 短信验证类报错
 ErrorService.SMS_MOBILE_NUMBER_INVALID  = {status: 404, message: 'SMS mobile number is invalid.', type: 'SMS_MOBILE_NUMBER_INVALID'}
