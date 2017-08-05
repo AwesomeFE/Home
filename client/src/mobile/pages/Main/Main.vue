@@ -28,7 +28,8 @@
 
     <div class="Main__body">
       <blog-card v-for="blog in blogs"
-                 :blog="blog">
+                 :blog="blog"
+                 :key="blog._id">
       </blog-card>
     </div>
   </div>
