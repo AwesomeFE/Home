@@ -24,7 +24,8 @@ export default (options) => {
         'validator',
         'babel-polyfill',
         'perfect-scrollbar',
-        'moment'
+        'moment',
+        'ua-parser-js'
       ]
     },
     output: {

@@ -42,11 +42,11 @@
       },
       userAvatar() {
         return this.user.avatar
-          ? `/api/file/${this.user.avatar}`
+          ? `/api/file/${this.user.avatar}?width=100&height=100`
           : ''
       },
       blogData() {
-        const attachments = this.blog.attachments.map(attachment => `/api/file/${attachment}`)
+        const attachments = this.blog.attachments.map(attachment => `/api/file/${attachment}?width=100&height=100`)
 
         return {
           content: this.blog.content,
