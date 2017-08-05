@@ -1,5 +1,6 @@
 import ErrorService from '../../../services/ErrorService'
 import * as BlogController from '../../../controllers/Blog'
+import * as UserController from '../../../controllers/User'
 import ResponseService from '../../../services/ResponseService'
 
 export async function searchBlog(req, res, next) {
@@ -35,11 +36,11 @@ export async function createBlog(req, res, next) {
   try {
     // 拿出blog数据和session user
     const blogData = req.body
-    const userId = req.session.user
+    const sessionUser = req.session.user
     const attachments = req.files
 
     // 如果session user为空，报错
-    if(!userId) {
+    if(!sessionUser) {
       throw ErrorService.NO_SESSION_USER
     }
 
@@ -49,7 +50,8 @@ export async function createBlog(req, res, next) {
     }
 
     // 创建blog
-    const blog = await BlogController.createBlog(userId, blogData, attachments)
+    const user = await UserController.getUserDetailById(sessionUser._id, sessionUser._id)
+    const blog = await BlogController.createBlog(user, blogData, attachments)
 
     // 返回blog数据
     res.json({

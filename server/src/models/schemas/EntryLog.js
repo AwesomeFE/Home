@@ -27,6 +27,9 @@ const EntryLogSchema = new Schema({
     type: String,
     default: 'isActive',
     enum: ['isDeleted', 'isActive']
+  },
+  isTest: {
+    type: Boolean,
   }
 })
 

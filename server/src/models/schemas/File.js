@@ -24,6 +24,9 @@ const FileSchema = new Schema({
   },
   size: {
     type: Number
+  },
+  isTest: {
+    type: Boolean,
   }
 })
 

@@ -84,6 +84,10 @@ export async function createUser(userData = {}) {
     userDoc.addresses = await AddressController.createAddress(userAddresses)
   }
 
+  // 实现用户序号自增长，并且生成默认nickname
+  const prefix = userDoc.mobile || userDoc.email || userDoc.username
+  await userDoc.update({nickname: `用户${prefix}`})
+
   userDoc.projections = getDefaultProjection()
 
   // 返回用户数据

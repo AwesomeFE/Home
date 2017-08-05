@@ -41,7 +41,6 @@ export async function register(req, res, next) {
     })
 
   } catch (error) {
-
     // 如果用户存在，报错
     if(error.code === DATABASE_ERROR.DUPLICATE_DATA) {
       next(ErrorService.USER_IS_EXISTED)

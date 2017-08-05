@@ -3,12 +3,14 @@ import PageNav from './PageNav/PageNav.vue'
 import chatting from './vChatting/chatting.vue'
 import TopHeader from './TopHeader/TopHeader.vue'
 import vImage from './vImage/vImage.vue'
+import BlogCard from './BlogCard/BlogCard.vue'
 
 const components = {
   PageNav,
   TopHeader,
   chatting,
-  vImage
+  vImage,
+  BlogCard
 }
 
 export default () => {

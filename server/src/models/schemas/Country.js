@@ -18,6 +18,9 @@ const CountrySchema = new Schema({
     type: String,
     default: 'isUnpublished',
     enum: ['isDeleted', 'isUnpublished', 'isPublished']
+  },
+  isTest: {
+    type: Boolean,
   }
 }, {timestamps: true})
 

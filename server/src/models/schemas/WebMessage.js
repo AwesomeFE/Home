@@ -16,6 +16,9 @@ const WebMessageSchema = new Schema({
   isFixed: {
     type: Boolean,
     default: false
+  },
+  isTest: {
+    type: Boolean,
   }
 }, {timestamps: true})
 

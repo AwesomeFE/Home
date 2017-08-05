@@ -17,7 +17,10 @@ const CommentSchema = new Schema({
   attachments: [{
     type: Schema.Types.ObjectId,
     refs: 'Attachments'
-  }]
+  }],
+  isTest: {
+    type: Boolean,
+  }
 }, {timestamps: true})
 
 export default CommentSchema

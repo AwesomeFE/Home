@@ -10,7 +10,8 @@ const UserSchema = new Schema({
     sparse: true,
   },
   password: {
-    type: String
+    type: String,
+    required: true
   },
   mobile: {
     type: String,
@@ -36,7 +37,12 @@ const UserSchema = new Schema({
     type: String
   },
   nickname: {
-    type: String
+    type: String,
+    unique: true,
+    sparse: true,
+    required: function() {
+      return this.nickname === ''
+    }
   },
   birthday: {
     type: Date
@@ -68,6 +74,9 @@ const UserSchema = new Schema({
   avatar: {
     type: Schema.Types.ObjectId,
     refs: 'Files'
+  },
+  isTest: {
+    type: Boolean,
   }
 }, {timestamps: true})
 

@@ -32,8 +32,10 @@ export default {
   async searchUsers({}, search) {
     if(typeof search === 'string') {
       search = {
-        nickname: {$regex: search},
-        name: {$regex: search}
+        $or: [
+          {nickname: {$regex: search}},
+          {name: {$regex: search}}
+        ]
       }
     }
 

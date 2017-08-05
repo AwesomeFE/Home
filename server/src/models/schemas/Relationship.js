@@ -21,6 +21,9 @@ const RelationshipSchema = new Schema({
   }],
   type: {
     type: String
+  },
+  isTest: {
+    type: Boolean,
   }
 })
 

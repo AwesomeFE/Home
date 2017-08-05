@@ -6,10 +6,12 @@ import * as UserController from '../User'
 import * as FileController from '../File'
 
 export async function createBlog(user = {}, blogData = {}, files = []) {
-  blogData.userId = user._id
-  blogData.attachments = await FileController.saveFile(files)
+  const blog = await Blog.create(blogData)
+  const attachments = await FileController.saveFile(files)
+  blog.user = user
+  blog.attachments = attachments
 
-  return await Blog.create(blogData)
+  return await blog.save()
 }
 
 export async function searchBlog(userId, query = {}, sessionUserId, pagination) {
@@ -19,14 +21,16 @@ export async function searchBlog(userId, query = {}, sessionUserId, pagination) 
   let relationship = ''
 
   if (userId) {
-    query.userId = userId
+    query.user = userId
     relationship = await UserController.getRelationshipStatusBetween(sessionUserId, userId)
-  } else {
-    query.userId = {
+  } else if (sessionUserId) {
+    query.user = {
       $in: [...await UserController.getUserFriendsId(sessionUserId), sessionUserId]
     }
 
     relationship = 'friend'
+  } else {
+    relationship = 'none'
   }
 
   switch (relationship) {
@@ -41,7 +45,6 @@ export async function searchBlog(userId, query = {}, sessionUserId, pagination) 
       break
   }
 
-  console.log(query)
-
   return await Blog.find(query, null, {skip, limit})
+    .populate('user', '_id nickname avatar')
 }

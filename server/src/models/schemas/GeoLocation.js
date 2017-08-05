@@ -7,6 +7,9 @@ const GeoLocationSchema = new Schema({
   },
   coordinates: {
     type: [Number]
+  },
+  isTest: {
+    type: Boolean,
   }
 })
 
