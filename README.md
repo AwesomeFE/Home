@@ -63,10 +63,18 @@
 - node v7.10 以上
 - mongodb v3.4.4 以上
 
+## 安装项目
+
+- 由于项目使用ccap做图形验证码生成，所以在windows环境下请安装C++编译环境
+- 加入了后台切图功能，需要预安装以下软件：
+  - mac OSX 用户运行 `brew install pkg-config cairo libpng jpeg giflib`
+  - Windows 用户先安装[Chocolatey](https://chocolatey.org/)，然后再运行 `choco install -y python2 gtk-runtime microsoft-build-tools libjpeg-turbo`
+- 安装项目依赖包`npm install`
+
 ## 启动项目
 
-- 启动数据库
-- 针对响应环境，填写config文件夹下的配置表 *.cofig
+- 启动mongodb数据库
+- 针对相应环境，填写config文件夹下的配置表 [development|staging|production].cofig
 - 在开发模式下：
   - 启动后台服务代码 `npm run development:server`
   - 启动前台服务代码 `npm run development:client`
