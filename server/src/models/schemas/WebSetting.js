@@ -11,6 +11,9 @@ const WebSettingSchema = new Schema({
   meta: {
     votes: Number,
     favs:  Number
+  },
+  isTest: {
+    type: Boolean,
   }
 }, {timestamps: true});
 

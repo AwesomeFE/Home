@@ -7,6 +7,9 @@ const ProjectionSchema = new Schema({
   projection: {
     type: String,
     default: '-password'
+  },
+  isTest: {
+    type: Boolean,
   }
 }, {timestamps: true});
 

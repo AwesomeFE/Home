@@ -1,14 +1,13 @@
 import {Schema} from 'mongoose'
-import File from './File'
 
 const BlogSchema = new Schema({
-  userId: {
+  user: {
     type: Schema.Types.ObjectId,
-    refs: 'Users'
+    ref: 'Users'
   },
   addressId: {
     type: Schema.Types.ObjectId,
-    refs: 'Addresses'
+    ref: 'Addresses'
   },
   title: {
     type: String
@@ -18,7 +17,7 @@ const BlogSchema = new Schema({
   },
   attachments: [{
     type: Schema.Types.ObjectId,
-    refs: 'Files'
+    ref: 'Files'
   }],
   visible: {
     type: String,
@@ -27,6 +26,9 @@ const BlogSchema = new Schema({
   },
   isShortBlog: {
     type: Boolean
+  },
+  isTest: {
+    type: Boolean,
   }
 }, {timestamps: true})
 

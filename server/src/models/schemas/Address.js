@@ -32,6 +32,9 @@ const AddressSchema = new Schema({
     type: String,
     default: 'isUsing',
     enum: ['isUsing', 'isDeleted']
+  },
+  isTest: {
+    type: Boolean
   }
 }, {timestamps: true})
 
