@@ -50,6 +50,7 @@
 </template>
 
 <script>
+  import UA from 'ua-parser-js'
   import * as BlogService from '../../services/BlogService'
 
   export default {

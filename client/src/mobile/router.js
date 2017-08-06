@@ -1,66 +1,55 @@
 import VueRouter from 'vue-router'
 
-import App from './pages/App/App.vue'
-import Home from './pages/Home/Home.vue'
-import Main from './pages/Main/Main.vue'
-import NewBlog from './pages/NewBlog/NewBlog.vue'
-import User from './pages/User/User.vue'
-import Search from './pages/Search/Search.vue'
-import Signin from './pages/Signin/Signin.vue'
-import Signup from './pages/Signup/Signup.vue'
-import NotFound from './pages/NotFound/NotFound.vue'
-import Profile from './pages/Profile/Profile.vue'
-
 export default () => new VueRouter({
   mode: 'history',
   routes: [
     {
       path: '/',
-      component: App,
+      component: () => import('./pages/App/App.vue'),
       children: [
         {
           name: 'Home',
           path: '',
-          component: Home
+          component: () => import('./pages/Home/Home.vue')
         },
         {
           name: 'Signup',
           path: 'signup',
-          component: Signup
+          component: () => import('./pages/Signup/Signup.vue')
         },
         {
           name: 'Signin',
           path: 'signin',
-          component: Signin
+          component: () => import('./pages/Signin/Signin.vue')
         },
         {
           name: 'Main',
           path: 'main',
-          component: Main
+          component: () => import('./pages/Main/Main.vue')
         },
         {
           name: 'NewBlog',
           path: 'newBlog',
-          component: NewBlog
+          component: () => import('./pages/NewBlog/NewBlog.vue')
         },
         {
           name: 'User',
           path: 'user/:userId',
-          component: User
+          component: () => import('./pages/User/User.vue')
         },
         {
           name: 'Profile',
           path: 'setting/profile',
-          component: Profile
+          component: () => import('./pages/Profile/Profile.vue')
         },
         {
           name: 'Search',
           path: 'search',
-          component: Search
+          component: () => import('./pages/Search/Search.vue')
         },
         {
           path: '*',
-          component: NotFound
+          component: () => import('./pages/NotFound/NotFound.vue')
         }
       ]
     }

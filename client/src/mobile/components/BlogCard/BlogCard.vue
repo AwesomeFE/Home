@@ -9,7 +9,7 @@
            v-else>
       <div class="BlogCard__user--info">
         <div class="BlogCard__user--nickname">{{user.nickname}}</div>
-        <div class="BlogCard__user--publishTime">一天前</div>
+        <div class="BlogCard__user--publishTime">{{blogData.createdAt}}</div>
       </div>
     </header>
     <section class="BlogCard__body">
@@ -29,6 +29,8 @@
 </template>
 
 <script>
+  import moment from 'moment'
+
   export default {
     data() {
       return {}
@@ -40,15 +42,15 @@
       },
       userAvatar() {
         return this.user.avatar
-          ? `/api/file/${this.user.avatar}`
+          ? `/api/file/${this.user.avatar}?width=100&height=100`
           : ''
       },
       blogData() {
-        const attachments = this.blog.attachments.map(attachment => `/api/file/${attachment}`)
+        const attachments = this.blog.attachments.map(attachment => `/api/file/${attachment}?width=100&height=100`)
 
         return {
           content: this.blog.content,
-          createdAt: this.blog.createdAt,
+          createdAt: moment(this.blog.createdAt).fromNow(),
           updatedAt: this.blog.updatedAt,
           attachments
         }

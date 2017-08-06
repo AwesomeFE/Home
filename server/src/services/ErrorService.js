@@ -14,9 +14,16 @@ class ErrorService extends Error {
   static handler(errorMessage, req, res, next) {
     let error = new ErrorService(errorMessage)
     console.error(error)
+    let status = 500
+
+    if(error.status === 404) {
+      status = 404
+    } else if (error.status) {
+      status = 200
+    }
 
     res
-      .status(error.status ? 200 : 500)
+      .status(status)
       .json({
         message: error.message,
         type: error.type,
@@ -45,15 +52,16 @@ ErrorService.UNKNOW_LOGIN_TYPE          = {status: 401, message: 'Unknow login t
 ErrorService.DONT_MAKE_SELF_FRIEND      = {status: 400, message: 'Cannot make friend with self.', type: 'DONT_MAKE_SELF_FRIEND'}
 
 // 短信验证类报错
-ErrorService.SMS_MOBILE_NUMBER_INVALID  = {status: 404, message: 'SMS mobile number is invalid.', type: 'SMS_MOBILE_NUMBER_INVALID'}
-ErrorService.SMS_SEND_FAILED            = {status: 404, message: 'SMS send failed.', type: 'SMS_SEND_FAILED'}
-ErrorService.SMS_VERIFY_FAILED          = {status: 404, message: 'SMS verify failed.', type: 'SMS_VERIFY_FAILED'}
+ErrorService.SMS_MOBILE_NUMBER_INVALID  = {status: 400, message: 'SMS mobile number is invalid.', type: 'SMS_MOBILE_NUMBER_INVALID'}
+ErrorService.SMS_SEND_FAILED            = {status: 400, message: 'SMS send failed.', type: 'SMS_SEND_FAILED'}
+ErrorService.SMS_VERIFY_FAILED          = {status: 400, message: 'SMS verify failed.', type: 'SMS_VERIFY_FAILED'}
 
 // 图形验证码报错
 ErrorService.CAPTCHA_VERIFY_FAILED      = {status: 400, message: 'Captcha verify Error.', type: 'CAPTCHA_VERIFY_FAILED'}
 
 // 微博报错
 ErrorService.BLOG_NO_CONTENT            = {status: 400, message: 'Blog content can not be empty.', type: 'BLOG_NO_CONTENT'}
+ErrorService.FILE_NOT_FIND              = {status: 404, message: 'Cannot find the file.', type: 'CANNOT_FIND_FILE'}
 
 // ErrorService.STAFF_UNKNOW_SOURCE         = {status: 404, message: 'Unknow staff source. It isn\'t from wechat or desktop.', type: 'STAFF_UNKNOW_SOURCE'}
 // ErrorService.STAFF_NO_PASSWORD           = {status: 404, message: 'Staff don\'t have password.', type: 'STAFF_NO_PASSWORD'}

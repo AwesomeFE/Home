@@ -201,7 +201,7 @@ export async function searchUser(query = {}, sessionUserId) {
  */
 export async function updateUser(userId, userData = {}, avatar) {
   if(avatar) {
-    userData.avatar = await FileController.saveFile(avatar)
+    userData.avatar = (await FileController.saveFile([avatar]))[0]
   }
   return formatUserJson(await User.findByIdAndUpdate(userId, userData, {new: true}), relationshipTypes.USER.SELF)
 }

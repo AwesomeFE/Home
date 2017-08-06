@@ -12,6 +12,8 @@ import initService from './services'
 import initDirectives from './directives'
 import initComponents from './components'
 
+import moment from 'moment'
+
 Vue.use(Vuex)
 Vue.use(VueI18n)
 Vue.use(VueRouter)
@@ -20,6 +22,8 @@ Vue.use(VueValidate)
 initService()
 initDirectives()
 initComponents()
+
+moment.locale('zh-cn')
 
 new Vue({
   router: router(),

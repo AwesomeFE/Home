@@ -27,6 +27,9 @@ const BlogSchema = new Schema({
   isShortBlog: {
     type: Boolean
   },
+  createBy: {
+    type: String
+  },
   isTest: {
     type: Boolean,
   }
