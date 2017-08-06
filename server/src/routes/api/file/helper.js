@@ -127,24 +127,19 @@ function _saveThumbnailFile(canvas, thumbnail) {
 export function getResizeImage(fileInfo, options) {
   try {
     const isSizeLock = (options.locked || 'true') === 'true'
-    const isOutImageSize = +options.height > fileInfo.height || +options.width > fileInfo.width
+    const isOutImageSize = +options.height > fileInfo.height && +options.width > fileInfo.width
 
     let suitableThumbnail = null
 
     for(const thumbnail of fileInfo.thumbnails || []) {
-      if(!isSizeLock && thumbnail.width === +options.width && thumbnail.height === +options.height) {
+      if(!isSizeLock && thumbnail.width === +options.width || thumbnail.height === +options.height) {
         suitableThumbnail = thumbnail
 
       } else if(isSizeLock) {
-        // 如果截图尺寸超出原图尺寸，选择最大的截图
-        if(isOutImageSize && (thumbnail.width < +options.width || thumbnail.height < +options.height)) {
-          if(!suitableThumbnail) {
-            suitableThumbnail = thumbnail
-          } else if(suitableThumbnail.width < thumbnail.width && suitableThumbnail.height < thumbnail.height) {
-            suitableThumbnail = thumbnail
-          }
+        // 如果截图尺寸超出原图尺寸，选择原图裁切
+        if(isOutImageSize && (thumbnail.width === fileInfo.width || thumbnail.height === fileInfo.height)) {
+          suitableThumbnail = thumbnail
         }
-
         // 如果截图尺寸在原图尺寸范围内，选择最小的截图
         if(!isOutImageSize && (thumbnail.width >= +options.width || thumbnail.height >= +options.height)) {
           if(!suitableThumbnail) {
