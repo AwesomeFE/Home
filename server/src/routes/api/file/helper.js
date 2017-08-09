@@ -45,8 +45,8 @@ export function getImageNewSize(image, options) {
     }
 
     newSize = {
-      width: originalWidth * scaleRatio,
-      height: originalHeight * scaleRatio
+      width: +(originalWidth * scaleRatio).toFixed(0),
+      height: +(originalHeight * scaleRatio).toFixed(0)
     }
 
     // 不考虑等比缩放
@@ -116,7 +116,9 @@ function _saveThumbnailFile(canvas, thumbnail) {
 
       // 保存文件
       stream.on('data', chunk => thumbnailOutput.write(chunk))
-      stream.on('end', () => resolve())
+      stream.on('end', () => thumbnailOutput.end())
+
+      thumbnailOutput.on('finish', () => resolve())
 
     } catch (error) {
       reject(error)
@@ -127,12 +129,21 @@ function _saveThumbnailFile(canvas, thumbnail) {
 export function getResizeImage(fileInfo, options) {
   try {
     const isSizeLock = (options.locked || 'true') === 'true'
-    const isOutImageSize = +options.height > fileInfo.height && +options.width > fileInfo.width
+    let isOutImageSize = false
+
+    // 判断是否只有一个值
+    if(isNaN(+options.height)) {
+      isOutImageSize = +options.width > fileInfo.width
+    } else if(isNaN(+options.width)) {
+      isOutImageSize = +options.height > fileInfo.height
+    } else {
+      isOutImageSize = +options.height > fileInfo.height && +options.width > fileInfo.width
+    }
 
     let suitableThumbnail = null
 
     for(const thumbnail of fileInfo.thumbnails || []) {
-      if(!isSizeLock && thumbnail.width === +options.width || thumbnail.height === +options.height) {
+      if(!isSizeLock && thumbnail.width === +options.width && thumbnail.height === +options.height) {
         suitableThumbnail = thumbnail
 
       } else if(isSizeLock) {
@@ -140,13 +151,9 @@ export function getResizeImage(fileInfo, options) {
         if(isOutImageSize && (thumbnail.width === fileInfo.width || thumbnail.height === fileInfo.height)) {
           suitableThumbnail = thumbnail
         }
-        // 如果截图尺寸在原图尺寸范围内，选择最小的截图
-        if(!isOutImageSize && (thumbnail.width >= +options.width || thumbnail.height >= +options.height)) {
-          if(!suitableThumbnail) {
-            suitableThumbnail = thumbnail
-          } else if(suitableThumbnail.width > thumbnail.width || suitableThumbnail.height > thumbnail.height) {
-            suitableThumbnail = thumbnail
-          }
+        // 如果截图尺寸在原图尺寸范围内，进行切图
+        if(!isOutImageSize && (thumbnail.width === +options.width || thumbnail.height === +options.height)) {
+          suitableThumbnail = thumbnail
         }
       }
     }
