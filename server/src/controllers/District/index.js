@@ -50,7 +50,7 @@ export async function recoverDistrict(query) {
 /**
  * Controller Method: Find a district which is not deleted
  *
- * @param {Object} query
+ * @param query
  * @returns {Object} district
  */
 export async function findDistrict(query) {

@@ -1,14 +1,26 @@
-export default [
-  {
-    name: '测试_北京'
+export default {
+  Beijing: {
+    name: 'Beijing',
+    isTest: true
   },
-  {
-    name: '测试_上海'
+  Shanghai: {
+    name: 'Shanghai',
+    isTest: true
   },
-  {
-    name: '测试_浙江'
+  ZheJiang: {
+    name: 'ZheJiang',
+    isTest: true
   },
-  {
-    name: '测试_安徽'
+  AnHui: {
+    name: 'AnHui',
+    isTest: true
+  },
+  Paris: {
+    name: 'Paris',
+    isTest: true
+  },
+  London: {
+    name: 'London',
+    isTest: true
   }
-]
+}

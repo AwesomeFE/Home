@@ -35,7 +35,7 @@ export async function recoverCountry(query) {
 /**
  * Controller Method: Find a country which is not deleted
  *
- * @param {Object} query
+ * @param query
  * @returns {Object} country
  */
 export async function findCountry(query) {

@@ -79,20 +79,34 @@ export async function findAddress(query) {
  * @returns {Object} city
  */
 export async function findAddressNear(centerAddress, range, query = {}) {
-  query = Object.assign({}, query, {
-    _id: {
-      $ne: centerAddress._id
-    },
-    geoLocation: {
-      $nearSphere: {
-        $geometry: {
-          type: 'Point',
-          coordinates: centerAddress.geoLocation.coordinates
-        },
-        $maxDistance: range
+  if(centerAddress instanceof Array) {
+    query = Object.assign({}, query, {
+      geoLocation: {
+        $nearSphere: {
+          $geometry: {
+            type: 'Point',
+            coordinates: centerAddress
+          },
+          $maxDistance: range
+        }
       }
-    }
-  })
+    })
+  } else {
+    query = Object.assign({}, query, {
+      _id: {
+        $ne: centerAddress._id
+      },
+      geoLocation: {
+        $nearSphere: {
+          $geometry: {
+            type: 'Point',
+            coordinates: centerAddress.geoLocation.coordinates
+          },
+          $maxDistance: range
+        }
+      }
+    })
+  }
 
   return await findAddress(query)
 }

@@ -1,14 +1,22 @@
-export default [
-  {
-    name: '测试_中国',
-    desc: '测试_zh'
+export default {
+  China: {
+    name: 'China',
+    desc: 'zh',
+    isTest: true
   },
-  {
-    name: '测试_法国',
-    desc: '测试_fr'
+  France: {
+    name: 'France',
+    desc: 'fr',
+    isTest: true
   },
-  {
-    name: '测试_英国',
-    desc: '测试_en'
+  Britain: {
+    name: 'Britain',
+    desc: 'en',
+    isTest: true
+  },
+  Japan: {
+    name: 'Japan',
+    desc: 'jp',
+    isTest: true
   }
-]
+}

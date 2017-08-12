@@ -50,7 +50,7 @@ export async function recoverProvince(query) {
 /**
  * Controller Method: Find a province which is not deleted
  *
- * @param {Object} query
+ * @param query
  * @returns {Object} province
  */
 export async function findProvince(query) {

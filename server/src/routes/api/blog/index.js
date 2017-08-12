@@ -10,5 +10,6 @@ router.post('/', upload.array('files', 12), handler.createBlog)
 router.get('/:blogId', handler.getBlogDetail)
 router.put('/:blogId', handler.updateBlog)
 router.delete('/:blogId', handler.deleteBlog)
+router.post('/:blogId/like', handler.likeBlog)
 
 module.exports = router

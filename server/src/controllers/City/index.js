@@ -49,7 +49,7 @@ export async function recoverCity(query) {
 /**
  * Controller Method: Find a city which is not deleted
  *
- * @param {Object} query
+ * @param query
  * @returns {Object} city
  */
 export async function findCity(query) {

@@ -1,113 +1,160 @@
-const {Address} = require('../../../server/src/models')
-const AddressController = require('../../../server/src/controllers/Address')
-const CountryController = require('../../../server/src/controllers/Country')
-const ProvinceController = require('../../../server/src/controllers/Province')
-const CityController = require('../../../server/src/controllers/City')
-const DistrictController = require('../../../server/src/controllers/District')
+import cd from '../../datas/country'
+import pd from '../../datas/province'
+import ccd from '../../datas/cities'
+import dd from '../../datas/district'
+import ad from '../../datas/address'
+import * as AddressController from '../../../server/src/controllers/Address'
+import * as CountryController from '../../../server/src/controllers/Country'
+import * as ProvinceController from '../../../server/src/controllers/Province'
+import * as CityController from '../../../server/src/controllers/City'
+import * as DistrictController from '../../../server/src/controllers/District'
 
 describe('Address Controller 基本api测试', () => {
-  let china
-  let shanghaiP, zhejiangP
-  let shanghaiC, hangzhouC
-  let pudong, xiasha
+  let China = null
+
+  let ShanghaiP = null
+  let ShanghaiC = null
+  let PuDong = null
+
+  let ZheJiang = null
+  let Hangzhou = null
+  let XiaSha = null
 
   before(async () => {
-    await Address.findOneAndRemove({detail: '测试_上海市浦东新区齐河路20弄'})
-    await Address.findOneAndRemove({detail: '测试_上海市浦东新区耀华路19弄'})
-    await Address.findOneAndRemove({detail: '测试_杭州市下沙高教文泽路20弄'})
-    await Address.findOneAndRemove({detail: '测试_杭州市下沙高教文泽路19弄'})
 
-    china = (await CountryController.findCountry({desc: '测试_zh'}))[0]
-    shanghaiP = (await ProvinceController.findProvince({name: '测试_上海'}))[0]
-    zhejiangP = (await ProvinceController.findProvince({name: '测试_浙江'}))[0]
-    shanghaiC = (await CityController.findCity({name: '测试_上海'}))[0]
-    hangzhouC = (await CityController.findCity({name: '测试_杭州'}))[0]
-    pudong = (await DistrictController.findDistrict({name: '测试_浦东'}))[0]
-    xiasha = (await DistrictController.findDistrict({name: '测试_下沙'}))[0]
+    China = (await CountryController.findCountry(cd.China))[0]
+
+    ShanghaiP = (await ProvinceController.findProvince(pd.Shanghai))[0]
+    ShanghaiC = (await CityController.findCity(ccd.Shanghai))[0]
+    PuDong = (await DistrictController.findDistrict(dd.PuDong))[0]
+
+    ZheJiang = (await ProvinceController.findProvince(pd.ZheJiang))[0]
+    Hangzhou = (await CityController.findCity(ccd.Hangzhou))[0]
+    XiaSha = (await DistrictController.findDistrict(dd.XiaSha))[0]
   })
 
-  it('创建一个"测试_上海市浦东新区齐河路20弄"', async () => {
+  it(`创建"${ad.Shanghai_Pudong_1.detail}"`, async () => {
     await AddressController.createAddress({
-      country: china._id,
-      province: shanghaiP._id,
-      city: shanghaiC._id,
-      district: pudong._id,
-      detail: '测试_上海市浦东新区齐河路20弄',
-      geoLocation: {
-        coordinates: [121.511478, 31.18632]
-      }
+      country: China._id,
+      province: ShanghaiP._id,
+      city: ShanghaiC._id,
+      district: PuDong._id,
+      ...ad.Shanghai_Pudong_1
     })
   })
 
-  it('创建一个"测试_上海市浦东新区耀华路19弄"', async () => {
+  it(`创建"${ad.Shanghai_Pudong_2.detail}"`, async () => {
     await AddressController.createAddress({
-      country: china._id,
-      province: shanghaiP._id,
-      city: shanghaiC._id,
-      district: pudong._id,
-      detail: '测试_上海市浦东新区耀华路19弄',
-      geoLocation: {
-        coordinates: [121.488661, 31.173253]
-      }
+      country: China._id,
+      province: ShanghaiP._id,
+      city: ShanghaiC._id,
+      district: PuDong._id,
+      ...ad.Shanghai_Pudong_2
     })
   })
 
-  it('创建一个"测试_杭州市下沙高教文泽路20弄"', async () => {
+  it(`创建"${ad.Shanghai_Pudong_3.detail}"`, async () => {
     await AddressController.createAddress({
-      country: china._id,
-      province: zhejiangP._id,
-      city: hangzhouC._id,
-      district: xiasha._id,
-      detail: '测试_杭州市下沙高教文泽路20弄',
-      geoLocation: {
-        coordinates: [120.357546, 30.319716]
-      }
+      country: China._id,
+      province: ShanghaiP._id,
+      city: ShanghaiC._id,
+      district: PuDong._id,
+      ...ad.Shanghai_Pudong_3
     })
   })
 
-  it('创建一个"测试_杭州市下沙高教文泽路19弄"', async () => {
+  it(`创建"${ad.Hangzhou_Xiasha_1.detail}"`, async () => {
     await AddressController.createAddress({
-      country: china._id,
-      province: zhejiangP._id,
-      city: hangzhouC._id,
-      district: xiasha._id,
-      detail: '测试_杭州市下沙高教文泽路19弄',
-      geoLocation: {
-        coordinates: [120.357546, 30.319716]
-      }
+      country: China._id,
+      province: ZheJiang._id,
+      city: Hangzhou._id,
+      district: XiaSha._id,
+      ...ad.Hangzhou_Xiasha_1
     })
   })
 
-  it('删除"测试_杭州市下沙高教文泽路19弄"', async () => {
-    const deleteAddress = await AddressController.deleteAddress({
-      detail: '测试_杭州市下沙高教文泽路19弄'
+  it(`创建"${ad.Hangzhou_Xiasha_2.detail}"`, async () => {
+    await AddressController.createAddress({
+      country: China._id,
+      province: ZheJiang._id,
+      city: Hangzhou._id,
+      district: XiaSha._id,
+      ...ad.Hangzhou_Xiasha_2
     })
+  })
+
+  it(`删除"${ad.Hangzhou_Xiasha_1.detail}"`, async () => {
+
+    delete ad.Hangzhou_Xiasha_1.geoLocation
+    const deleteAddress = await AddressController.deleteAddress(ad.Hangzhou_Xiasha_1)
 
     if (deleteAddress.status !== 'isDeleted') {
       throw '失败!'
     }
   })
 
-  it('查找距离"测试_上海市浦东新区齐河路20弄"5000米以内的地址', async () => {
-    const address20 = (await AddressController.findAddress({
-      detail: '测试_上海市浦东新区齐河路20弄'
-    }))[0]
+  it(`查找距离"${ad.Shanghai_Pudong_2.detail}"250米以内的地址为2个`, async () => {
 
-    const nearAddresses = await AddressController.findAddressNear(address20, 5000)
+    delete ad.Shanghai_Pudong_2.geoLocation
+    const sourceAddress = (await AddressController.findAddress(ad.Shanghai_Pudong_2))[0]
+
+    const nearAddresses = await AddressController.findAddressNear(sourceAddress, 250)
+
+    if (nearAddresses.length !== 2) {
+      throw '失败!'
+    }
+  })
+
+  it(`查找距离"${ad.Shanghai_Pudong_1.detail}"250米以内的地址为1个`, async () => {
+
+    delete ad.Shanghai_Pudong_1.geoLocation
+    const sourceAddress = (await AddressController.findAddress(ad.Shanghai_Pudong_1))[0]
+
+    const nearAddresses = await AddressController.findAddressNear(sourceAddress, 250)
 
     if (nearAddresses.length !== 1) {
       throw '失败!'
     }
   })
 
-  it('查找距离"测试_上海市浦东新区齐河路20弄"1000000米以内的地址', async () => {
-    const address20 = (await AddressController.findAddress({
-      detail: '测试_上海市浦东新区齐河路20弄'
-    }))[0]
+  it(`查找距离"[121.508379, 31.185377]"250米以内的地址为3个`, async () => {
+    const nearAddresses = await AddressController.findAddressNear([121.508379, 31.185377], 250)
 
-    const nearAddresses = await AddressController.findAddressNear(address20, 1000000)
+    if (nearAddresses.length !== 3) {
+      throw '失败!'
+    }
+  })
 
-    if (nearAddresses.length !== 2) {
+  it(`查找距离"${ad.Shanghai_Pudong_1.detail}"1000000米以内的地址为3个`, async () => {
+
+    delete ad.Shanghai_Pudong_1.geoLocation
+    const sourceAddress = (await AddressController.findAddress(ad.Shanghai_Pudong_1))[0]
+
+    const nearAddresses = await AddressController.findAddressNear(sourceAddress, 1000000)
+
+    if (nearAddresses.length !== 3) {
+      throw '失败!'
+    }
+  })
+
+  it(`恢复删除的"${ad.Hangzhou_Xiasha_1.detail}"`, async () => {
+
+    delete ad.Hangzhou_Xiasha_1.geoLocation
+    const deleteAddress = await AddressController.recoverAddress(ad.Hangzhou_Xiasha_1)
+
+    if (deleteAddress.status === 'isDeleted') {
+      throw '失败!'
+    }
+  })
+
+  it(`查找距离"${ad.Shanghai_Pudong_1.detail}"1000000米以内的地址为4个`, async () => {
+
+    delete ad.Shanghai_Pudong_1.geoLocation
+    const sourceAddress = (await AddressController.findAddress(ad.Shanghai_Pudong_1))[0]
+
+    const nearAddresses = await AddressController.findAddressNear(sourceAddress, 1000000)
+
+    if (nearAddresses.length !== 4) {
       throw '失败!'
     }
   })

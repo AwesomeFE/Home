@@ -11,6 +11,10 @@ export async function createBlog(user = {}, blogData = {}, files = []) {
   blog.user = user
   blog.attachments = attachments
 
+  if(blogData.linkedBlog) {
+    blog.linkedBlog = await Blog.findById(linkedBlog)
+  }
+
   return await blog.save()
 }
 

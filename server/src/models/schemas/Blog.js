@@ -19,13 +19,22 @@ const BlogSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Files'
   }],
+  like: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Users'
+  }],
+  tags: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Tags'
+  }],
+  linkedBlog: {
+    type: Schema.Types.ObjectId,
+    ref: 'Blogs'
+  },
   visible: {
     type: String,
     default: 'all',
     enum: ['all', 'friend', 'none']
-  },
-  isShortBlog: {
-    type: Boolean
   },
   createBy: {
     type: String
