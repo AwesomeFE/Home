@@ -11,7 +11,7 @@ export async function saveFile(fileInfo) {
   let filesDoc = await File.create(fileInfo)
   let result = []
 
-  for(const fileDoc of filesDoc) {
+  for(const fileDoc of filesDoc || []) {
     if(isImageFile(fileDoc)) {
       const filePath = getFilePath(fileDoc)
       const image = new Image

@@ -5,10 +5,10 @@ import {
 import * as UserController from '../User'
 import * as FileController from '../File'
 
-export async function createBlog(user = {}, blogData = {}, files = []) {
+export async function createBlog(userId, blogData = {}, files = []) {
   const blog = await Blog.create(blogData)
   const attachments = await FileController.saveFile(files)
-  blog.user = user
+  blog.user = userId
   blog.attachments = attachments
 
   if(blogData.linkedBlog) {
@@ -51,4 +51,15 @@ export async function searchBlog(userId, query = {}, sessionUserId, pagination) 
 
   return await Blog.find(query, null, {skip, limit})
     .populate('user', '_id nickname avatar')
+}
+
+export async function toggleLike(userId, blogId) {
+  const blogDoc = await Blog.findById(blogId).populate('user', '_id nickname avatar')
+  const likeDoc = blogDoc.like.find(like => like.user.toString() === userId.toString())
+
+  likeDoc
+    ? likeDoc.remove()
+    : blogDoc.like.push({user: userId})
+
+  return await blogDoc.save()
 }

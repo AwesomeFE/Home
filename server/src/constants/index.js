@@ -16,11 +16,11 @@ export const DEFAULT_SESSION = {
   isCaptchaVerifyPass: false,
   loginFailedTimes: 0,
   loginFailedAt: 0,
-  user: null
+  sessionUserId: null
 }
 
 export const DATABASE_ERROR = {
   DUPLICATE_DATA: 11000
 }
 
-export const WEB_VERSION = '0.0.1'
+export const WEB_VERSION = '0.0.2'

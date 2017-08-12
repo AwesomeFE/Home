@@ -1,4 +1,5 @@
 import {Schema} from 'mongoose'
+import LikeSchema from './Like'
 
 const BlogSchema = new Schema({
   user: {
@@ -19,10 +20,7 @@ const BlogSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Files'
   }],
-  like: [{
-    type: Schema.Types.ObjectId,
-    ref: 'Users'
-  }],
+  like: [LikeSchema],
   tags: [{
     type: Schema.Types.ObjectId,
     ref: 'Tags'

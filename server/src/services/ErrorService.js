@@ -62,6 +62,7 @@ ErrorService.CAPTCHA_VERIFY_FAILED      = {status: 400, message: 'Captcha verify
 // 微博报错
 ErrorService.BLOG_NO_CONTENT            = {status: 400, message: 'Blog content can not be empty.', type: 'BLOG_NO_CONTENT'}
 ErrorService.FILE_NOT_FIND              = {status: 404, message: 'Cannot find the file.', type: 'CANNOT_FIND_FILE'}
+ErrorService.NO_BLOG_ID                 = {status: 404, message: 'Don\'t have blog id.', type: 'NO_BLOG_ID'}
 
 // ErrorService.STAFF_UNKNOW_SOURCE         = {status: 404, message: 'Unknow staff source. It isn\'t from wechat or desktop.', type: 'STAFF_UNKNOW_SOURCE'}
 // ErrorService.STAFF_NO_PASSWORD           = {status: 404, message: 'Staff don\'t have password.', type: 'STAFF_NO_PASSWORD'}

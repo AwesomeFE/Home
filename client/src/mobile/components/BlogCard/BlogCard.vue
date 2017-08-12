@@ -23,7 +23,12 @@
     <footer class="BlogCard__footer">
       <div class="BlogCard__action">转发</div>
       <div class="BlogCard__action">评论</div>
-      <div class="BlogCard__action">赞</div>
+      <div class="BlogCard__action"
+           v-if="!isLike"
+           @click="toggleLike">赞</div>
+      <div class="BlogCard__action"
+           v-if="isLike"
+           @click="toggleLike">不赞</div>
     </footer>
   </div>
 </template>
@@ -35,7 +40,7 @@
     data() {
       return {}
     },
-    props: ['blog'],
+    props: ['me', 'blog'],
     computed: {
       user() {
         return this.blog.user || {}
@@ -54,11 +59,19 @@
           updatedAt: this.blog.updatedAt,
           attachments
         }
+      },
+      isLike() {
+        return this.blog.like.some(like => like.user === this.me._id)
       }
     },
     mounted() {
     },
-    methods: {}
+    methods: {
+      async toggleLike() {
+        const {blog} = await this.$store.dispatch('blog/toggleLike', this.blog._id)
+        this.$emit('toggleLike', blog)
+      }
+    }
   }
 </script>
 

@@ -33,7 +33,7 @@ export function cleanLoginSession(req) {
 }
 
 export function setUserSession(req, user) {
-  req.session.user = user
+  req.session.sessionUserId = user._id
 }
 
 export function setLoginFailedSession(req) {

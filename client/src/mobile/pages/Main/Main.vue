@@ -3,7 +3,7 @@
     <div class="Main__header">
       <div class="Main__viewSelector">
         <div class="Main__viewMode--text">
-          {{user.nickname}}
+          {{me.nickname}}
           <span class="fa fa-angle-down"></span>
         </div>
         <ul class="Main__viewList" style="display: none">
@@ -29,7 +29,9 @@
     <div class="Main__body">
       <blog-card v-for="blog in blogs"
                  :blog="blog"
-                 :key="blog._id">
+                 :key="blog._id"
+                 :me="me"
+                 @toggleLike="toggleLike">
       </blog-card>
     </div>
   </div>
@@ -47,7 +49,7 @@
       }
     },
     computed: {
-      user() {
+      me() {
         return this.$store.state.user
       }
     },
@@ -58,21 +60,26 @@
       goToNewBlog() {
         this.$router.push({name: 'NewBlog'})
       },
+      toggleLike(updatedBlog) {
+        const blogIdx = this.blogs.findIndex(blog => blog._id === updatedBlog._id)
+
+        this.blogs.splice(blogIdx, 1, updatedBlog)
+      },
       async freshBlog() {
-        const {blogs} = await BlogService.searchBlog({
+        const pagination = {
           page: this.page,
           length: this.length
-        })
+        }
 
-        for(const newBlog of blogs) {
-          if(!this.blogs.some(blog => blog._id === newBlog._id)) {
-            this.blogs.push(newBlog)
+        const {blogs: nextBlogs} = await this.$store.dispatch('blog/getMore', pagination)
+
+        for(const nextBlog of nextBlogs) {
+          if(!this.blogs.some(blog => blog._id === nextBlog._id)) {
+            this.blogs.push(nextBlog)
           }
         }
 
-        if(blogs.length < this.length) {
-
-        } else {
+        if(nextBlogs.length >= this.length) {
           this.page++
         }
       }

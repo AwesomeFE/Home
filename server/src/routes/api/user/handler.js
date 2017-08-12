@@ -88,14 +88,12 @@ export function logout(req, res) {
 }
 
 export async function getSessionUser(req, res, next) {
-  const sessionUser = req.session.user || {}
+  const { sessionUserId } = req.session
 
   try {
-    const user = await UserController.getUserDetailById(sessionUser._id, sessionUser._id)
-
     res.json({
       ...ResponseService.SESSION_USER_SUCCESS,
-      user
+      user: await UserController.getUserDetailById(sessionUserId, sessionUserId)
     })
   } catch(error) {
     next(error)
@@ -104,17 +102,18 @@ export async function getSessionUser(req, res, next) {
 
 export async function makeFriend(req, res, next) {
   const userId = req.params['userId']
-  const sessionUser = req.session.user || {}
+  const { sessionUserId } = req.session
 
   try {
-    if(!sessionUser._id) {
+    if(!sessionUserId) {
       throw ErrorService.NO_SESSION_USER
     }
-    if(sessionUser._id === userId) {
+    if(sessionUserId === userId) {
       throw ErrorService.DONT_MAKE_SELF_FRIEND
     }
 
-    await UserController.makeRelation(sessionUser._id, userId, 'friend')
+    await UserController.makeRelation(sessionUserId, userId, 'friend')
+
     res.json(ResponseService.RELATIONSHIP_SUCCESS)
   } catch (error) {
     next(error)
@@ -123,18 +122,16 @@ export async function makeFriend(req, res, next) {
 
 export async function checkFriendStatus(req, res, next) {
   const userId = req.params['userId']
-  const sessionUser = req.session.user || {}
+  const { sessionUserId } = req.session
 
   try {
-    if(!sessionUser._id) {
+    if(!sessionUserId) {
       throw ErrorService.NO_SESSION_USER
     }
 
-    const relationship = await UserController.getRelationshipStatusBetween(sessionUser._id, userId, 'friend')
-
     res.json({
       ...ResponseService.RELATIONSHIP_SUCCESS,
-      relationship
+      relationship: await UserController.getRelationshipStatusBetween(sessionUserId, userId, 'friend')
     })
   } catch (error) {
     next(error)
@@ -143,14 +140,12 @@ export async function checkFriendStatus(req, res, next) {
 
 export async function getUserDetailById(req, res, next) {
   const userId = req.params['userId']
-  const sessionUser = req.session.user || {}
+  const { sessionUserId } = req.session
 
   try {
-    const user = await UserController.getUserDetailById(userId, sessionUser._id)
-
     res.json({
       ...ResponseService.SEARCH_SUCCESS,
-      user
+      user: await UserController.getUserDetailById(userId, sessionUserId)
     })
   } catch(error) {
     next(error)
@@ -162,16 +157,14 @@ export async function deleteFriend(req, res, next) {
 }
 
 export async function updateUser(req, res, next) {
-  const sessionUser = req.session.user || {}
   const avatar = req.file
   const userData = req.body
+  const { sessionUserId } = req.session
 
   try {
-    const userDoc = await UserController.updateUser(sessionUser._id, userData, avatar)
-
     res.json({
       ...ResponseService.UPDATE_SUCCESS,
-      user: userDoc
+      user: await UserController.updateUser(sessionUserId, userData, avatar)
     })
   } catch (error) {
     next(error)
@@ -180,14 +173,12 @@ export async function updateUser(req, res, next) {
 
 export async function searchUser(req, res, next) {
   const query = req.body
-  const sessionUser = req.session.user || {}
+  const { sessionUserId } = req.session
 
   try {
-    const users = await UserController.searchUser(query, sessionUser._id)
-
     res.json({
       ...ResponseService.SEARCH_SUCCESS,
-      users
+      users: await UserController.searchUser(query, sessionUserId)
     })
   } catch(error) {
     next(error)
