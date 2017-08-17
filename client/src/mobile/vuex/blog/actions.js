@@ -8,5 +8,9 @@ export default {
 
   async getMore({ commit, state }, pagination) {
     return await BlogService.searchBlog(pagination)
+  },
+
+  async getDetail({ commit, state }, blogId) {
+    return await BlogService.toggleLike(blogId)
   }
 }

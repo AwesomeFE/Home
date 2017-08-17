@@ -1,9 +1,7 @@
-import {
-  Blog,
-  Comment
-} from '../../models'
+import { Blog } from '../../models'
 import * as UserController from '../User'
 import * as FileController from '../File'
+import * as CommentController from '../Comment'
 
 export async function createBlog(userId, blogData = {}, files = []) {
   const blog = await Blog.create(blogData)
@@ -53,6 +51,10 @@ export async function searchBlog(userId, query = {}, sessionUserId, pagination) 
     .populate('user', '_id nickname avatar')
 }
 
+export async function searchBlogById(blogId) {
+  return await Blog.findById(blogId).populate('user', '_id nickname avatar')
+}
+
 export async function toggleLike(userId, blogId) {
   const blogDoc = await Blog.findById(blogId).populate('user', '_id nickname avatar')
   const likeDoc = blogDoc.like.find(like => like.user.toString() === userId.toString())
@@ -62,4 +64,9 @@ export async function toggleLike(userId, blogId) {
     : blogDoc.like.push({user: userId})
 
   return await blogDoc.save()
+}
+
+export async function createComment(blogId, comment, file) {
+  const blogDoc = await Blog.findById(blogId)
+  return await CommentController.createComment(blogDoc, comment, file)
 }

@@ -5,8 +5,12 @@ const CommentSchema = new Schema({
     type: Schema.Types.ObjectId,
     refs: 'Users'
   },
-  commentType: {
+  targetType: {
     type: String
+  },
+  target: {
+    type: Schema.Types.ObjectId,
+    refPath: 'targetType'
   },
   commentId: {
     type: Schema.Types.ObjectId

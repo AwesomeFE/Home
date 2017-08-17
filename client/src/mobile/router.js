@@ -28,9 +28,14 @@ export default () => new VueRouter({
           component: () => import('./pages/Main/Main.vue')
         },
         {
-          name: 'NewBlog',
-          path: 'newBlog',
-          component: () => import('./pages/NewBlog/NewBlog.vue')
+          name: 'BlogNew',
+          path: 'blogNew',
+          component: () => import('./pages/BlogNew/BlogNew.vue')
+        },
+        {
+          name: 'BlogDetail',
+          path: 'blog/:blogId',
+          component: () => import('./pages/BlogDetail/BlogDetail.vue')
         },
         {
           name: 'User',

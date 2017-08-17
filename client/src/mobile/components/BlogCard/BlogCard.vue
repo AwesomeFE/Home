@@ -1,18 +1,21 @@
 <template>
-  <div class="BlogCard">
+  <div class="BlogCard" @click="viewDetail">
     <header class="BlogCard__header">
       <img class="BlogCard__user--avatar"
            v-if="userAvatar"
-           :src="userAvatar">
+           :src="userAvatar"
+           @click="viewUser">
       <img class="BlogCard__user--avatar"
            src="./assets/default-avatar.png"
            v-else>
       <div class="BlogCard__user--info">
-        <div class="BlogCard__user--nickname">{{user.nickname}}</div>
+        <div class="BlogCard__user--nickname">
+          <span @click="viewUser">{{user.nickname}}</span>
+        </div>
         <div class="BlogCard__user--publishTime">{{blogData.createdAt}}</div>
       </div>
     </header>
-    <section class="BlogCard__body">
+    <section class="BlogCard__body" @click="viewDetail">
       <p class="BlogCard__content">{{blogData.content}}</p>
       <div class="BlogCard__attachment"
            v-for="attachment in blogData.attachments">
@@ -67,9 +70,18 @@
     mounted() {
     },
     methods: {
-      async toggleLike() {
+      viewUser(event) {
+        event.stopPropagation();
+      },
+      async toggleLike(event) {
+        event.stopPropagation();
+
         const {blog} = await this.$store.dispatch('blog/toggleLike', this.blog._id)
-        this.$emit('toggleLike', blog)
+        this.$emit('onToggleLike', blog)
+      },
+
+      async viewDetail() {
+        this.$emit('onViewDetail', this.blog._id)
       }
     }
   }

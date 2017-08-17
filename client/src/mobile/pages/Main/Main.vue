@@ -31,7 +31,8 @@
                  :blog="blog"
                  :key="blog._id"
                  :me="me"
-                 @toggleLike="toggleLike">
+                 @onToggleLike="toggleLike"
+                 @onViewDetail="viewBlog">
       </blog-card>
     </div>
   </div>
@@ -58,12 +59,15 @@
     },
     methods: {
       goToNewBlog() {
-        this.$router.push({name: 'NewBlog'})
+        this.$router.push({name: 'BlogNew'})
       },
       toggleLike(updatedBlog) {
         const blogIdx = this.blogs.findIndex(blog => blog._id === updatedBlog._id)
 
         this.blogs.splice(blogIdx, 1, updatedBlog)
+      },
+      viewBlog(blogId) {
+        this.$router.push({name: 'BlogDetail', params: { blogId }})
       },
       async freshBlog() {
         const pagination = {

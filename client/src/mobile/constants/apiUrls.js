@@ -46,6 +46,9 @@ export const CREATE_BLOG = () => `/api/blog`
 // 搜索博客
 export const SEARCH_BLOG = () => `/api/blog`
 
+// 获取详细博客
+export const GET_BLOG_DETAIL = blogId => `/api/blog/${blogId}`
+
 // 点赞博客
 export const TOGGLE_LIKE_BLOG = blogId => `/api/blog/${blogId}/like`
 

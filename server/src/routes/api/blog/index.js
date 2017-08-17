@@ -11,7 +11,7 @@ router.get('/:blogId', handler.getBlogDetail)
 router.put('/:blogId', handler.updateBlog)
 router.delete('/:blogId', handler.deleteBlog)
 router.post('/:blogId/like', handler.toggleLikeBlog)
-router.post('/:blogId/comment', handler.createBlogComment)
+router.post('/:blogId/comment', upload.array('files', 9), handler.createBlogComment)
 router.delete('/:blogId/comment', handler.deleteBlogComment)
 
 module.exports = router

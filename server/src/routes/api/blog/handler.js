@@ -57,7 +57,7 @@ export async function createBlog(req, res, next) {
 
 export async function toggleLikeBlog(req, res, next) {
   try {
-    const blogId = req.params['blogId']
+    const { blogId } = req.params
     const { sessionUserId } = req.session
 
     if(!blogId || blogId === 'undefined') {
@@ -78,7 +78,20 @@ export async function toggleLikeBlog(req, res, next) {
 }
 
 export async function createBlogComment(req, res, next) {
+  try {
+    const { blogId } = req.params
+    const { sessionUserId } = req.session
+    const comment = req.body
+    const attachment = req.files
+    comment.userId = sessionUserId
 
+    res.json({
+      ...ResponseService.CREATE_SUCCESS,
+      comment: await BlogController.createComment(blogId, comment, attachment)
+    })
+  } catch (error) {
+    next(error)
+  }
 }
 
 export async function deleteBlogComment(req, res, next) {
@@ -86,7 +99,16 @@ export async function deleteBlogComment(req, res, next) {
 }
 
 export async function getBlogDetail(req, res, next) {
+  try {
+    const { blogId } = req.params
 
+    res.json({
+      ...ResponseService.SEARCH_SUCCESS,
+      comment: await BlogController.searchBlogById(blogId)
+    })
+  } catch (error) {
+    next(error)
+  }
 }
 
 export async function updateBlog(req, res, next) {
