@@ -118,17 +118,17 @@
     methods: {
       async login() {
         try {
-          await this.$validator.validateAll()
+          const isFormValid = await this.$validator.validateAll()
 
-          if (this.errors.errors.length !== 0) return
+          if (isFormValid) {
+            if (this.captchaImage) {
+              await CaptchaService.verifyCaptcha(this.formValue.captcha)
+            }
 
-          if (this.captchaImage) {
-            await CaptchaService.verifyCaptcha(this.formValue.captcha)
+            await this.$store.dispatch('login', this.passport)
+
+            this.$router.push({name: 'Home'})
           }
-
-          await this.$store.dispatch('login', this.passport)
-
-          this.$router.push({name: 'Home'})
         } catch (error) {
           this.freshCaptchaImage()
           console.log(error)

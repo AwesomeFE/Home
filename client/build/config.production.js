@@ -1,6 +1,6 @@
 import webpackTask from './config.base'
 
-module.exports = [
+export default [
   webpackTask({
     appName: 'client',
     chunkHash: '.[chunkhash]',

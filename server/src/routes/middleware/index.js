@@ -1,6 +1,7 @@
 import {
   DEFAULT_SESSION,
 } from '../../constants'
+import { User } from '../../models/'
 
 /**
  * 检查session是否需要重置
@@ -8,7 +9,7 @@ import {
  * @param res
  * @param next
  */
-export const setDefaultSession = (req, res, next) => {
+export function setDefaultSession (req, res, next) {
   // 如果新来的request没有session version不正确
   if(req.session.version !== DEFAULT_SESSION.version) {
     const defaultSession = Object.entries(DEFAULT_SESSION)
@@ -24,5 +25,13 @@ export const setDefaultSession = (req, res, next) => {
     }
   }
   // 继续路由
+  next()
+}
+
+export async function setLoginUser (req, res, next) {
+  if(req.session.sessionUserId) {
+    req.user = await User.findById(req.session.sessionUserId)
+  }
+
   next()
 }

@@ -1,6 +1,7 @@
 import multer from 'multer'
 import express from 'express'
 import * as handler from './handler'
+// import * as validator from './validator'
 
 const router = express.Router()
 const upload = multer({dest: 'uploads/users/'})

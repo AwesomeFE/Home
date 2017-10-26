@@ -1,10 +1,8 @@
 import '../config'
 import App from './src/app'
-import {seed} from '../test/seed'
+// import {seed} from '../test/seed'
 
-const app = new App()
-
-app.connectDatabase()
+App.connectDatabase()
   .then(() => {
     return app.run()
   })

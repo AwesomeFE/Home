@@ -51,18 +51,20 @@
     .BlogDetail__header--button {
       float: left;
       height: 100%;
-      width: (1 / 3) * 100%;
       line-height: 45px;
       padding: 0 10px;
       box-sizing: border-box;
       &.back {
         text-align: left;
+        width: 15%;
       }
       &.title {
         text-align: center;
+        width: 70%;
       }
       &.more {
         text-align: right;
+        width: 15%;
       }
     }
     .BlogDetail__content {
