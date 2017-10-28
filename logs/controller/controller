@@ -1,0 +1,11 @@
+[2017-10-28 06:15:07.007] [INFO] http - 127.0.0.1 GET / 304 0.595 ms
+[2017-10-28 11:05:27.684] [INFO] http - 127.0.0.1 GET /robots.txt 404 0.936 ms
+[2017-10-28 11:05:27.686] [INFO] console - 127.0.0.1 GET /robots.txt 404 0.936 ms
+[2017-10-28 11:05:27.688] [INFO] http - 127.0.0.1 GET / 404 7.487 ms
+[2017-10-28 11:05:27.688] [INFO] console - 127.0.0.1 GET / 404 7.487 ms
+[2017-10-28 11:14:52.350] [INFO] system - Connect database mongodb://127.0.0.1:27017/WeddingMoment successfully!
+[2017-10-28 11:14:52.359] [INFO] system - Chatting server is up and running.
+[2017-10-28 11:14:52.363] [INFO] system - Published dummy
+[2017-10-28 11:15:57.933] [INFO] system - Connect database mongodb://127.0.0.1:27017/WeddingMoment successfully!
+[2017-10-28 11:15:57.944] [INFO] system - Chatting server is up and running.
+[2017-10-28 11:15:57.949] [INFO] system - Published dummy

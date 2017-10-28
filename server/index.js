@@ -1,19 +1,25 @@
-import '../config'
-import App from './src/app'
-// import {seed} from '../test/seed'
+import '../config';
+import Application from './src/App';
 
-App.connectDatabase()
-  .then(() => {
-    return app.run()
-  })
-  .then(() => {
-    console.log(`The server is start at http://${app.SERVER_HOST}:${app.SERVER_PORT}!`)
-  })
-  .then(async () => {
-    if(process.env.NODE_ENV === 'development') {
-      await seed()
-    }
-  })
-  .catch((error) => {
-    console.error(error)
-  })
+class Server extends Application {
+  constructor() {
+    super();
+
+    this.createServer();
+    this.useHttpLogger();
+    this.useBodyParser();
+    this.useSession();
+    this.useStaticResource();
+    this.useViewEngine();
+    // this.initRouter();
+    this.useWebSocketServer();
+    this.useErrorHandler();
+    this.run();
+    this.connect()
+      .catch((e) => {
+        console.log(e)
+      });
+  }
+}
+
+export default new Server();

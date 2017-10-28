@@ -1,0 +1,3 @@
+[2017-10-28 11:39:40.600] [INFO] system - Connect database mongodb://127.0.0.1:27017/WeddingMoment successfully!
+[2017-10-28 11:39:40.611] [INFO] system - Chatting server is up and running.
+[2017-10-28 11:39:40.616] [INFO] system - Published dummy
