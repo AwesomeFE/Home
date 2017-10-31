@@ -21,7 +21,7 @@ class Database {
     return new MongoStore({mongooseConnection: mongoose.connection});
   }
 
-  connect() {
+  connectDB() {
     const { host, port, name, username, password } = this.dbConfig;
     const options = {
       user: username,

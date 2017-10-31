@@ -3,17 +3,15 @@ import http from 'http';
 import express from 'express';
 import bodyParser from 'body-parser';
 import session from 'express-session';
-import Database from './Database';
 
-// import WebRoutes from '../routes/web';
-// import ApiRoutes from '../routes/api';
-import * as middleware from '../routes/middleware';
+import Database from './Database';
+import routers from '../routers';
 
 import MqttService from '../services/Mqtt';
 import ErrorService from '../services/Error';
 import LoggerService from '../services/Logger';
 
-class App extends Database {
+class Application extends Database {
 
   host = process.env.SERVER_HOST;
   port = process.env.SERVER_PORT;
@@ -52,20 +50,18 @@ class App extends Database {
   }
 
   useStaticResource() {
-    this.app.use('/public', express.static(path.join(__dirname, '../../client/dist')))
-    this.app.use('/public', express.static(path.join(__dirname, '../../uploads')))
+    this.app.use('/public', express.static(path.join(__dirname, '../../client/dist')));
+    this.app.use('/public', express.static(path.join(__dirname, '../../uploads')));
   }
 
   useViewEngine() {
-    this.app.set('views', path.join(__dirname, '../../client/views'))
-    this.app.set('view engine', 'ejs')
+    this.app.set('views', path.join(__dirname, '../../client/views'));
+    this.app.set('view engine', 'ejs');
   }
 
-  // initRouter() {
-  //   this.app.use(middleware.setDefaultSession)
-  //   this.app.use('/api', ApiRoutes)
-  //   this.app.use('/', WebRoutes)
-  // }
+  initRouter() {
+    this.app.use(routers);
+  }
 
   useWebSocketServer() {
     this.mqttService = new MqttService(this.httpServer);
@@ -85,4 +81,4 @@ class App extends Database {
   }
 }
 
-export default App;
+export default Application;

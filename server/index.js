@@ -11,14 +11,13 @@ class Server extends Application {
     this.useSession();
     this.useStaticResource();
     this.useViewEngine();
-    // this.initRouter();
+    this.initRouter();
     this.useWebSocketServer();
     this.useErrorHandler();
     this.run();
-    this.connect()
-      .catch((e) => {
-        console.log(e)
-      });
+    this.connectDB().catch((e) => {
+      console.log(e)
+    });
   }
 }
 
