@@ -1,12 +1,11 @@
 import multer from 'multer';
 import { Router } from 'express';
 import login from './login';
-import * as validator from './validator';
 
 const router = Router();
 const upload = multer({dest: 'uploads/users/'});
 
-router.post('/user/login', login);
+router.post('/login', login);
 // router.get('/user/logout', validator.logout, handler.logout);
 // router.post('/user/register', validator.register, handler.register);
 // router.get('/user/session', validator.getSessionUser, handler.getSessionUser);

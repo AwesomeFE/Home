@@ -3,18 +3,18 @@ import validate from './validate';
 import UserController from '../../../../controllers/User';
 import EntryLogController from '../../../../controllers/EntryLog';
 
-async function login(req, res, next) {
+async function register(req, res, next) {
   try {
     validate(req);
 
     const ip = req.ip;
     const formData = req.body;
 
-    const user = await UserController.login(formData);
+    const user = await UserController.register(formData);
     const entryLog = await EntryLogController.create({
       ip,
       userId: user._id,
-      loginBy: utils.getLoginType(formData)
+      loginBy: utils.getRegisterType(formData)
     });
 
     utils.cleanSession(req);
@@ -24,11 +24,9 @@ async function login(req, res, next) {
       ...ResponseService.ACCOUNT_LOGIN_SUCCESS,
       data: user
     });
-
   } catch(message) {
-    utils.setFailedSession(req);
     next(message);
   }
 }
 
-export default login;
+export default register;

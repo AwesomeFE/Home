@@ -1,6 +1,11 @@
-
 export const PASSWORD_EMPTY         = {status: 400, message: 'Password is empty.', type: 'PASSWORD_EMPTY'};
 export const IS_ALREADY_LOGIN       = {status: 200, message: 'User is already login.', type: 'IS_ALREADY_LOGIN'};
+
+// Captcha Services Response
+export const NO_NEED_CAPTCHA_VERIFY = {status: 200, message: 'No need to verify captcha.', type: 'NO_NEED_CAPTCHA_VERIFY'};
+export const SHOULD_CAPTCHA_VERIFY  = {status: 200, message: 'Should verify captcha.', type: 'SHOULD_CAPTCHA_VERIFY'};
+export const CAPTCHA_IS_EMPTY       = {status: 400, message: 'Captcha cannot be empty.', type: 'CAPTCHA_IS_EMPTY'};
+export const CAPTCHA_VERIFY_SUCCESS = {status: 200, message: 'Captcha verify successfully.', type: 'CAPTCHA_VERIFY_SUCCESS'};
 
 export const USER_IS_EXISTED        = {status: 400, message: 'User is existed.', type: 'USER_IS_EXISTED'};
 export const PASSWORD_ERROR         = {status: 401, message: 'Password is wrong.', type: 'PASSWORD_ERROR'};

@@ -17,12 +17,6 @@ const EntryLogSchema = new Schema({
     type: String,
     enum: ['username', 'mobile', 'email', 'wechat']
   },
-  onlineAt: {
-    type: Date
-  },
-  offlineAt: {
-    type: Date
-  },
   status: {
     type: String,
     default: 'isActive',

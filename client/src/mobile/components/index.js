@@ -6,9 +6,7 @@ import vImage from './vImage/vImage.vue'
 import BlogCard from './BlogCard/BlogCard.vue'
 
 const components = {
-  PageNav,
   TopHeader,
-  chatting,
   vImage,
   BlogCard
 }

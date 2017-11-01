@@ -68,7 +68,10 @@
 - 由于项目使用ccap做图形验证码生成，所以在windows环境下请安装C++编译环境
 - 加入了后台切图功能，需要预安装以下软件：
   - mac OSX 用户运行 `brew install pkg-config cairo libpng jpeg giflib`
-  - Windows 用户先安装[Chocolatey](https://chocolatey.org/)，然后再运行 `choco install -y python2 gtk-runtime microsoft-build-tools libjpeg-turbo`
+  - Windows 用户：
+    - 先安装[Chocolatey](https://chocolatey.org/)
+    - 再安装cairo[32位](http://ftp.gnome.org/pub/GNOME/binaries/win32/gtk+/2.24/gtk+-bundle_2.24.10-20120208_win32.zip)/[64位](http://ftp.gnome.org/pub/GNOME/binaries/win64/gtk+/2.22/gtk+-bundle_2.22.1-20101229_win64.zip)并且解压到C:\GTK目录下.
+    - 然后再运行 `choco install -y python2 gtk-runtime microsoft-build-tools libjpeg-turbo`
 - 安装项目依赖包`npm install`
 
 ## 启动项目

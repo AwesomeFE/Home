@@ -14,3 +14,5 @@ export const DATABASE_ERROR = {
 }
 
 export const WEB_VERSION = '0.0.2';
+
+export * from './projectionTypes';

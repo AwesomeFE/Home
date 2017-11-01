@@ -10,14 +10,9 @@
       }
     },
     async mounted() {
-      await this.$store.dispatch('getSessionUser')
+      // await this.$store.dispatch('getSessionUser')
 
       this.isPageInitialized = true
-    },
-    methods: {
-      async getSessionUser() {
-        await this.$store.dispatch('getSessionUser')
-      }
     }
   }
 </script>

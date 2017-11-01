@@ -1,27 +1,23 @@
-import path from 'path'
-import express from 'express'
-import UA from 'ua-parser-js'
-import * as strings from '../../constants'
+import path from 'path';
+import express from 'express';
+import UA from 'ua-parser-js';
+import * as strings from '../../constants';
 
-const router = express.Router()
+const router = express.Router();
 
-router.get('/admin/*', adminHandler)
-router.get('/*', userHandler)
+router.get('/admin/*', adminHandler);
+router.get('/*', userHandler);
 
 function userHandler(req, res, next) {
   const ua = new UA(req.headers['user-agent'])
 
-  if(req.originalUrl === '/explorer' || req.originalUrl === '/explorer/config') {
-    next()
-  } else {
-    if(ua.getDevice().type === 'mobile') {
-      res.set({'ETag': `Mobile v${strings.WEB_VERSION}`})
-      res.sendFile(path.join(__dirname, '../../../../client/dist/mobile/index.html'))
+  if(ua.getDevice().type === 'mobile') {
+    res.set({'ETag': `Mobile v${strings.WEB_VERSION}`})
+    res.sendFile(path.join(__dirname, '../../../../client/dist/mobile/index.html'))
 
-    } else {
-      res.set({'ETag': `Web v${strings.WEB_VERSION}`})
-      res.sendFile(path.join(__dirname, '../../../../client/dist/client/index.html'))
-    }
+  } else {
+    res.set({'ETag': `Web v${strings.WEB_VERSION}`})
+    res.sendFile(path.join(__dirname, '../../../../client/dist/client/index.html'))
   }
 }
 
@@ -29,4 +25,4 @@ function adminHandler(req, res, next) {
   res.sendFile(path.join(__dirname, '../../../../client/dist/dashboard.html'))
 }
 
-export default router
+export default router;

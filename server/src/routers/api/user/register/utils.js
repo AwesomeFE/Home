@@ -11,11 +11,6 @@ export function cleanSession (req) {
   req.session.isCaptchaVerifyPass = false;
 }
 
-export function setFailedSession (req) {
-  req.session.loginFailedTimes += 1;
-  req.session.loginFailedAt = Date.now();
-}
-
-export function getLoginType(formData) {
+export function getRegisterType(formData) {
   return Object.keys(formData)[0];
 }

@@ -1,4 +1,4 @@
-export const USER = {
+export const projectionTypes = {
   FRIEND: 'friend',
   SELF: 'self',
   NONE: 'none',

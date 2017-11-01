@@ -1,5 +1,9 @@
 <template>
   <div class="Signup">
+    <top-header>
+      <div slot="left">back</div>
+      <div slot="middle">注册</div>
+    </top-header>
     <h1>注册</h1>
     <div>
       <input
@@ -68,7 +72,7 @@
         captchaOption: {
           width: 100,
           height: 40,
-          fontsize: 30,
+          fontsize: 28,
           offset: 25
         }
       }
@@ -110,7 +114,7 @@
         try {
           await this.$validator.validateAll()
 
-          if(this.errors.errors.length !== 0) return
+          if(this.errors.items.length !== 0) return
 
           await SmsService.verifySmsCode(this.formValue.smsCode)
           await CaptchaService.verifyCaptcha(this.formValue.captcha)

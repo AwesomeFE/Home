@@ -8,8 +8,9 @@ import {
  * @param {Object} entryLogData
  * @returns {Object} entryLog
  */
-export async function createEntryLog(entryLogData = {}) {
-  return await new EntryLog(entryLogData).save()
+export async function create(data) {
+  const { userId, ip, loginBy } = data;
+  return await new EntryLog({userId, ip, loginBy}).save()
 }
 
 /**

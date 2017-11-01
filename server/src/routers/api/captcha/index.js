@@ -1,9 +1,10 @@
-import express from 'express'
-import * as handler from './handler'
+import { Router } from 'express';
+import generate from './generate';
+import verify from './verify';
 
-const router = express.Router()
+const router = Router();
 
-router.get('/', handler.getCaptcha)
-router.post('/', handler.verifyCaptcha)
+router.get('/', generate);
+router.post('/', verify);
 
-module.exports = router
+export default router;
