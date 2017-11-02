@@ -4,6 +4,7 @@ import express from 'express';
 import webpack from 'webpack';
 import devMiddleWare from 'webpack-dev-middleware';
 import hotMiddleWare from 'webpack-hot-middleware';
+import historyApifFallback from 'connect-history-api-fallback';
 
 class DevServer {
   constructor(webpackConfig) {
@@ -15,6 +16,7 @@ class DevServer {
     this.useDevMiddleware();
     // this.useHotMiddleware();
     // this.useStaticSource();
+    this.useHistoryApiCallback();
     this.setListeningCallback();
     this.runServer();
   }
@@ -27,7 +29,8 @@ class DevServer {
   useDevMiddleware() {
     this.devMiddleware = devMiddleWare(this.compiler, {
       publicPath: this.webpackConfig.output.publicPath,
-      quiet: true
+      quiet: true,
+      historyApiFallback: true
     });
 
     this.app.use(this.devMiddleware);
@@ -42,6 +45,13 @@ class DevServer {
   }
 
   useStaticSource() {
+  }
+
+  // force 404 to index.html
+  useHistoryApiCallback() {
+    this.app.use(historyApifFallback({
+      index: '/public/mobile/index.html'
+    }));
   }
 
   setListeningCallback() {
