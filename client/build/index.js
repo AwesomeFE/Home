@@ -1,5 +1,6 @@
 import '../../config';
 import webpack from 'webpack';
+import webpackDevServer from './dev-server';
 import webpackDevConfig from './config.development';
 import webpackStagingConfig from './config.staging';
 import webpackProductionConfig from './config.production';
@@ -8,8 +9,7 @@ let compiler = {};
 
 switch (process.env.NODE_ENV) {
   case 'development': {
-    compiler = webpack(webpackDevConfig);
-    compiler.watch({aggregateTimeout: 300, poll: true}, resultHandler);
+    webpackDevServer(webpackDevConfig);
     break;
   }
   case 'staging': {
