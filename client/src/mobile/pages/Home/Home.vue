@@ -1,6 +1,6 @@
 <template>
   <div class="Home">
-    <top-header></top-header>
+    <!-- <top-header></top-header>
     <page-nav></page-nav>
     <chatting></chatting>
     <div class="swiper-container" v-swiper>
@@ -10,7 +10,7 @@
         </div>
       </div>
       <div class="swiper-pagination"></div>
-    </div>
+    </div> -->
   </div>
 </template>
 

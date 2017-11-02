@@ -1,7 +1,9 @@
-import webpack from 'webpack'
+import webpack from 'webpack';
 
-export default () => [
-  new webpack.optimize.CommonsChunkPlugin({
-    names: ['vendor', 'manifest']
-  })
-]
+export function commonsChunkPlugin() {
+  return [
+    new webpack.optimize.CommonsChunkPlugin({
+      names: ['vendor', 'manifest']
+    })
+  ];
+}

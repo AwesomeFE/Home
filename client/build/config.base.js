@@ -1,13 +1,13 @@
-import path from 'path'
-import * as loaders from './loaders'
-import * as plugins from './plugins'
+import path from 'path';
+import * as loaders from './loaders';
+import * as plugins from './plugins';
 
 export default (options) => {
   const {
     appName,
     chunkHash = '',
     sourceMap = true,
-  } = options
+  } = options;
 
   return {
     entry: {
@@ -46,7 +46,8 @@ export default (options) => {
         },
         {
           test: /\.js/,
-          use: loaders.babelLoader(options)
+          use: loaders.babelLoader(options),
+          exclude: /node_modules/
         },
         {
           test: /\.css$/,
@@ -72,7 +73,8 @@ export default (options) => {
       ...plugins.uglifyJsPlugin(options),
       ...plugins.extractTextPlugin(options),
       ...plugins.htmlWebpackPlugin(options),
-      ...plugins.commonsChunkPlugin(options)
+      ...plugins.commonsChunkPlugin(options),
+      ...plugins.hotModuleReplacementPlugin(options),
     ],
     devtool: sourceMap ? 'source-map' : undefined
   }

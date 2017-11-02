@@ -1,11 +1,13 @@
-import path from 'path'
-import CleanPlugin from 'clean-webpack-plugin'
+import path from 'path';
+import CleanPlugin from 'clean-webpack-plugin';
 
-export default () => [
-  new CleanPlugin(['dist'], {
-    root: path.join(__dirname, '../../'),
-    verbose: true,
-    dry: false,
-    // watch: true
-  })
-]
+export function cleanPlugin() {
+  return [
+    new CleanPlugin(['dist'], {
+      root: path.join(__dirname, '../../'),
+      verbose: true,
+      dry: false,
+      // watch: true
+    })
+  ];
+}

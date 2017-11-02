@@ -7,18 +7,27 @@ import hotMiddleWare from 'webpack-hot-middleware';
 import historyApifFallback from 'connect-history-api-fallback';
 
 class DevServer {
+  static usedPort = 4000;
+
   constructor(webpackConfig) {
-    this.webpackConfig = webpackConfig;
-    this.host = process.env.SERVER_HOST;
-    this.port = Math.ceil(Math.random() * 2000) + 3001;
+    this.host = process.env.SERVER_HOST || 'localhost';
+    this.port = DevServer.usedPort += 1;
+    this.webpackConfig = this.getDevWebpackConfig(webpackConfig);
 
     this.initDevServer();
-    this.useDevMiddleware();
-    // this.useHotMiddleware();
-    // this.useStaticSource();
     this.useHistoryApiCallback();
+    this.useDevMiddleware();
+    this.useHotMiddleware();
+    this.useStaticSource();
     this.setListeningCallback();
     this.runServer();
+  }
+
+  getDevWebpackConfig(webpackConfig) {
+    for(const entryName in webpackConfig.entry) {
+      webpackConfig.entry[entryName] = ['./client/build/dev-client'].concat(webpackConfig.entry[entryName]);
+    }
+    return webpackConfig;
   }
 
   initDevServer() {
@@ -29,15 +38,17 @@ class DevServer {
   useDevMiddleware() {
     this.devMiddleware = devMiddleWare(this.compiler, {
       publicPath: this.webpackConfig.output.publicPath,
-      quiet: true,
-      historyApiFallback: true
+      // quiet: true
     });
 
     this.app.use(this.devMiddleware);
   }
 
   useHotMiddleware() {
-    this.hotMiddleware = hotMiddleWare(this.compiler, { log: new Function() });
+    this.hotMiddleware = hotMiddleWare(this.compiler, {
+      log: false,
+      heartbeat: 2000
+    });
 
     this.enableForceReload();
 
@@ -47,15 +58,20 @@ class DevServer {
   useStaticSource() {
   }
 
-  // force 404 to index.html
+  /**
+   * History api callback middleware
+   * 
+   * @description Force 404 to index.html
+   * @link https://github.com/bripkens/connect-history-api-fallback/issues/21#issuecomment-199144586
+   */
   useHistoryApiCallback() {
     this.app.use(historyApifFallback({
-      index: '/public/mobile/index.html'
+      index: `${this.webpackConfig.output.publicPath}index.html`
     }));
   }
 
   setListeningCallback() {
-    const url = `http://localhost:${this.port}`;
+    const url = `http://${this.host}:${this.port}`;
 
     this.devMiddleware.waitUntilValid(() => {
       console.log(`> Listening at ${url}`);

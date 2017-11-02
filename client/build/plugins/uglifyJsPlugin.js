@@ -1,12 +1,8 @@
-import webpack from 'webpack'
+import webpack from 'webpack';
 
-export default (options) => {
-  let {
-    sourceMap,
-    minimize
-  } = options
-
-  let plugin = []
+export function uglifyJsPlugin(options) {
+  const { sourceMap, minimize } = options;
+  const plugin = [];
 
   if(minimize) {
     plugin.push(new webpack.optimize.UglifyJsPlugin({
@@ -14,8 +10,8 @@ export default (options) => {
       compress: {
         warnings: sourceMap
       }
-    }))
+    }));
   }
 
-  return plugin
+  return plugin;
 }

@@ -1,18 +1,20 @@
-import webpackTask from './config.base'
+import webpackTask from './config.base';
 
 export default [
-  // webpackTask({
-  //   appName: 'client',
-  //   chunkHash: '',
-  //   extract: false,
-  //   minimize: false,
-  //   sourceMap: true
-  // }),
+  webpackTask({
+    appName: 'client',
+    chunkHash: '',
+    extract: false,
+    minimize: false,
+    sourceMap: true,
+    isHotReplace: true
+  }),
   webpackTask({
     appName: 'mobile',
     chunkHash: '',
     extract: false,
     minimize: false,
-    sourceMap: true
+    sourceMap: true,
+    isHotReplace: true
   })
-]
+];
