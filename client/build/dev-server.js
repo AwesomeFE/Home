@@ -10,7 +10,7 @@ class DevServer {
   static usedPort = 4000;
 
   constructor(webpackConfig) {
-    this.host = process.env.SERVER_HOST || 'localhost';
+    this.host = 'localhost';
     this.port = DevServer.usedPort += 1;
     this.webpackConfig = this.getDevWebpackConfig(webpackConfig);
 
@@ -24,9 +24,7 @@ class DevServer {
   }
 
   getDevWebpackConfig(webpackConfig) {
-    for(const entryName in webpackConfig.entry) {
-      webpackConfig.entry[entryName] = ['./client/build/dev-client'].concat(webpackConfig.entry[entryName]);
-    }
+    webpackConfig.entry.app = ['./client/build/dev-client'].concat(webpackConfig.entry.app);
     return webpackConfig;
   }
 
@@ -80,7 +78,7 @@ class DevServer {
   }
 
   runServer() {
-    this.app.listen(this.port);
+    this.app.listen(this.port, this.host);
   }
 
   enableForceReload() {
