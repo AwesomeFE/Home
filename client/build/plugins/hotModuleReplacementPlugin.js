@@ -6,6 +6,7 @@ export function hotModuleReplacementPlugin(options) {
 
   if(isHotReplace) {
     plugin.push(new webpack.HotModuleReplacementPlugin());
+    plugin.push(new webpack.NoEmitOnErrorsPlugin());
   }
 
   return plugin;

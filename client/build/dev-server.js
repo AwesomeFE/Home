@@ -15,9 +15,9 @@ class DevServer {
     this.webpackConfig = this.getDevWebpackConfig(webpackConfig);
 
     this.initDevServer();
+    this.useHotMiddleware();
     this.useHistoryApiCallback();
     this.useDevMiddleware();
-    this.useHotMiddleware();
     this.useStaticSource();
     this.setListeningCallback();
     this.runServer();
@@ -48,7 +48,7 @@ class DevServer {
       heartbeat: 2000
     });
 
-    this.enableForceReload();
+    // this.enableForceReload();
 
     this.app.use(this.hotMiddleware);
   }
@@ -81,6 +81,12 @@ class DevServer {
     this.app.listen(this.port, this.host);
   }
 
+  /**
+   * Reload the full page, after index.html changed.
+   * 
+   * @deprecated
+   * @link https://github.com/webpack/webpack/issues/5505
+   */
   enableForceReload() {
     this.compiler.plugin('compilation', (compilation) => {
       compilation.plugin('html-webpack-plugin-after-emit', (data, cb) => {
