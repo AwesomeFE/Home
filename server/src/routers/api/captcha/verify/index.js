@@ -1,9 +1,10 @@
 import * as utils from './utils';
 import validate from './validate';
+
 import * as Messages from '../../../../constants/messages';
 import CaptchaService from '../../../../services/Captcha';
 
-async function generate(req, res, next) {
+async function verify(req, res, next) {
   try {
     validate(req);
 
@@ -16,11 +17,11 @@ async function generate(req, res, next) {
     }
 
     req.session.isCaptchaVerifyPass = true;
-    res.json(Messages.CAPTCHA_VERIFY_SUCCESS);
+    res.json(Messages.REQUEST_SUSSESS);
 
   } catch(message) {
     next(message);
   }
 }
 
-export default generate;
+export default verify;

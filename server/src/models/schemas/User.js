@@ -16,14 +16,12 @@ const UserSchema = new Schema({
   mobile: {
     type: String,
     unique: true,
-    sparse: true,
-    validate: (value) => isMobilePhone(value, 'zh-CN')
+    sparse: true
   },
   email:   {
     type: String,
     unique: true,
-    sparse: true,
-    validate: isEmail
+    sparse: true
   },
   unionId: {
     type: String,
@@ -75,6 +73,10 @@ const UserSchema = new Schema({
     type: Schema.Types.ObjectId,
     refs: 'Files'
   },
+  roles: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Roles'
+  }],
   isTest: {
     type: Boolean,
   }

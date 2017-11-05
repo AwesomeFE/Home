@@ -1,7 +1,6 @@
-import * as UserService from '../../services/UserService'
+import * as UserService from '../../services/UserService';
 
-export default {
-
+export const actions = {
   // 用户api
   async getSessionUser({ commit, state }) {
     const {user} = await UserService.getSessionUser()
@@ -41,4 +40,4 @@ export default {
 
     return await UserService.searchUsers(search)
   }
-}
+};

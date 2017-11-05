@@ -1,13 +1,13 @@
-import Vue from 'vue'
-import PageNav from './PageNav/PageNav.vue'
-import chatting from './vChatting/chatting.vue'
-import TopHeader from './TopHeader/TopHeader.vue'
-import vImage from './vImage/vImage.vue'
-import BlogCard from './BlogCard/BlogCard.vue'
+import Vue from 'vue';
+import vImage from './vImage';
+import vLoading from './vLoading';
+import BlogCard from './BlogCard';
+import TopHeader from './TopHeader';
 
 const components = {
-  TopHeader,
   vImage,
+  vLoading,
+  TopHeader,
   BlogCard
 }
 

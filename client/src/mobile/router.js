@@ -5,22 +5,27 @@ export default () => new VueRouter({
   routes: [
     {
       path: '/',
-      component: () => import('./pages/App/App.vue'),
+      component: () => import('./pages/App'),
       children: [
         {
-          name: 'Home',
+          name: 'PublicHome',
           path: '',
-          component: () => import('./pages/Home/Home.vue')
+          component: () => import('./pages/PublicHome')
         },
         {
           name: 'Signup',
           path: 'signup',
-          component: () => import('./pages/Signup/Signup.vue')
+          component: () => import('./pages/Signup')
         },
         {
           name: 'Signin',
           path: 'signin',
           component: () => import('./pages/Signin/Signin.vue')
+        },
+        {
+          name: 'Home',
+          path: 'home',
+          component: () => import('./pages/Home')
         },
         {
           name: 'Main',
@@ -38,13 +43,13 @@ export default () => new VueRouter({
           component: () => import('./pages/BlogDetail/BlogDetail.vue')
         },
         {
-          name: 'User',
-          path: 'user/:userId',
+          name: 'Settings',
+          path: 'settings',
           component: () => import('./pages/User/User.vue')
         },
         {
           name: 'Profile',
-          path: 'setting/profile',
+          path: 'profile',
           component: () => import('./pages/Profile/Profile.vue')
         },
         {

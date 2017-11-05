@@ -1,6 +1,6 @@
 const validates = {
-  credential: 'required',
-  password: 'required',
+  mobile: 'required',
+  password: 'required'
 }
 
 export default (name) => {

@@ -8,6 +8,7 @@ import Database from './Database';
 import routers from '../routers';
 
 import MqttService from '../services/Mqtt';
+import AdminService from '../services/Admin';
 import ErrorService from '../services/Error';
 import LoggerService from '../services/Logger';
 
@@ -70,6 +71,10 @@ class Application extends Database {
 
   useErrorHandler() {
     this.app.use(ErrorService.handler);
+  }
+
+  initAdmin() {
+    this.adminService = new AdminService();
   }
 
   /**

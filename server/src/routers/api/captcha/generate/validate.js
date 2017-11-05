@@ -4,7 +4,7 @@ import * as Messages from '../../../../constants/messages';
 const { LOGIN_FAILED_TIMES } = process.env;
 
 function validate(req) {
-  const { isLogin } = req.query;
+  const isLogin = req.query.isLogin;
   const sLoginFailedAt = req.session.loginFailedAt;
   const sLoginFailedTimes = req.session.loginFailedTimes;
 

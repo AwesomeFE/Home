@@ -9,7 +9,18 @@ let compiler = {};
 
 switch (process.env.NODE_ENV) {
   case 'development': {
-    webpackDevServer(webpackDevConfig);
+    const { SERVER_HOST, SERVER_PORT } = process.env;
+    const proxyConfig = {
+      '/api': {
+        target: `http://${SERVER_HOST}:${SERVER_PORT}`,
+        changeOrigin: true,
+        headers: {
+          Referer: 'http://${SERVER_HOST}:${SERVER_PORT}/'
+        }
+      }
+    };
+
+    webpackDevServer(webpackDevConfig, proxyConfig);
     break;
   }
   case 'staging': {

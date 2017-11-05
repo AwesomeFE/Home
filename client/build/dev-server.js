@@ -4,18 +4,21 @@ import express from 'express';
 import webpack from 'webpack';
 import devMiddleWare from 'webpack-dev-middleware';
 import hotMiddleWare from 'webpack-hot-middleware';
+import proxyMiddleWare from 'http-proxy-middleware';
 import historyApifFallback from 'connect-history-api-fallback';
 
 class DevServer {
   static usedPort = 4000;
 
-  constructor(webpackConfig) {
+  constructor(webpackConfig, proxyConfig) {
     this.host = 'localhost';
     this.port = DevServer.usedPort += 1;
     this.webpackConfig = this.getDevWebpackConfig(webpackConfig);
+    this.proxyConfig = proxyConfig || {};
 
     this.initDevServer();
     this.useHotMiddleware();
+    this.useProxyMiddleWare();
     this.useHistoryApiCallback();
     this.useDevMiddleware();
     this.useStaticSource();
@@ -36,7 +39,7 @@ class DevServer {
   useDevMiddleware() {
     this.devMiddleware = devMiddleWare(this.compiler, {
       publicPath: this.webpackConfig.output.publicPath,
-      // quiet: true
+      stats: { colors: true }
     });
 
     this.app.use(this.devMiddleware);
@@ -54,6 +57,14 @@ class DevServer {
   }
 
   useStaticSource() {
+  }
+
+  useProxyMiddleWare() {
+    const proxyTabel = Object.entries(this.proxyConfig);
+
+    for(const [context, options] of proxyTabel) {
+      this.app.use(proxyMiddleWare(context, options));
+    }
   }
 
   /**
@@ -97,8 +108,8 @@ class DevServer {
   }
 }
 
-function createDevServers(webpackDevConfigs) {
-  return webpackDevConfigs.map(webpackDevConfig => new DevServer(webpackDevConfig));
+function createDevServers(webpackDevConfigs, proxyConfig) {
+  return webpackDevConfigs.map(webpackDevConfig => new DevServer(webpackDevConfig, proxyConfig));
 }
 
 export default createDevServers;

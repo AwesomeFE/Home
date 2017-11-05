@@ -54,3 +54,5 @@ export const TOGGLE_LIKE_BLOG = blogId => `/api/blog/${blogId}/like`
 
 // 文件获取地址
 export const GET_FILE = fileId => `/api/file/${fileId}`
+
+export const GET_COUNTRY_LIST = () => `/api/country`

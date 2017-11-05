@@ -1,10 +1,9 @@
-import express from 'express'
-import validator from './validator'
-import * as handler from './handler'
+import multer from 'multer';
+import { Router } from 'express';
+// import sessionUser from './sessionUser';
 
-const router = express.Router()
+const router = Router();
 
-router.get('/', handler.sendVerifySMS)
-router.get('/verify', handler.verifySMSCode)
+// router.get('/session', sessionUser);
 
-module.exports = router
+export default router;

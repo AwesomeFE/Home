@@ -1,14 +1,15 @@
 import multer from 'multer';
 import { Router } from 'express';
-import login from './login';
+// import login from './login';
+import sessionUser from './sessionUser';
 
 const router = Router();
 const upload = multer({dest: 'uploads/users/'});
 
-router.post('/login', login);
+// router.post('/login', login);
 // router.get('/user/logout', validator.logout, handler.logout);
 // router.post('/user/register', validator.register, handler.register);
-// router.get('/user/session', validator.getSessionUser, handler.getSessionUser);
+router.get('/session', sessionUser);
 
 // router.post('/user/friend/:userId', handler.makeFriend);
 // router.get('/user/friend/:userId', handler.checkFriendStatus);

@@ -18,6 +18,7 @@ export default (options) => {
         'vue-i18n',
         'vue-router',
         'vee-validate',
+        'vue-class-component',
         'mqtt/dist/mqtt',
         'axios',
         'swiper',
@@ -34,6 +35,10 @@ export default (options) => {
       filename: `javascripts/[name]${chunkHash}.js`
     },
     resolve: {
+      extensions: [
+        '.js',
+        '.vue'
+      ],
       alias: {
         'vue$': 'vue/dist/vue.esm.js'
       }

@@ -1,5 +1,6 @@
 import * as utils from './utils';
 import validate from './validate';
+
 import * as Messages from '../../../../constants/messages';
 import CaptchaService from '../../../../services/Captcha';
 
@@ -15,7 +16,7 @@ async function generate(req, res, next) {
 
     res.json({
       ...Messages.SHOULD_CAPTCHA_VERIFY,
-      captchaImage: captchaImage.toString('base64')
+      data: captchaImage.toString('base64')
     });
   } catch(message) {
     next(message);

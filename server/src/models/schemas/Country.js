@@ -1,11 +1,20 @@
 import {Schema} from 'mongoose'
 
 const CountrySchema = new Schema({
-  name: {
-    type: String,
-    required: true
-  },
+  names: [{
+    lang: {
+      type: String
+    },
+    title: {
+      type: String
+    }
+  }],
   desc: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  code: {
     type: String,
     required: true,
     unique: true

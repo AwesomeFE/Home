@@ -1,5 +1,5 @@
-export default {
+export const mutations = {
   setLoginUser(state, user) {
-    state.user = user
+    state.user = user;
   }
-}
+};

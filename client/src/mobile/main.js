@@ -7,6 +7,7 @@ import VueRouter from 'vue-router';
 import VueValidate from 'vee-validate';
 
 import './main.scss';
+import i18n from './i18n';
 import store from './vuex';
 import router from './router';
 import initService from './services';
@@ -25,6 +26,7 @@ initComponents();
 moment.locale('zh-cn');
 
 new Vue({
-  router: router(),
-  store: store()
+  i18n: i18n(),
+  store: store(),
+  router: router()
 }).$mount('#app');

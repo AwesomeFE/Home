@@ -19,7 +19,7 @@ class LoggerService {
           level: 'debug'
         }
       }
-    })
+    });
   }
 
   getLoggerConfig(loggerName) {
@@ -36,7 +36,10 @@ class LoggerService {
   httpLogger() {
     const httpLogger = log4js.getLogger('http');
     const morganFormat = ':remote-addr :method :url :status :response-time ms';
-    const mroganOptions = { stream: { write: str => httpLogger.info(str.trim()) } };
+    const mroganOptions = { stream: { write: str => {
+      httpLogger.info(str.trim());
+      console.log(str.trim());
+    }}};
 
     return morgan(morganFormat, mroganOptions);
   }

@@ -18,6 +18,7 @@ class Server extends Application {
     this.connectDB().catch((e) => {
       console.log(e)
     });
+    this.initAdmin();
   }
 }
 
