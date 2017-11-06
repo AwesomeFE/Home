@@ -12,6 +12,7 @@
       v-model="mobile"
       :title="$t('mobile.title')"
       :placeholder="$t('mobile.placeholder')"
+      :validator="getValidateRules"
       errorString="" />
 
     <sign-up-input
@@ -20,6 +21,7 @@
       v-model="password"
       :title="$t('password.title')"
       :placeholder="$t('password.placeholder')"
+      :validator="getValidateRules"
       errorString="" />
   </div>
 </template>
@@ -29,6 +31,7 @@
   import Component from 'vue-class-component';
   import SignUpInput from './SignUpInput';
   import SignUpSelect from './SignUpSelect';
+  import getValidateRules from '../handler/formValidate';
 
   @Component({
     components: {
@@ -55,6 +58,10 @@
 
         this.countryOptions.push({ title, value: country.code });
       }
+    }
+
+    getValidateRules(name) {
+      return getValidateRules(name);
     }
   }
 

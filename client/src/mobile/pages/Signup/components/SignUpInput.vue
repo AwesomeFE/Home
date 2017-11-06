@@ -1,5 +1,5 @@
 <template>
-  <div class="Signup__form">
+  <div class="Signup__formInput">
     <label
       class="Signup__title"
       v-if="title"
@@ -14,7 +14,7 @@
       :name="name"
       :value="value"
       :placeholder="placeholder"
-      v-validate="getValidateRules(name)"
+      v-validate="validator(name)"
     />
     <span
       class="Signup__tips"
@@ -27,7 +27,6 @@
 <script>
 import Vue from 'vue';
 import Component from 'vue-class-component';
-import getValidateRules from '../handler/formValidate';
 
 @Component({
   props: {
@@ -36,13 +35,14 @@ import getValidateRules from '../handler/formValidate';
     name: String,
     value: String,
     placeholder: String,
-    errorString: String
+    errorString: String,
+    validator: Function
   },
   inject: ['$validator']
 })
 class input extends Vue {
   getValidateRules(name) {
-    return getValidateRules(name);
+    return this.validator && this.validator(name);
   }
 }
 
@@ -50,7 +50,7 @@ export default input;
 </script>
 
 <style type="text/scss" lang="scss" scoped>
-.Signup__form {
+.Signup__formInput {
   margin-bottom: 12px;
   .Signup__title {
     display: block;
