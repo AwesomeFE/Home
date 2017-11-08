@@ -9,18 +9,16 @@ export default (options) => {
     }
   };
 
+  // https://github.com/bholloway/resolve-url-loader#source-maps-required
   const scssLoader = {
     loader: 'sass-loader',
     options: {
-      sourceMap: options.sourceMap
+      sourceMap: true
     }
   };
 
   const resolveUrlLoader = {
-    loader: 'resolve-url-loader',
-    options: {
-      sourceMap: options.sourceMap
-    }
+    loader: 'resolve-url-loader'
   };
 
   if(options.extract) {

@@ -7,27 +7,13 @@ export default (options) => {
     appName,
     chunkHash = '',
     sourceMap = true,
+    vendor
   } = options;
 
   return {
     entry: {
       app: `./client/src/${appName}/main.js`,
-      vendor: [
-        'vue',
-        'vuex',
-        'vue-i18n',
-        'vue-router',
-        'vee-validate',
-        'vue-class-component',
-        'mqtt/dist/mqtt',
-        'axios',
-        'swiper',
-        'validator',
-        'babel-polyfill',
-        'perfect-scrollbar',
-        'moment',
-        'ua-parser-js'
-      ]
+      vendor
     },
     output: {
       path: path.join(__dirname, `../dist/${appName}/`),
