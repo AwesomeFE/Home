@@ -10,6 +10,18 @@ class LoggerService {
         controller: this.getLoggerConfig('controller'),
       },
       categories: {
+        http: {
+          appenders: [ 'http' ],
+          level: 'debug'
+        },
+        system: {
+          appenders: [ 'system' ],
+          level: 'debug'
+        },
+        controller: {
+          appenders: [ 'controller' ],
+          level: 'debug'
+        },
         default: {
           appenders: [
             'http',
