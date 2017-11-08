@@ -1,25 +1,32 @@
-import 'babel-polyfill'
+// import 'babel-polyfill';
+import Vue from 'vue';
+import Vuex from 'vuex';
+import moment from 'moment';
+import VueI18n from 'vue-i18n';
+import VueRouter from 'vue-router';
+import VueValidate from 'vee-validate';
 
-import Vue from 'vue'
-import Vuex from 'vuex'
-import axios from 'axios'
-import VueI18n from 'vue-i18n'
-import VueRouter from 'vue-router'
+import './main.scss';
+import i18n from './i18n';
+import store from './vuex';
+import router from './router';
+import initService from './services';
+import initDirectives from './directives';
+import initComponents from './components';
 
-import './main.scss'
-import store from './vuex'
-import router from './router'
-import initDirectives from './directives'
-import initComponents from './components'
+Vue.use(Vuex);
+Vue.use(VueI18n);
+Vue.use(VueRouter);
+Vue.use(VueValidate);
 
-Vue.use(Vuex)
-Vue.use(VueI18n)
-Vue.use(VueRouter)
+initService();
+initDirectives();
+initComponents();
 
-initDirectives()
-initComponents()
+moment.locale('zh-cn');
 
 new Vue({
-  router: router(),
-  store: store()
-}).$mount('#app')
+  i18n: i18n(),
+  store: store(),
+  router: router()
+}).$mount('#app');

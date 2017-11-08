@@ -1,0 +1,17 @@
+// font
+$base_font: Arial, Helvetica, sans-serif;
+$Microsoft_Yahei: "Microsoft Yahei", $base_font;
+
+//color
+$pink: #f30188;
+$grey: #999;
+$border-grey: #EEE;
+$dark-grey: #727272;
+
+// size
+$min-width-desktop: 1200px;
+
+@mixin container(){
+  width: $min-width-desktop;
+  margin: 0 auto;
+}

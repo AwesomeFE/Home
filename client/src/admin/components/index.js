@@ -1,16 +1,16 @@
-import Vue from 'vue'
-import vHeader from './vHeader'
-import vSidebar from './vSidebar'
-import vChatting from './vChatting'
-import vDataTable from './vDataTable'
+import Vue from 'vue';
+import vImage from './vImage';
+import vLoading from './vLoading';
 
 const components = {
-  vHeader,
-  vSidebar,
-  vChatting,
-  vDataTable
-}
+  vImage,
+  vLoading
+};
 
 export default () => {
-  Object.entries(components).forEach(([name, component]) => Vue.component(name, component))
+  const componentList = Object.entries(components);
+
+  for(const [name, component] of componentList) {
+    Vue.component(name, component);
+  }
 }

@@ -1,20 +1,17 @@
-import Vuex from 'vuex'
-import actions from './actions'
-import mutations from './mutations'
-import accounts from './modules/accounts'
-
-let state = {
-  loggedStaff: {}
-}
+import Vuex from 'vuex';
+import * as captcha from './captcha';
+import * as country from './country';
+import { state, actions, getters, mutations } from './root';
 
 export default () => new Vuex.Store({
   state,
-  actions,
   mutations,
+  actions,
+  getters,
+  strict: process.env.NODE_ENV !== 'production',
 
   modules: {
-    accounts
-  },
-
-  strict: process.env.NODE_ENV !== 'production'
+    captcha,
+    country
+  }
 })

@@ -1,7 +1,0 @@
-// min width
-$min-width-desktop: 1200px;
-
-@mixin container(){
-  width: $min-width-desktop;
-  margin: 0 auto;
-}

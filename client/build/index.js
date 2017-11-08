@@ -15,7 +15,7 @@ switch (process.env.NODE_ENV) {
         target: `http://${SERVER_HOST}:${SERVER_PORT}`,
         changeOrigin: true,
         headers: {
-          Referer: 'http://${SERVER_HOST}:${SERVER_PORT}/'
+          Referer: `http://${SERVER_HOST}:${SERVER_PORT}/`
         }
       }
     };
