@@ -1,5 +1,6 @@
-import cssLoader from './cssLoader'
-import scssLoader from './scssLoader'
+import cssLoader from './cssLoader';
+import scssLoader from './scssLoader';
+import lessLoader from './lessLoader';
 
 export default (options) => {
   return {
@@ -11,8 +12,9 @@ export default (options) => {
       loaders: {
         i18n: '@kazupon/vue-i18n-loader',
         css: cssLoader(options),
-        scss: scssLoader(options)
+        scss: scssLoader(options),
+        less: lessLoader(options)
       }
     }
-  }
+  };
 }

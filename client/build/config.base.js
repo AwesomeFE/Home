@@ -49,6 +49,10 @@ export default (options) => {
           use: loaders.scssLoader(options)
         },
         {
+          test: /\.less$/,
+          use: loaders.lessLoader(options)
+        },
+        {
           test: /\.png$|\.jpg$|\.gif$/,
           use: loaders.imageLoader(options)
         },

@@ -1,154 +1,63 @@
 <template>
-  <div class="Signin">
-    <div class="Avatar">
-      <img v-if="user" class="Avatar__Image" :src="user.avatar">
-      <img v-else class="Avatar__Image" src="./assets/default-avatar.png">
+  <div class="login-box">
+    <div class="login-logo">
+      <a href="#"><b>Admin</b>WB</a>
     </div>
 
-    <form class="Form__main">
-      <div class="Form__field">
-        <span class="Form__field--icon fa fa-user-o"></span>
-        <div class="Form__field--body">
-          <input class="Form__field--input" type="text" name="credential" placeholder="用户名/邮箱/手机"
-                 v-model="formValue.credential"
-                 v-validate="getValidate('credential')"/>
+    <div class="login-box-body">
+      <p class="login-box-msg">Sign in to start your session</p>
+
+      <form>
+        <div class="form-group has-feedback">
+          <input type="email" class="form-control" placeholder="Email">
+          <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
         </div>
-      </div>
-
-      <div class="Form__field">
-        <span class="Form__field--icon fa fa-lock"></span>
-        <div class="Form__field--body">
-          <input class="Form__field--input" type="password" name="password" placeholder="请输入密码"
-                 v-model="formValue.password"
-                 v-validate="getValidate('password')"/>
+        <div class="form-group has-feedback">
+          <input type="password" class="form-control" placeholder="Password">
+          <span class="glyphicon glyphicon-lock form-control-feedback"></span>
         </div>
-      </div>
-    </form>
-
-    <form class="Form__addition" v-if="captchaImage">
-      <label class="Form__label" for="captcha">验证码</label>
-      <div class="Form__field">
-        <input class="Form__field--input" type="text" name="captcha" id="captcha" placeholder="请输入验证码"
-               v-model="formValue.captcha"
-               v-validate="getValidate('captcha')"/>
-        <div class="Form__captcha">
-          <vImage
-            :src="captchaImage"
-            :clickHandler="freshCaptchaImage">
-          </vImage>
+        <div class="row">
+          <div class="col-xs-8">
+            <div class="checkbox icheck">
+              <label>
+                <div class="icheckbox_square-blue" aria-checked="false" aria-disabled="false" style="position: relative;"><input type="checkbox" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div> Remember Me
+              </label>
+            </div>
+          </div>
+          <!-- /.col -->
+          <div class="col-xs-4">
+            <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+          </div>
+          <!-- /.col -->
         </div>
+      </form>
+
+      <div class="social-auth-links text-center">
+        <p>- OR -</p>
+        <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign in using
+          Facebook</a>
+        <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign in using
+          Google+</a>
       </div>
-    </form>
+      <!-- /.social-auth-links -->
 
-    <div v-if="errors.has('credential')" class="Form__warning">
-      用户名不能为空
-    </div>
-    <div v-else-if="errors.has('password')" class="Form__warning">
-      密码不能为空
-    </div>
-    <div v-else-if="errors.has('captcha')" class="Form__warning">
-      验证码不能为空
-    </div>
+      <a href="#">I forgot my password</a><br>
+      <a href="register.html" class="text-center">Register a new membership</a>
 
-    <div class="Form__submit">
-      <button class="Form__submit--button" type="button" @click="login">登陆</button>
     </div>
   </div>
 </template>
 
 <script>
-  import {isMobilePhone, isEmail, isEmpty} from 'validator'
+  import Vue from 'vue';
+  import Component from 'vue-class-component';
 
-  import getValidate from './handler/formValidate'
-  import * as SmsService from '../../services/SmsService'
-  import * as UserService from '../../services/UserService'
-  import * as CaptchaService from '../../services/CaptchaService'
-
-  export default {
-    data() {
-      return {
-        formValue: {
-          credential: '',
-          password: '',
-          captcha: '',
-          smsCode: ''
-        },
-        captchaImage: '',
-        captchaOption: {
-          width: 100,
-          height: 40,
-          fontsize: 30,
-          offset: 25
-        },
-        user: null
-      }
-    },
-
-    async mounted() {
-      if (this.$store.state.user) {
-        return this.$router.replace({name: 'Home'})
-      }
-
-      await this.freshCaptchaImage()
-    },
-
-    computed: {
-      passport() {
-        const {
-          credential,
-          password
-        } = this.formValue
-
-        let passport = {password}
-
-        if (isMobilePhone(credential, 'zh-CN')) {
-          passport.mobile = credential
-
-        } else if (isEmail(credential)) {
-          passport.email = credential
-
-        } else {
-          passport.username = credential
-
-        }
-        return passport
-      }
-    },
-
-    methods: {
-      async login() {
-        try {
-          const isFormValid = await this.$validator.validateAll()
-
-          if (isFormValid) {
-            if (this.captchaImage) {
-              await CaptchaService.verifyCaptcha(this.formValue.captcha)
-            }
-
-            await this.$store.dispatch('login', this.passport)
-
-            this.$router.push({name: 'Home'})
-          }
-        } catch (error) {
-          this.freshCaptchaImage()
-          console.log(error)
-        }
-      },
-
-      async freshCaptchaImage() {
-        const {captchaImage} = await CaptchaService.getCaptcha({...this.captchaOption, isLogin: true})
-        this.captchaImage = captchaImage ? `data:image/png;base64,${captchaImage}` : ''
-      },
-
-      getValidate(name) {
-        return getValidate(name)
-      },
-
-      async getSmsCode() {
-        await SmsService.getSmsCode(this.passport.mobile)
-      }
-    }
+  @Component()
+  class Signin extends Component {
+    
   }
+
+  export default Signin;
 </script>
 
 <style type="text/scss" lang="scss">

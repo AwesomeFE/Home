@@ -4,9 +4,11 @@ import moment from 'moment';
 import VueI18n from 'vue-i18n';
 import VueRouter from 'vue-router';
 import VueValidate from 'vee-validate';
-import Element from 'element-ui';
 
 import './main.scss';
+import 'bootstrap/less/bootstrap.less';
+import './assets/less/AdminLTE/src/main.less';
+
 import i18n from './i18n';
 import store from './vuex';
 import router from './router';
@@ -18,7 +20,6 @@ Vue.use(Vuex);
 Vue.use(VueI18n);
 Vue.use(VueRouter);
 Vue.use(VueValidate);
-Vue.use(Element);
 
 initService();
 initDirectives();

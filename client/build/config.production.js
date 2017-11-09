@@ -19,7 +19,6 @@ export default [
       'swiper/dist/js/swiper.js',
       'moment',
       'validator',
-      'element-ui',
       'babel-polyfill',
       'perfect-scrollbar',
       'ua-parser-js'
