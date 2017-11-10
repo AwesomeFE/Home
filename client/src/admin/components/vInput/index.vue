@@ -1,10 +1,24 @@
 <template>
-  <div class="form-group has-feedback">
+  <div class="form-group has-feedback" :class="className">
     <input
       class="form-control"
+      v-if="validate"
+      v-validate="validate"
+      :class="inputClass"
       :type="type"
-      :placeholder="placeholder">
-    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+      :placeholder="placeholder"
+    />
+    <input
+      class="form-control"
+      v-else
+      :class="inputClass"
+      :type="type"
+      :placeholder="placeholder"
+    />
+    <span
+      class="form-control-feedback"
+      :class="iconClass"
+    />
   </div>
 </template>
 
@@ -14,9 +28,14 @@ import Component from 'vue-class-component';
 
 @Component({
   props: {
+    name: String,
     type: String,
     value: String,
-    placeholder: String
+    placeholder: String,
+    validate: [String, Function],
+    iconClass: String,
+    inputClass: String,
+    className: String
   },
   inject: [
     '$validator'

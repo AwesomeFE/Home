@@ -2,11 +2,13 @@ import Vue from 'vue';
 import vImage from './vImage';
 import vInput from './vInput';
 import vLoading from './vLoading';
+import vCheckbox from './vCheckbox';
 
 const components = {
   vImage,
   vInput,
-  vLoading
+  vLoading,
+  vCheckbox
 };
 
 export default () => {
