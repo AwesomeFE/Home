@@ -1,5 +1,6 @@
 import crypto from 'crypto';
 import { Role, User } from '../../models';
+import { projectionTypes } from '../../constants';
 
 const {
   SERVER_ADMIN_USERNAME,
@@ -40,6 +41,7 @@ class AdminService {
     if(!this.adminUser) {
       this.adminUser = await User.create({ email: SERVER_ADMIN_EMAIL, password });
       this.adminUser.roles.push(this.adminRole);
+      this.adminUser.projections.push({type: projectionTypes.SELF});
       await this.adminUser.save();
     }
   }

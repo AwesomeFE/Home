@@ -11,7 +11,7 @@
     "build:staging": "cross-env NODE_ENV=staging babel-node ./client/build",
     "server:staging": "cross-env NODE_ENV=staging babel-node ./server",
     "dev:client": "cross-env NODE_ENV=development babel-node ./client/build",
-    "dev:server": "cross-env NODE_ENV=development babel-node ./server",
+    "dev:server": "cross-env NODE_ENV=development babel-node --inspect-brk ./server",
     "test": "cross-env NODE_ENV=development mocha --opts ./test/mocha.opts test"
   },
   "dependencies": {

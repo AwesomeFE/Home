@@ -2,7 +2,7 @@
 export const GET_SESSION_USER = () => `/api/user/session`
 
 // 用户登录
-export const LOGIN = () => `/api/user/login`
+export const LOGIN = () => `/api/user/signin`
 
 // 用户登出
 export const LOGOUT = () => `/api/user/logout`

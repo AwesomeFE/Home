@@ -2,7 +2,8 @@ import * as utils from './utils';
 import validate from './validate';
 
 import * as Messages from '../../../../constants/messages';
-import UserController from '../../../../controllers/User';
+import * as UserController from '../../../../controllers/User';
+import * as EntryLogController from '../../../../controllers/EntryLog';
 
 async function signin(req, res, next) {
   try {

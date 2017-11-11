@@ -1,11 +1,15 @@
 <template>
-  <div class="vImage">
+  <div
+    class="vImage"
+    :class="wapperClass"
+  >
     <img
       class="vImage__img"
       v-show="isLoadComplete"
+      :class="imageClass"
       :src="src"
       @load="loadHandler"
-      @click="onClick($event)"
+      @click="clickHandler"
     >
     <span class="vImage__spinner" v-if="!isLoadComplete">aaa</span>
   </div>
@@ -13,7 +17,11 @@
 
 <script>
   export default {
-    props: ['src', 'clickHandler'],
+    props: {
+      src: String,
+      wapperClass: String,
+      imageClass: String
+    },
     data() {
       return {
         isLoadComplete: false
@@ -22,7 +30,7 @@
     watch: {
       src(newVal, oldVal) {
         if(newVal !== oldVal) {
-          this.isLoadComplete = false
+          this.isLoadComplete = false;
         }
       }
     },
@@ -30,10 +38,10 @@
     },
     methods: {
       loadHandler() {
-        this.isLoadComplete = true
+        this.isLoadComplete = true;
       },
-      onClick(event) {
-        this.clickHandler && this.clickHandler(event)
+      clickHandler(event) {
+        this.$emit('click', event);
       }
     }
   }

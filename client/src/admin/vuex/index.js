@@ -1,4 +1,5 @@
 import Vuex from 'vuex';
+import * as user from './user';
 import * as captcha from './captcha';
 import * as country from './country';
 import { state, actions, getters, mutations } from './root';
@@ -12,6 +13,7 @@ export default () => new Vuex.Store({
 
   modules: {
     captcha,
-    country
+    country,
+    user
   }
 })

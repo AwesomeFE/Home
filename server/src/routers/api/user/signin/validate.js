@@ -8,8 +8,8 @@ const {
 
 function validate(req) {
   const { username, mobile, email, password, captcha } = req.body;
-  const isPassportEmpty = !!(username || mobile || email);
-  const isPasswordEmpty = !!password;
+  const isPassportEmpty = !(username || mobile || email);
+  const isPasswordEmpty = !password;
 
   if(isPassportEmpty) {
     throw Messages.UNKNOW_LOGIN_TYPE;
@@ -30,7 +30,7 @@ function validate(req) {
     throw Messages.IS_ALREADY_LOGIN;
   }
 
-  if(sLoginFailedAt < LOGIN_FAILED_EXPIRE && sLoginFailedTimes >= LOGIN_FAILED_TIMES) {
+  if(Date.now() - sLoginFailedAt < LOGIN_FAILED_EXPIRE && sLoginFailedTimes >= LOGIN_FAILED_TIMES) {
     if(!sCaptcha || sCaptcha !== captcha) {
       throw Messages.CAPTCHA_VERIFY_FAILED;
     }

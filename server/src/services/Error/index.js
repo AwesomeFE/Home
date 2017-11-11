@@ -15,11 +15,17 @@ class ErrorService extends Error {
 
   static handler(errorMessage, req, res, next) {
     let error = new ErrorService(errorMessage);
-    let status = !error.status || error.status > 600 ? 500 : error.status;
+    let status = !error.status || error.status >= 500 ? 500 : error.status;
 
     if(status >= 500) {
       console.error(error);
       SystemLogger.error(error);
+    } else if(status >= 400) {
+      delete error.message;
+
+      console.warn(error);
+      SystemLogger.warn(error);
+      status = 200;
     }
 
     res.status(status).json({

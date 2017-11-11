@@ -17,9 +17,10 @@ class App extends Vue {
 
   async mounted() {
     try {
-      await this.$store.dispatch('getSessionUser');
+      const { user } = this.$store.state;
+      await this.$store.dispatch('user/getSession');
       
-      if(this.$store.state.user) {
+      if(user.loginUser) {
         this.$router.push('dashboard');
       } else {
         this.$router.push('signin');

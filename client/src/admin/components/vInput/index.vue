@@ -1,19 +1,25 @@
 <template>
-  <div class="form-group has-feedback" :class="className">
+  <div class="form-group has-feedback" :class="realClassName">
     <input
       class="form-control"
       v-if="validate"
       v-validate="validate"
       :class="inputClass"
       :type="type"
+      :name="name"
+      :disabled="disabled"
       :placeholder="placeholder"
+      @input="inputHandler"
     />
     <input
       class="form-control"
       v-else
       :class="inputClass"
       :type="type"
+      :name="name"
+      :disabled="disabled"
       :placeholder="placeholder"
+      @input="inputHandler"
     />
     <span
       class="form-control-feedback"
@@ -33,16 +39,27 @@ import Component from 'vue-class-component';
     value: String,
     placeholder: String,
     validate: [String, Function],
-    iconClass: String,
     inputClass: String,
-    className: String
+    iconClass: String,
+    className: String,
+    disabled: Boolean
   },
   inject: [
     '$validator'
   ]
 })
 class vInput extends Vue {
+  get realClassName() {
+    return {
+      [this.className]: !!this.className,
+      'has-error': this.$validator.errors.items.find(item => item.field === this.name)
+    };
+  }
 
+  inputHandler(event) {
+    const currentValue = event.target.value;
+    this.$emit('input', currentValue);
+  }
 }
 
 export default vInput;
