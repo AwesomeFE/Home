@@ -3,8 +3,10 @@ import * as helper from './helper';
 import { projectionTypes } from '../../constants';
 import * as Messages from '../../constants/messages';
 
-export function findById(userId) {
-  return User.findById(userId);
+export async function findById(userId) {
+  const userDoc = await User.findById(userId);
+
+  return helper.formatUserJson(userDoc, projectionTypes.SELF);
 }
 
 export async function login(formData) {

@@ -3,13 +3,17 @@ import * as UserService from '../../services/UserService';
 export const actions = {
   // 用户api
   async getSession({ commit, state }) {
-    const { data } = await UserService.getSessionUser();
+    const { data, type } = await UserService.getSessionUser();
     commit('setLoginUser', data);
+
+    return type;
   },
 
   async login({ commit, state }, passport) {
-    const { data } = await UserService.login(passport);
+    const { data, type } = await UserService.login(passport);
     commit('setLoginUser', data);
+
+    return type;
   },
 
   // async logout({ commit, state }) {

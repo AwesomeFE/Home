@@ -1,0 +1,8 @@
+// Response successful
+export const REQUEST_SUSSESS = 'REQUEST_SUSSESS';
+
+export const CAPTCHA_VERIFY_FAILED = 'CAPTCHA_VERIFY_FAILED';
+
+export const USER_NOT_FOUND = 'USER_NOT_FOUND';
+
+export const PASSWORD_ERROR = 'PASSWORD_ERROR';

@@ -31,10 +31,12 @@ function validate(req) {
   }
 
   if(Date.now() - sLoginFailedAt < LOGIN_FAILED_EXPIRE && sLoginFailedTimes >= LOGIN_FAILED_TIMES) {
-    if(!sCaptcha || sCaptcha !== captcha) {
+    if(!sCaptcha || sCaptcha.toUpperCase() !== captcha.toUpperCase()) {
       throw Messages.CAPTCHA_VERIFY_FAILED;
     }
   }
+
+  delete req.body.captcha;
 }
 
 export default validate;
