@@ -21,7 +21,7 @@ class vLoading extends Vue {
 export default vLoading;
 </script>
 
-<style type="text/scss" lang="scss" scoped>
+<style type="text/scss" lang="scss">
 .vLoading {
   position: absolute;
   top: 50%;

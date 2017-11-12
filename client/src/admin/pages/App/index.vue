@@ -36,7 +36,7 @@ class App extends Vue {
 export default App;
 </script>
 
-<style type="text/scss" lang="scss" scoped>
+<style type="text/scss" lang="scss">
 .App {
   background: #f2f2f2;
   position: relative;

@@ -49,7 +49,7 @@ class input extends Vue {
 export default input;
 </script>
 
-<style type="text/scss" lang="scss" scoped>
+<style type="text/scss" lang="scss">
 .Signup__formInput {
   margin-bottom: 12px;
   .Signup__title {
