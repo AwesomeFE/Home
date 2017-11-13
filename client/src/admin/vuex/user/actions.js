@@ -9,17 +9,19 @@ export const actions = {
     return type;
   },
 
-  async login({ commit, state }, passport) {
-    const { data, type } = await UserService.login(passport);
+  async signin({ commit, state }, passport) {
+    const { data, type } = await UserService.signin(passport);
     commit('setLoginUser', data);
 
     return type;
   },
 
-  // async logout({ commit, state }) {
-  //   await UserService.logout()
-  //   commit('setLoginUser', null)
-  // },
+  async signout({ commit, state }) {
+    const { data, type } = await UserService.signout();
+    commit('setLoginUser', data);
+
+    return type;
+  },
 
   // async register({ commit, state }, passport) {
   //   const {user} = await UserService.register(passport)

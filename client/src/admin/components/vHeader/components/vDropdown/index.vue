@@ -1,24 +1,18 @@
 <template>
-  <li class="dropdown" :class="dropdownClass">
-    <slot name="dropdown-toggle">
-      <a class="dropdown-toggle">
-        <i class="dropdown-icon" :class="iconClass" />
-        <span class="label" :class="labelClass" v-if="dropdownCount">
-          {{dropdownCount}}
-        </span>
-      </a>
-    </slot>
+  <li class="dropdown" :class="dropdownClassName">
+    <a class="dropdown-toggle" @click="clickHandler">
+      <!-- Image Icon Dropdown -->
+      <img v-if="iconSrc" :class="iconClass" :src="iconSrc">
+      <!-- Font Icon Dropdown -->
+      <i v-else :class="iconClass"/>
+      <!-- Label -->
+      <span v-if="label" :class="labelClass">
+        {{label}}
+      </span>
+    </a>
 
     <ul class="dropdown-menu">
-      <slot name="dropdown-menu">
-        <li class="header">You have {{dropdownCount}} messages</li>
-        <li>
-          <ul class="menu">
-            <slot></slot>
-          </ul>
-        </li>
-        <li class="footer"><a href="#">See All Messages</a></li>
-      </slot>
+      <slot></slot>
     </ul>
 
   </li>
@@ -32,16 +26,23 @@ import Component from 'vue-class-component';
   props: {
     dropdownClass: String,
     iconClass: String,
-    labelClass: String
+    labelClass: String,
+    iconSrc: String,
+    label: [String, Number]
   }
 })
 class vDropdown extends Vue {
   isOpened = false;
 
-  get dropdownCount() {
-    return this.$slots.default
-      ? this.$slots.default.filter(item => item.tag).length
-      : 0;
+  get dropdownClassName() {
+    return [
+      this.dropdownClass,
+      this.isOpened ? 'open' : ''
+    ]
+  }
+
+  clickHandler() {
+    this.isOpened = !this.isOpened;
   }
 }
 
@@ -49,7 +50,7 @@ export default vDropdown;
 </script>
 
 <style type="text/scss" lang="scss">
-.vDropdown {
+.dropdown {
   .dropdown-toggle {
     cursor: pointer;
   }

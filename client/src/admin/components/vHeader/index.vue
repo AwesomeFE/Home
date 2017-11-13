@@ -12,7 +12,8 @@
           <v-dropdown
             dropdownClass="messages-menu"
             iconClass="fa fa-envelope-o"
-            labelClass="label-success"
+            labelClass="label label-success"
+            :label="messages.length"
           >
             <v-message
               v-for="message in messages"
@@ -28,7 +29,8 @@
           <v-dropdown
             dropdownClass="notifications-menu"
             iconClass="fa fa-bell-o"
-            labelClass="label-warning"
+            labelClass="label label-warning"
+            :label="messages.length"
           >
             <v-message
               v-for="message in messages"
@@ -44,7 +46,8 @@
           <v-dropdown
             dropdownClass="tasks-menu"
             iconClass="fa fa-flag-o"
-            labelClass="label-danger"
+            labelClass="label label-danger"
+            :label="messages.length"
           >
             <v-message
               v-for="message in messages"
@@ -57,14 +60,19 @@
             </v-message>
           </v-dropdown>
 
-          <v-dropdown dropdownClass="user user-menu">
-            <a class="dropdown-toggle" slot="dropdown-toggle">
-              <img class="user-image" :src="user.avatar">
-              <span class="hidden-xs">{{user.name}}</span>
-            </a>
-
-            <v-dropdown-profile />
-
+          <v-dropdown
+            dropdownClass="user user-menu"
+            iconClass="user-image"
+            labelClass="hidden-xs"
+            :iconSrc="user.avatar"
+            :label="user.name"
+          >
+            <v-dropdown-profile
+              :avatar="user.avatar"
+              :name="user.name"
+              :job="'Web Developer'"
+              :createTime="user.createdAt"
+            />
           </v-dropdown>
 
           <li>

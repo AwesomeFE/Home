@@ -32,10 +32,9 @@
         :placeholder="$t('password')"
         :disabled="disabled"
       />
-      <div class="row">
+      <div class="row" v-if="!!captchaImage">
         <div class="col-xs-8">
           <v-input
-            v-if="!!captchaImage"
             type="captcha"
             name="captcha"
             validate="required"
@@ -126,13 +125,13 @@
 
     async mounted() {
       this.captchaImage = await this.$store.dispatch('captcha/getCaptcha', {
-        width: 200, height: 60, offset: 40, quality: 100, fontsize: 57
+        width: 200, height: 60, offset: 40, quality: 100, fontsize: 57, isLogin: true
       });
     }
 
     async changeCaptcha() {
       this.captchaImage = await this.$store.dispatch('captcha/getCaptcha', {
-        width: 200, height: 60, offset: 40, quality: 100, fontsize: 57
+        width: 200, height: 60, offset: 40, quality: 100, fontsize: 57, isLogin: true
       });
     }
 
@@ -143,13 +142,12 @@
         const isValid = await this.$validator.validateAll();
 
         if(isValid) {
-          await this.$store.dispatch('user/login', this.passport);
+          await this.$store.dispatch('user/signin', this.passport);
           this.$router.push('dashboard');
         }
       } catch(message) {
         this.remoteMessage = message.type;
-        console.log(this.remoteMessage)
-        console.log(this.message)
+        this.changeCaptcha();
       }
 
       this.disabled = false;

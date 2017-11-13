@@ -1,6 +1,7 @@
 import multer from 'multer';
 import { Router } from 'express';
 import signin from './signin';
+import signout from './signout';
 import sessionUser from './sessionUser';
 
 const router = Router();
@@ -8,7 +9,7 @@ const upload = multer({dest: 'uploads/users/'});
 
 router.post('/signin', signin);
 // router.post('/signup', signup);
-// router.get('/logout', logout);
+router.get('/signout', signout);
 router.get('/session', sessionUser);
 
 // router.post('/user/friend/:userId', handler.makeFriend);

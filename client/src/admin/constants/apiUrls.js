@@ -1,14 +1,14 @@
 // 用户重登录
-export const GET_SESSION_USER = () => `/api/user/session`
+export const GET_SESSION_USER = () => `/api/user/session`;
 
 // 用户登录
-export const LOGIN = () => `/api/user/signin`
+export const SIGNIN = () => `/api/user/signin`;
 
 // 用户登出
-export const LOGOUT = () => `/api/user/logout`
+export const SIGNOUT = () => `/api/user/signout`;
 
 // 用户注册
-export const REGISTER = () => `/api/user/register`
+export const SIGNUP = () => `/api/user/signup`;
 
 // 用户资料更新
 export const UPDATE_USER = () => `/api/user`

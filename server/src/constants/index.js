@@ -6,7 +6,7 @@ export const DEFAULT_SESSION = {
   isCaptchaVerifyPass: false,
   loginFailedTimes: 0,
   loginFailedAt: 0,
-  user: null
+  userId: null
 }
 
 export const DATABASE_ERROR = {
