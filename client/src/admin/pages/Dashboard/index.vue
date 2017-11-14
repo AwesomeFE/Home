@@ -1,9 +1,6 @@
 <template>
-  <div class="Dashboard skin-blue sidebar-mini">
-    <div class="wrapper">
-      <v-header />
-      Dashboard
-    </div>
+  <div class="Dashboard">
+    Dashboard
   </div>
 </template>
 
@@ -21,8 +18,8 @@ export default Dashboard;
 
 <style type="text/scss" lang="scss">
 .Dashboard {
-  .wrapper {
-    min-height: 100vh;
-  }
+  padding-top: 50px;
+  min-height: 100vh;
+  box-sizing: border-box;
 }
 </style>

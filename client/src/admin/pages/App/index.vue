@@ -1,6 +1,13 @@
 <template>
   <div class="App">
+
+    <template v-if="user">
+      <v-header />
+      <!-- <v-sidebar /> -->
+    </template>
+
     <router-view v-if="isPageRended"></router-view>
+
     <transition name="fade">
       <v-loading v-show="!isPageRended"></v-loading>
     </transition>
@@ -15,12 +22,15 @@ import Component from 'vue-class-component';
 class App extends Vue {
   isPageRended = false;
 
+  get user() {
+    return this.$store.state.user.loginUser;
+  }
+
   async mounted() {
     try {
-      const { user } = this.$store.state;
       await this.$store.dispatch('user/getSession');
-      
-      if(user.loginUser) {
+
+      if(this.user) {
         this.$router.push('dashboard');
       } else {
         this.$router.push('signin');

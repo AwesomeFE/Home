@@ -1,11 +1,9 @@
 <template>
-  <header class="main-header">
+  <header class="vHeader">
 
-    <router-link to="" class="logo">
-      <span class="logo-lg"><b>Admin</b>LTE</span>
-    </router-link>
+    <v-logo />
 
-    <nav class="navbar navbar-static-top">
+    <!-- <nav class="navbar navbar-static-top">
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
 
@@ -80,7 +78,7 @@
           </li>
         </ul>
       </div>
-    </nav>
+    </nav> -->
   </header>
 </template>
 
@@ -111,5 +109,12 @@ export default vHeader;
 </script>
 
 <style type="text/scss" lang="scss">
-
+.vHeader {
+  position: fixed;
+  top: 0;
+  z-index: 1;
+  width: 100vw;
+  height: 50px;
+  background: #3c8dbc;
+}
 </style>

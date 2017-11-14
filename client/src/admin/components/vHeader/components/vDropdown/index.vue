@@ -1,5 +1,5 @@
 <template>
-  <li class="dropdown" :class="dropdownClassName">
+  <li class="dropdown" :class="dropdownClassName" ref="container">
     <a class="dropdown-toggle" @click="clickHandler">
       <!-- Image Icon Dropdown -->
       <img v-if="iconSrc" :class="iconClass" :src="iconSrc">
@@ -39,6 +39,22 @@ class vDropdown extends Vue {
       this.dropdownClass,
       this.isOpened ? 'open' : ''
     ]
+  }
+
+  mounted() {
+    document.addEventListener('click', this.cancelDropdown);
+  }
+
+  beforeDestroy() {
+    document.removeEventListener('click', this.cancelDropdown);
+  }
+
+  cancelDropdown(event) {
+    const isSelfEvent = event.path.some(el => el === this.$refs.container);
+
+    if(!isSelfEvent) {
+      this.isOpened = false;
+    }
   }
 
   clickHandler() {

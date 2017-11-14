@@ -7,7 +7,7 @@ import VueValidate from 'vee-validate';
 
 import './main.scss';
 import 'bootstrap/less/bootstrap.less';
-import './assets/less/AdminLTE/src/main.less';
+// import './assets/less/AdminLTE/src/main.less';
 
 import i18n from './i18n';
 import store from './vuex';

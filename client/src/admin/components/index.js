@@ -1,17 +1,21 @@
 import Vue from 'vue';
+import vLogo from './vLogo';
 import vImage from './vImage';
 import vInput from './vInput';
 import vButton from './vButton';
 import vHeader from './vHeader';
 import vLoading from './vLoading';
+import vSidebar from './vSidebar';
 import vCheckbox from './vCheckbox';
 
 const components = {
+  vLogo,
   vImage,
   vInput,
   vButton,
   vHeader,
   vLoading,
+  vSidebar,
   vCheckbox
 };
 

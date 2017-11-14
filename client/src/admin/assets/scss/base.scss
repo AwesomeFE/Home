@@ -8,10 +8,11 @@ ul {
   padding: 0;
 }
 
-// a {
-//   &:visited,
-//   &:link {
-//     color: inherit;
-//     text-decoration: inherit;
-//   }
-// }
+a {
+  &:visited,
+  &:link,
+  &:hover {
+    color: inherit;
+    text-decoration: inherit;
+  }
+}
