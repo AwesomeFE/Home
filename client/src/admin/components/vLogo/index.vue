@@ -21,12 +21,15 @@ export default vLogo;
 @import '../../assets/scss/variables';
 
 .vLogo {
-  display: block;
+  display: inline-block;
   width: 230px;
   height: 50px;
   text-align: center;
   line-height: 50px;
   font-size: 20px;
+  font-family: $Helvetica_Neue;
+  background: #367fa9;
+  float: left;
 
   .vLogo__Main {
     color: white;

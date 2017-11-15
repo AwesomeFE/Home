@@ -1,7 +1,29 @@
 <template>
   <header class="vHeader">
-
     <v-logo />
+
+    <nav class="vHeader__menus">
+      <v-nav-menu
+        menuClass="fa fa-bars"
+      />
+
+      <v-nav-menu
+        menuClass="fa fa-flag-o"
+        :isRight="true"
+      >
+        <li></li>
+      </v-nav-menu>
+
+      <v-nav-menu
+        menuClass="fa fa-bell-o"
+        :isRight="true"
+      />
+
+      <v-nav-menu
+        menuClass="fa fa-envelope-o"
+        :isRight="true"
+      />
+    </nav>
 
     <!-- <nav class="navbar navbar-static-top">
       <div class="navbar-custom-menu">
@@ -90,13 +112,7 @@ import vMessage from './components/vMessage';
 import vDropdown from './components/vDropdown';
 import vProfile from './components/vProfile';
 
-@Component({
-  components: {
-    'v-dropdown': vDropdown,
-    'v-dropdown-message': vMessage,
-    'v-dropdown-profile': vProfile
-  }
-})
+@Component()
 class vHeader extends Vue {
   messages = [];
 
@@ -116,5 +132,12 @@ export default vHeader;
   width: 100vw;
   height: 50px;
   background: #3c8dbc;
+
+  .vHeader__menus {
+    display: block;
+    float: left;
+    height: 50px;
+    width: calc(100vw - 230px);
+  }
 }
 </style>

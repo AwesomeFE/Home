@@ -5,9 +5,8 @@ import VueI18n from 'vue-i18n';
 import VueRouter from 'vue-router';
 import VueValidate from 'vee-validate';
 
-import './main.scss';
-import 'bootstrap/less/bootstrap.less';
-// import './assets/less/AdminLTE/src/main.less';
+import './assets/less/main.less';
+import './assets/scss/main.scss';
 
 import i18n from './i18n';
 import store from './vuex';
