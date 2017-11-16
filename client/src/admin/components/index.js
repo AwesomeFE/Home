@@ -6,6 +6,7 @@ import vButton from './vButton';
 import vHeader from './vHeader';
 import vLoading from './vLoading';
 import vNavMenu from './vNavMenu';
+import vProfile from './vProfile';
 import vSidebar from './vSidebar';
 import vCheckbox from './vCheckbox';
 
@@ -17,6 +18,7 @@ const components = {
   vHeader,
   vLoading,
   vNavMenu,
+  vProfile,
   vSidebar,
   vCheckbox
 };

@@ -15,8 +15,7 @@
 </template>
 
 <script>
-import Vue from 'vue';
-import Component from 'vue-class-component';
+import { Component, Vue, Watch } from 'vue-property-decorator';
 
 @Component()
 class App extends Vue {
@@ -26,16 +25,18 @@ class App extends Vue {
     return this.$store.state.user.loginUser;
   }
 
+  @Watch('user')
+  onUserChange() {
+    if(this.user) {
+      this.$router.push('dashboard');
+    } else {
+      this.$router.push('signin');
+    }
+  }
+
   async mounted() {
     try {
       await this.$store.dispatch('user/getSession');
-
-      if(this.user) {
-        this.$router.push('dashboard');
-      } else {
-        this.$router.push('signin');
-      }
-
       this.isPageRended = true;
     } catch(e) {
       console.log(e);
