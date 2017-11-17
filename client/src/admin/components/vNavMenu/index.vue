@@ -86,6 +86,8 @@ export default vNavMenu;
 </script>
 
 <style type="text/scss" lang="scss">
+@import '../../assets/scss/variables.scss';
+
 .vNavMenu {
   height: 100%;
   display: inline-block;
@@ -129,6 +131,10 @@ export default vNavMenu;
     border-radius: 50%;
     margin-right: 10px;
     margin-top: -2px;
+  }
+
+  .vNavMenu__menuText {
+    font-family: $SourceSans_Pro;
   }
 
   &.open {
