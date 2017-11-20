@@ -1,15 +1,15 @@
 <template>
   <div class="App">
 
-    <template v-if="user">
+    <template v-if="user && !isNotFound">
       <v-header />
-      <!-- <v-sidebar /> -->
+      <v-sidebar />
     </template>
 
-    <router-view v-if="isPageRended"></router-view>
+    <router-view v-if="!isPageLoading"></router-view>
 
     <transition name="fade">
-      <v-loading v-show="!isPageRended"></v-loading>
+      <v-loading v-show="isPageLoading"></v-loading>
     </transition>
   </div>
 </template>
@@ -19,25 +19,27 @@ import { Component, Vue, Watch } from 'vue-property-decorator';
 
 @Component()
 class App extends Vue {
-  isPageRended = false;
+  isPageLoading = true;
 
   get user() {
     return this.$store.state.user.loginUser;
   }
 
+  get isNotFound() {
+    return !this.$route.name;
+  }
+
   @Watch('user')
   onUserChange() {
-    if(this.user) {
-      this.$router.push('dashboard');
-    } else {
-      this.$router.push('signin');
-    }
+    this.user
+      ? this.$router.push('dashboard')
+      : this.$router.push('signin');
   }
 
   async mounted() {
     try {
       await this.$store.dispatch('user/getSession');
-      this.isPageRended = true;
+      this.isPageLoading = false;
     } catch(e) {
       console.log(e);
     }
@@ -53,5 +55,6 @@ export default App;
   position: relative;
   height: 100vh;
   overflow-y: auto;
+  min-width: 720px;
 }
 </style>

@@ -1,18 +1,22 @@
 <template>
-  <div></div>
+  <div class="User Wrapper">
+    User
+  </div>
 </template>
 
 <script>
 import {Vue, Component} from 'vue-property-decorator';
 
 @Component()
-class vTemplate extends Vue {
+class User extends Vue {
 
 }
 
-export default vTemplate;
+export default User;
 </script>
 
 <style type="text/scss" lang="scss">
-
+.User {
+  
+}
 </style>

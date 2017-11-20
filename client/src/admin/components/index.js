@@ -8,7 +8,9 @@ import vLoading from './vLoading';
 import vNavMenu from './vNavMenu';
 import vProfile from './vProfile';
 import vSidebar from './vSidebar';
+import vSideMenu from './vSideMenu';
 import vCheckbox from './vCheckbox';
+import vContentBox from './vContentBox';
 
 const components = {
   vLogo,
@@ -20,7 +22,9 @@ const components = {
   vNavMenu,
   vProfile,
   vSidebar,
-  vCheckbox
+  vSideMenu,
+  vCheckbox,
+  vContentBox
 };
 
 export default () => {

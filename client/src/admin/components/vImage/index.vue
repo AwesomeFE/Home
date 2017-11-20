@@ -16,35 +16,35 @@
 </template>
 
 <script>
-  export default {
+  import { Component, Vue, Watch } from 'vue-property-decorator';
+
+  @Component({
     props: {
       src: String,
       wapperClass: String,
       imageClass: String
-    },
-    data() {
-      return {
-        isLoadComplete: false
-      }
-    },
-    watch: {
-      src(newVal, oldVal) {
-        if(newVal !== oldVal) {
-          this.isLoadComplete = false;
-        }
-      }
-    },
-    mounted() {
-    },
-    methods: {
-      loadHandler() {
-        this.isLoadComplete = true;
-      },
-      clickHandler(event) {
-        this.$emit('click', event);
+    }
+  })
+  class vImage extends Vue {
+    isLoadComplete = false;
+
+    @Watch('src')
+    onSrcChange(newVal, oldVal) {
+      if(newVal !== oldVal) {
+        this.isLoadComplete = false;
       }
     }
+
+    loadHandler() {
+      this.isLoadComplete = true;
+    }
+
+    clickHandler(event) {
+      this.$emit('click', event);
+    }
   }
+
+  export default vImage;
 </script>
 
 <style type="text/scss" lang="scss">

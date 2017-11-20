@@ -13,7 +13,9 @@ $dark-grey: #727272;
 // size
 $min-width-desktop: 1200px;
 
-@mixin container(){
-  width: $min-width-desktop;
-  margin: 0 auto;
+@mixin font-size($size){
+  $size-precent: $size / 12;
+  font-size: 12px;
+  transform: scale($size-precent);
+  transform-origin: left center;
 }

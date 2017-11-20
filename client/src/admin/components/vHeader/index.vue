@@ -41,8 +41,7 @@
 </template>
 
 <script>
-import Vue from 'vue';
-import Component from 'vue-class-component';
+import { Component, Vue } from 'vue-property-decorator';
 import defaultUser from './assets/img/defaultUser.jpg';
 
 @Component()
@@ -69,12 +68,14 @@ export default vHeader;
   width: 100vw;
   height: 50px;
   background: #3c8dbc;
+  min-width: 720px;
 
   .vHeader__menus {
     display: block;
     float: left;
     height: 50px;
     width: calc(100vw - 230px);
+    min-width: 490px;
   }
 }
 </style>

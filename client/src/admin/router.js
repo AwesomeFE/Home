@@ -23,6 +23,16 @@ export default () => new VueRouter({
           component: () => import('./pages/Dashboard')
         },
         {
+          name: 'User',
+          path: 'user',
+          component: () => import('./pages/User')
+        },
+        {
+          name: 'Country',
+          path: 'country',
+          component: () => import('./pages/Country')
+        },
+        {
           path: '*',
           component: () => import('./pages/NotFound')
         }
