@@ -40,7 +40,7 @@ export default vProfile;
 </style>
 
 <i18n>
-zh:
+zh-cn:
   Profile: "我的账号"
   Signout: "登出"
 </i18n>

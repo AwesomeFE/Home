@@ -93,7 +93,7 @@ export default vSidebar;
 </style>
 
 <i18n>
-zh:
+zh-cn:
   Overview: "概况"
   User: "用户"
   Country: "国家"

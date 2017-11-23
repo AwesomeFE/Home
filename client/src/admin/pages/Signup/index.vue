@@ -90,7 +90,7 @@ en:
   signup: ""
   mobile: ""
   email: ""
-zh:
+zh-cn:
   signup: "注册"
   mobile: "手机注册"
   email: "邮箱注册"

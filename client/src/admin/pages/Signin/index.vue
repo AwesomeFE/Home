@@ -178,7 +178,7 @@
 </style>
 
 <i18n>
-zh:
+zh-cn:
   credential: '用户名/邮箱/手机号'
   password: '密码'
   signin: '登陆'

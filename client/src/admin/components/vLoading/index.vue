@@ -45,7 +45,7 @@ export default vLoading;
 </style>
 
 <i18n>
-zh:
+zh-cn:
   loadingText: "加载中..."
 en:
   loadingText: "Loading..."

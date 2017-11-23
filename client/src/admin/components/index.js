@@ -2,6 +2,7 @@ import Vue from 'vue';
 import vLogo from './vLogo';
 import vImage from './vImage';
 import vInput from './vInput';
+import vTable from './vTable';
 import vButton from './vButton';
 import vHeader from './vHeader';
 import vLoading from './vLoading';
@@ -16,6 +17,7 @@ const components = {
   vLogo,
   vImage,
   vInput,
+  vTable,
   vButton,
   vHeader,
   vLoading,

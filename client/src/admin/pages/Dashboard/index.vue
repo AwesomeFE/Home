@@ -25,7 +25,7 @@ export default Dashboard;
 }
 </style>
 <i18n>
-zh:
+zh-cn:
   Dashboard: "概况"
   Dashboard_desc: "实时显示系统情况"
 </i18n>

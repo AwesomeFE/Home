@@ -79,7 +79,7 @@ en:
   password.title: ""
   password.placeholder: ""
   required: ""
-zh:
+zh-cn:
   mobile.title: "登录名（手机号）"
   mobile.placeholder: "请输入手机号"
   password.title: "设置密码"
