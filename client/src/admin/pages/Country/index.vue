@@ -11,10 +11,13 @@
       :title="$t('CountryList')"
     >
       <v-table
-        :i18n="countries.i18n"
-        :headers="countries.headers"
-        :data="countries.data"
+        :headers="countryHeaders"
+        :data="countryData"
+        :actions="countryActions"
         :total="0"
+        @edit="editCountry"
+        @publish="publishCountry"
+        @delete="deleteCountry"
       />
     </v-content-box>
 
@@ -37,16 +40,30 @@ import {Vue, Component} from 'vue-property-decorator';
 class Country extends Vue {
   isLoading = true;
 
-  get countries() {
-    const headers = ['name', 'desc', 'code'];
+  countryHeaders = [
+    {key: 'name', title: '名称'},
+    {key: 'desc', title: '简称'},
+    {key: 'code', title: '编号'}
+  ];
 
-    const data = this.$store.state.country.countryArray.map(country => {
-      const local = country.names.find(nameItem => nameItem.lang === 'zh-cn');
+  countryActions = [
+    {name: 'edit', iconName: 'fa fa-pencil', className: ''},
+    {name: 'publish', iconName: '', className: ''},
+    {name: 'unpublish', iconName: '', className: ''},
+    {name: 'delete', iconName: '', className: ''}
+  ];
+
+  get countryData() {
+    const countryArray = this.$store.state.country.countryArray;
+
+    return countryArray.map(country => {
+      const local = country.names.find(
+        nameItem => nameItem.lang === 'zh-cn'
+      );
+
       country.name = local ? local.title : country.desc;
       return country;
     });
-
-    return { data, headers };
   }
 
   async mounted() {
@@ -55,8 +72,16 @@ class Country extends Vue {
     this.isLoading = false;
   }
 
-  setCountryTable() {
+  editCountry(event, country) {
+    console.log(event, country);
+  }
 
+  publishCountry(event, country) {
+    console.log(event, country);
+  }
+
+  deleteCountry(event, country) {
+    console.log(event, country);
   }
 }
 

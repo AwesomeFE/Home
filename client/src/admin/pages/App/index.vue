@@ -31,9 +31,9 @@ class App extends Vue {
 
   @Watch('user')
   onUserChange() {
-    this.user
-      ? this.$router.push('dashboard')
-      : this.$router.push('signin');
+    if(!this.user) {
+      this.$router.push('signin');
+    }
   }
 
   async mounted() {
