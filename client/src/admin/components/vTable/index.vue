@@ -7,7 +7,9 @@
     </thead>
     <tbody class="vTable__body">
       <tr v-for="item in data" :key="item.id">
-        <td>{{item[header]}}</td>
+        <template v-for="header in headers">
+          <td :key="item.id + header">{{item[header]}}</td>
+        </template>
       </tr>
     </tbody>
   </table>

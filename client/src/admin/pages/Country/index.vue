@@ -11,10 +11,10 @@
       :title="$t('CountryList')"
     >
       <v-table
-        :i18n="tables.country.i18n"
-        :headers="tables.country.headers"
-        :data="tables.country.data"
-        :total="tables.country.total"
+        :i18n="countries.i18n"
+        :headers="countries.headers"
+        :data="countries.data"
+        :total="0"
       />
     </v-content-box>
 
@@ -35,34 +35,23 @@ import {Vue, Component} from 'vue-property-decorator';
 
 @Component()
 class Country extends Vue {
-
-  tables = {
-    country: {
-      i18n: {},
-      headers: ['name', 'desc', 'code'],
-      data: [],
-      total: 0
-    },
-    province: {
-      i18n: {},
-      headers: [],
-      data: [],
-      total: 0
-    },
-    city: {
-      i18n: {},
-      headers: [],
-      data: [],
-      total: 0
-    }
-  }
-
   isLoading = true;
+
+  get countries() {
+    const headers = ['name', 'desc', 'code'];
+
+    const data = this.$store.state.country.countryArray.map(country => {
+      const local = country.names.find(nameItem => nameItem.lang === 'zh-cn');
+      country.name = local ? local.title : country.desc;
+      return country;
+    });
+
+    return { data, headers };
+  }
 
   async mounted() {
     this.isLoading = true;
     await this.$store.dispatch('country/getCountryList');
-
     this.isLoading = false;
   }
 

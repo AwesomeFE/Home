@@ -1,5 +1,5 @@
 export const mutations = {
-  setLoginUser(state, loginUser) {
-    state.loginUser = loginUser;
+  setCountry(state, data) {
+    state.countryArray = data;
   }
 };
