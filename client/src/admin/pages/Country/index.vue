@@ -47,10 +47,10 @@ class Country extends Vue {
   ];
 
   countryActions = [
-    {name: 'edit', iconName: 'fa fa-pencil', className: ''},
-    {name: 'publish', iconName: '', className: ''},
-    {name: 'unpublish', iconName: '', className: ''},
-    {name: 'delete', iconName: '', className: ''}
+    {name: 'edit', iconName: 'fa fa-pencil', className: 'btn btn-primary btn-flat'},
+    {name: 'publish', iconName: 'fa fa-cloud-upload', className: 'btn btn-primary btn-flat'},
+    {name: 'unpublish', iconName: 'fa fa-cloud-download', className: 'btn btn-primary btn-flat'},
+    {name: 'delete', iconName: 'fa fa-trash-o', className: 'btn btn-primary btn-flat'}
   ];
 
   get countryData() {
@@ -90,7 +90,6 @@ export default Country;
 
 <style type="text/scss" lang="scss">
 .Country {
-  
 }
 </style>
 <i18n>
