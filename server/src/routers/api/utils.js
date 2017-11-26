@@ -12,5 +12,5 @@ export function requiredFieldCheck(req, fieldNameList = []) {
 }
 
 export function authCheck(req) {
-  // const {} = req.session;
+  console.log(req)
 }

@@ -56,3 +56,5 @@ export const TOGGLE_LIKE_BLOG = blogId => `/api/blog/${blogId}/like`
 export const GET_FILE = fileId => `/api/file/${fileId}`
 
 export const GET_COUNTRY_LIST = () => `/api/country`
+
+export const GET_COUNTRY_DETAIL = countryId => `/api/country/${countryId}`

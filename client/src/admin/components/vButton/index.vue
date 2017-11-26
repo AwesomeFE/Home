@@ -1,6 +1,5 @@
 <template>
   <button
-    class="btn btn-block btn-flat"
     :class="className"
     @click="clickHandler"
   >
@@ -16,11 +15,15 @@ import { Component, Vue } from 'vue-property-decorator';
     title: String,
     className: String,
     disabled: Boolean,
-    isLoading: Boolean
+    isLoading: Boolean,
+    to: String
   }
 })
 class vButton extends Vue {
   clickHandler(event) {
+    if(this.to) {
+      this.$router.push(this.to);
+    }
     this.$emit('click', event);
   }
 }

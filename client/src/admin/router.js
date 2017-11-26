@@ -9,28 +9,38 @@ export default () => new VueRouter({
       children: [
         {
           name: 'Signup',
-          path: 'signup',
+          path: '/signup',
           component: () => import('./pages/Signup')
         },
         {
           name: 'Signin',
-          path: 'signin',
+          path: '/signin',
           component: () => import('./pages/Signin')
         },
         {
           name: 'Dashboard',
-          path: 'dashboard',
+          path: '/dashboard',
           component: () => import('./pages/Dashboard')
         },
         {
           name: 'User',
-          path: 'user',
+          path: '/user',
           component: () => import('./pages/User')
         },
         {
           name: 'Country',
-          path: 'country',
+          path: '/country',
           component: () => import('./pages/Country')
+        },
+        {
+          name: 'CountryCreate',
+          path: '/country/create',
+          component: () => import('./pages/CountryForm')
+        },
+        {
+          name: 'CountryEdit',
+          path: '/country/:countryId',
+          component: () => import('./pages/CountryForm')
         },
         {
           path: '*',

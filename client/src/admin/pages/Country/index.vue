@@ -5,6 +5,11 @@
       <small class="Header__description">
         {{$t('Country_desc')}}
       </small>
+
+      <v-button
+        className="Country_create btn btn-primary btn-flat"
+        to="/country/create"
+      >创建</v-button>
     </h1>
 
     <v-content-box
@@ -73,7 +78,7 @@ class Country extends Vue {
   }
 
   editCountry(event, country) {
-    console.log(event, country);
+    this.$router.push(`/country/${country._id}`)
   }
 
   publishCountry(event, country) {
@@ -90,6 +95,9 @@ export default Country;
 
 <style type="text/scss" lang="scss">
 .Country {
+  .Country_create {
+    float: right;
+  }
 }
 </style>
 <i18n>

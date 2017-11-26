@@ -143,7 +143,7 @@
 
         if(isValid) {
           await this.$store.dispatch('user/signin', this.passport);
-          this.$router.push('dashboard');
+          this.$router.push('/dashboard');
         }
       } catch(message) {
         this.remoteMessage = message.type;

@@ -1,11 +1,18 @@
 import * as CountryService from '../../services/CountryService';
 
 export const actions = {
-  // 用户api
+  // 获取国家列表
   async getCountryList({ commit, state }) {
     const { data, type } = await CountryService.getCountryList();
     commit('setCountry', data);
 
-    return type;
+    return { data, type };
+  },
+
+  // 获取国家列表
+  async getCountryDetal({ commit, state }, countryId) {
+    const { data, type } = await CountryService.getCountryDetail(countryId);
+
+    return { data, type };
   }
 };

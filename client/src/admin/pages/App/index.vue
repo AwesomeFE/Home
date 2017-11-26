@@ -32,7 +32,9 @@ class App extends Vue {
   @Watch('user')
   onUserChange() {
     if(!this.user) {
-      this.$router.push('signin');
+      this.$router.push('/signin');
+    } else if(this.$route.fullPath === '/') {
+      this.$router.push('/dashboard');
     }
   }
 

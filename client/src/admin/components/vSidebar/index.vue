@@ -9,17 +9,17 @@
       <ul class="vSidebar__menus">
         <v-side-menu
           :title="$t('Overview')"
-          to="dashboard"
+          to="/dashboard"
           iconClass="fa fa-dashboard"
         />
         <v-side-menu
           :title="$t('User')"
-          to="user"
+          to="/user"
           iconClass="fa fa-user"
         />
         <v-side-menu
           :title="$t('Country')"
-          to="country"
+          to="/country"
           iconClass="fa fa-globe"
         />
       </ul>

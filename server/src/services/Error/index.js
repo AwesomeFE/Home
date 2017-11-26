@@ -11,6 +11,7 @@ class ErrorService extends Error {
     this.type = type;
     this.status = status;
     this.id = uuid.v4();
+    this.message = message;
   }
 
   static handler(errorMessage, req, res, next) {
@@ -21,9 +22,9 @@ class ErrorService extends Error {
       console.error(error);
       SystemLogger.error(error);
     } else if(status >= 400) {
-      delete error.message;
-
       console.warn(error);
+      delete error.message;
+      
       SystemLogger.warn(error);
       status = 200;
     }
