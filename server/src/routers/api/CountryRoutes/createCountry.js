@@ -1,8 +1,13 @@
 import validator from 'validator';
 import { authCheck, requiredFieldCheck } from '../../utils';
 import * as Messages from '../../../../constants/messages';
+import * as CountryController from '../../../../controllers/Country';
 
-function validate(req) {
+export async function auth(req, res) {
+
+}
+
+export async function validate(req, res) {
   const requiredFields = ['desc', 'code'];
   const authMessage = authCheck(req);
   const fieldMessage = requiredFieldCheck(req, requiredFields);
@@ -13,4 +18,6 @@ function validate(req) {
   }
 }
 
-export default validate;
+export async function handler(req, res) {
+
+}

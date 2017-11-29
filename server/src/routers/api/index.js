@@ -1,19 +1,25 @@
 import { Router } from 'express';
 import { setLoginUser } from '../middleware';
-
-import SmsRouter from './sms';
-import UserRouter from './user';
-import CountryRouter from './CountryRoutes';
-import CaptchaRouter from './captcha';
+import CountryRoutes from './CountryRoutes';
 
 const router = Router();
 
-const routes = [
-  { path: '/country',             method: 'get', auth: auth, validate: validate, handler: handler },
-  { path: '/country',             method: 'post', auth: auth, validate: validate, handler: handler },
-  { path: '/country/:countryId',  method: 'get', auth: auth, validate: validate, handler: handler }
+const middlewares = [
+  setLoginUser
 ];
 
+const routes = [
+  { path: '/country', method: 'get', ...CountryRoutes.getAllCountries },
+  { path: '/country', method: 'post', ...CountryRoutes.createCountry },
+  { path: '/country/:countryId', method: 'get', ...CountryRoutes.getCountryDetail }
+];
+
+// Setting the middleware
+for(const middleware of middlewares) {
+  router.use(middleware);
+}
+
+// Setting the routes
 for(const route of routes) {
   router[route.method](route.path, (req, res, next) => {
     try {
@@ -31,12 +37,15 @@ for(const route of routes) {
   });
 }
 
-router.use(setLoginUser);
-router.use('/sms', SmsRouter);
-router.use('/user', UserRouter);
+// import SmsRouter from './sms';
+// import UserRouter from './user';
+// import CaptchaRouter from './captcha';
+
+// router.use('/sms', SmsRouter);
+// router.use('/user', UserRouter);
 // router.use('/country', CountryRouter);
 // router.use(require('./blog'));
 // router.use(require('./file'));
-router.use('/captcha', CaptchaRouter);
+// router.use('/captcha', CaptchaRouter);
 
 export default router;
