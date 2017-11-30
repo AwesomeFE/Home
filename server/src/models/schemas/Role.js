@@ -12,7 +12,10 @@ const RoleSchema = new Schema({
   isAdmin: {
     type: Boolean,
     default: false
-  }
+  },
+  auth: [{
+    type: String
+  }]
 }, {timestamps: true});
 
 export default RoleSchema;

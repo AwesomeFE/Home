@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { setLoginUser } from '../middleware';
-import CountryRoutes from './CountryRoutes';
+import * as CountryRoutes from './CountryRoutes';
 
 const router = Router();
 

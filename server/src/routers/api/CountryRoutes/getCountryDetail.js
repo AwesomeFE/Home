@@ -1,5 +1,5 @@
-import * as Messages from '../../../../constants/messages';
-import * as CountryController from '../../../../controllers/Country';
+import * as Messages from '../../../constants/messages';
+import * as CountryController from '../../../controllers/Country';
 
 export async function auth(req, res) {
 

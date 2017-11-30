@@ -1,7 +1,7 @@
 import validator from 'validator';
-import { authCheck, requiredFieldCheck } from '../../utils';
-import * as Messages from '../../../../constants/messages';
-import * as CountryController from '../../../../controllers/Country';
+import { authCheck, requiredFieldCheck } from '../utils';
+import * as Messages from '../../../constants/messages';
+import * as CountryController from '../../../controllers/Country';
 
 export async function auth(req, res) {
 

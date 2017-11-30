@@ -31,7 +31,7 @@ class AdminService {
     this.adminRole = await Role.findOne({isAdmin: true});
 
     if(!this.adminRole) {
-      this.adminRole = await Role.create({names: [{ lang: 'zh-cn', title: '超级管理员'}], isAdmin: true});
+      this.adminRole = await Role.create({names: [{ lang: 'zh-cn', title: '超级管理员'}], isAdmin: true, auth: ['*']});
     }
   }
 
