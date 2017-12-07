@@ -1,10 +1,5 @@
-import { authCheck } from '../utils';
 import * as Messages from '../../../constants/messages';
 import * as CountryController from '../../../controllers/Country';
-
-export async function auth(req, res) {
-  authCheck(req, res);
-}
 
 export async function validate(req, res) {
   

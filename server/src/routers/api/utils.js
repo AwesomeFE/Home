@@ -1,5 +1,4 @@
 import * as Messages from '../../constants/messages';
-import { Role } from '../../models';
 
 export function requiredFieldCheck(req, fieldNameList = []) {
   for(var name of fieldNameList) {
@@ -10,8 +9,4 @@ export function requiredFieldCheck(req, fieldNameList = []) {
       };
     }
   }
-}
-
-export function authCheck(req) {
-  
 }

@@ -1,10 +1,6 @@
 import * as Messages from '../../../constants/messages';
 import * as CountryController from '../../../controllers/Country';
 
-export async function auth(req, res) {
-
-}
-
 export async function validate(req, res) {
   
 }
