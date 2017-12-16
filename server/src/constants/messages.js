@@ -13,6 +13,7 @@ export const IS_ALREADY_LOGIN       = {status: 200, message: 'User is already lo
 export const USER_IS_EXISTED        = {status: 400, message: 'User is existed.', type: 'USER_IS_EXISTED'};
 export const PASSWORD_ERROR         = {status: 401, message: 'Password is wrong.', type: 'PASSWORD_ERROR'};
 export const USER_NOT_FOUND         = {status: 400, message: 'Cannot find the user.', type: 'USER_NOT_FOUND'};
+export const SHOULD_LOGIN           = {status: 401, message: 'Please login.', type: 'SHOULD_LOGIN'};
 
 // Response successful
 export const REQUEST_SUSSESS        = {status: 200, message: 'Request successfully.', type: 'REQUEST_SUSSESS'};

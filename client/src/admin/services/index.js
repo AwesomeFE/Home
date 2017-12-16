@@ -1,3 +1,4 @@
+import Vue from 'vue';
 import axios from 'axios';
 
 /**
@@ -31,4 +32,8 @@ const responseFailed = error => {
 
 export default () => {
   axios.interceptors.response.use(responseSuccess, responseFailed);
+
+  Vue.config.errorHandler = (error, vm, info) => {
+    console.log(312)
+  };
 }

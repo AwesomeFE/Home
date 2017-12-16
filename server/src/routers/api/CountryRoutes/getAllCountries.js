@@ -1,13 +1,11 @@
 import * as Messages from '../../../constants/messages';
 import * as CountryController from '../../../controllers/Country';
 
-export async function validate(req, res) {
-  
-}
-
-export async function handler(req, res) {
-  res.json({
-    ...Messages.REQUEST_SUSSESS,
-    data: await CountryController.find()
-  });
+export default {
+  async handler(req, res) {
+    res.json({
+      ...Messages.REQUEST_SUSSESS,
+      data: await CountryController.find()
+    });
+  }
 }

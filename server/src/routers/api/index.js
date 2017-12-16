@@ -9,12 +9,12 @@ for(const route of routes) {
 
   if(!isMiddleware) {
     // set Route
-    router[route.method](route.path, (req, res, next) => {
+    router[route.method](route.path, async function routerHandler(req, res, next) {
       try {
         // Request Data Validator
-        route.validate && route.validate(req, res, next);
+        route.validate && await route.validate(req, res, next);
         // Router Processer
-        route.handler && route.handler(req, res, next);
+        route.handler && await route.handler(req, res, next);
 
       } catch(message) {
         // Exception Handling
@@ -23,7 +23,7 @@ for(const route of routes) {
     });
   } else {
     // set Middleware
-    router.use(middleware);
+    router.use(route);
   }
 }
 
