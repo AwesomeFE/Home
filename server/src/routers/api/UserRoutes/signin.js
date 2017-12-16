@@ -38,19 +38,27 @@ export default {
   },
 
   async handler(req, res) {
-    const ip = req.ip;
-    const formData = req.body;
-    const loginBy = getLoginType(formData);
+    try {
+      const ip = req.ip;
+      const formData = req.body;
+      const loginBy = getLoginType(formData);
+    
+      const user = await UserController.login(formData);
+      const entryLog = await EntryLogController.create({ ip, loginBy, userId: user._id });
+    
+      formatSession(req, { userId: user._id });
+    
+      res.json({
+        ...Messages.REQUEST_SUSSESS,
+        data: user
+      });
   
-    const user = await UserController.login(formData);
-    const entryLog = await EntryLogController.create({ ip, loginBy, userId: user._id });
-  
-    formatSession(req, { userId: user._id });
-  
-    res.json({
-      ...Messages.REQUEST_SUSSESS,
-      data: user
-    });
+      req.session.loginFailedTimes += 1;
+      req.session.loginFailedAt = Date.now();
+    } catch (error) {
+      setFailedSession(req);
+      throw error;
+    }
   }
 }
 
@@ -67,4 +75,9 @@ function formatSession(req, options) {
   req.session.isCaptchaVerifyPass = false;
 
   req.session.userId = options.userId;
+}
+
+function setFailedSession (req) {
+  req.session.loginFailedTimes += 1;
+  req.session.loginFailedAt = Date.now();
 }
