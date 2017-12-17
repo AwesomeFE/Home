@@ -1,17 +1,14 @@
-// 用户重登录
+// User api urls
 export const GET_SESSION_USER = () => `/api/user/session`;
-
-// 用户登录
 export const SIGNIN = () => `/api/user/signin`;
-
-// 用户登出
 export const SIGNOUT = () => `/api/user/signout`;
-
-// 用户注册
 export const SIGNUP = () => `/api/user/signup`;
 
+// Country api urls
 export const CREATE_COUNTRY = () => `/api/country`;
-
+export const GET_COUNTRY_LIST = () => `/api/country`;
+export const EDIT_COUNTRY = countryId => `/api/country/${countryId}`;
+export const GET_COUNTRY_DETAIL = countryId => `/api/country/${countryId}`;
 
 
 
@@ -59,7 +56,3 @@ export const TOGGLE_LIKE_BLOG = blogId => `/api/blog/${blogId}/like`
 
 // 文件获取地址
 export const GET_FILE = fileId => `/api/file/${fileId}`
-
-export const GET_COUNTRY_LIST = () => `/api/country`
-
-export const GET_COUNTRY_DETAIL = countryId => `/api/country/${countryId}`

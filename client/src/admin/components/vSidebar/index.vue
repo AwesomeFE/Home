@@ -60,6 +60,7 @@ export default vSidebar;
   overflow-x: hidden;
   overflow-y: auto;
   color: white;
+  z-index: 1;
 
   .vSidebar__header {
     padding: 10px;

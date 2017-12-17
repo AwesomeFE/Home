@@ -11,5 +11,6 @@ export default [
   middlewares.ensureLogin,
   middlewares.AuthCheck,
   { path: '/country', method: 'post', ...CountryRoutes.createCountry },
-  { path: '/country/:countryId', method: 'get', ...CountryRoutes.getCountryDetail }
+  { path: '/country/:countryId', method: 'get', ...CountryRoutes.getCountryDetail },
+  { path: '/country/:countryId', method: 'post', ...CountryRoutes.editCountry }
 ];

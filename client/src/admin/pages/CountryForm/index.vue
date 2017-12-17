@@ -74,15 +74,16 @@ class CountryForm extends Vue {
       title: null
     }]
   };
-
   remoteMessage = '';
-
   disabled = false;
 
-  async mounted() {
-    const { countryId } = this.$route.params;
+  get isEdit() {
+    return !!this.$route.params.countryId;
+  }
 
-    if(countryId) {
+  async mounted() {
+    if(this.isEdit) {
+      const { countryId } = this.$route.params;
       const { data } = await this.$store.dispatch('country/getCountryDetal', countryId);
 
       for(const key in this.formData) {
@@ -96,9 +97,14 @@ class CountryForm extends Vue {
 
     try {
       const isValid = await this.$validator.validateAll();
+      const { countryId } = this.$route.params;
+      const { formData } = this;
 
       if(isValid) {
-        const res = await this.$store.dispatch('country/createCountry', this.formData);
+        const res = this.isEdit
+          ? await this.$store.dispatch('country/editCountry', { countryId, formData })
+          : await this.$store.dispatch('country/createCountry', this.formData);
+
         this.$router.push('/country');
       }
     } catch(message) {

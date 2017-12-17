@@ -14,3 +14,7 @@ export function create(countryData) {
   const country = new Country(countryData);
   return country.save();
 }
+
+export function updateById(id, countryData) {
+  return Country.update({_id: id}, countryData);
+}
