@@ -10,6 +10,11 @@ export const SIGNOUT = () => `/api/user/signout`;
 // 用户注册
 export const SIGNUP = () => `/api/user/signup`;
 
+export const CREATE_COUNTRY = () => `/api/country`;
+
+
+
+
 // 用户资料更新
 export const UPDATE_USER = () => `/api/user`
 

@@ -6,7 +6,7 @@ export default {
   async validate(req, res) {
     let message = '';
   
-    const requiredFields = ['desc', 'code'];
+    const requiredFields = ['desc', 'code', 'names'];
     message = message || utils.requiredFieldCheck(req, requiredFields);
   
     if(message) {
@@ -15,6 +15,12 @@ export default {
   },
 
   async handler(req, res) {
+    const formData = req.body;
+    const countryDoc = await CountryController.create(formData);
 
+    res.json({
+      ...Messages.REQUEST_SUSSESS,
+      data: countryDoc
+    });
   }
 }

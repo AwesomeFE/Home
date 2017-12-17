@@ -11,7 +11,7 @@ export default {
     
     res.json({
       ...Messages.REQUEST_SUSSESS,
-      data: await CountryController.find({_id: countryId})
+      data: await CountryController.findById(countryId)
     });
   }
 }

@@ -1,5 +1,6 @@
 import log4js from 'log4js';
 import uuid from 'node-uuid';
+import * as Message from '../../constants/messages';
 
 const SystemLogger = log4js.getLogger('system');
 
@@ -15,13 +16,19 @@ class ErrorService extends Error {
   }
 
   static handler(errorMessage, req, res, next) {
-    let error = new ErrorService(errorMessage);
+    let error = new ErrorService(Message.DUPLICATE_DATA);
     let status = !error.status || error.status >= 500 ? 500 : error.status;
 
-    if(status >= 500) {
+    // resolve mongodb duplicate data create
+    if(error.code === 11000) {
+      status = 200;
+      error = new ErrorService(Message);
+    }
+    else if(status >= 500) {
       console.error(error);
       SystemLogger.error(error);
-    } else if(status >= 400) {
+    }
+    else if(status >= 400) {
       console.warn(error);
       delete error.message;
       

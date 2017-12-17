@@ -18,3 +18,4 @@ export const SHOULD_LOGIN           = {status: 401, message: 'Please login.', ty
 // Response successful
 export const REQUEST_SUSSESS        = {status: 200, message: 'Request successfully.', type: 'REQUEST_SUSSESS'};
 export const FIELD_IS_EMPYT         = {status: 400, message: 'is required.', type: 'FIELD_IS_EMPYT'};
+export const DUPLICATE_DATA         = {status: 400, message: 'Data is already in database.', type: 'DUPLICATE_DATA'};

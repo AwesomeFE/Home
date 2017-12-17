@@ -14,5 +14,12 @@ export const actions = {
     const { data, type } = await CountryService.getCountryDetail(countryId);
 
     return { data, type };
+  },
+
+  // 获取国家列表
+  async createCountry({ commit, state }, formData) {
+    const { data, type } = await CountryService.createCountry(formData);
+
+    return { data, type };
   }
 };

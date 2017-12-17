@@ -3,6 +3,7 @@
     <header class="ContentBox__header">
       <h2 class="ContentBox__header--text">
         {{title}}
+        <small>{{message}}</small>
       </h2>
     </header>
     <section class="ContentBox__body">
@@ -16,11 +17,14 @@
 
   @Component({
     props: {
-      title: String
-    }
+      title: String,
+      message: String
+    },
+    inject: [
+      '$validator'
+    ]
   })
   class vContentBox extends Vue {
-
   }
 
   export default vContentBox;
