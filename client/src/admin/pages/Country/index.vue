@@ -22,6 +22,7 @@
         :total="0"
         @edit="editCountry"
         @publish="publishCountry"
+        @unpublish="unpublishCountry"
         @delete="deleteCountry"
       />
     </v-content-box>
@@ -53,8 +54,8 @@ class Country extends Vue {
 
   countryActions = [
     {name: 'edit', iconName: 'fa fa-pencil', className: 'btn btn-primary btn-flat'},
-    {name: 'publish', iconName: 'fa fa-cloud-upload', className: 'btn btn-primary btn-flat'},
-    {name: 'unpublish', iconName: 'fa fa-cloud-download', className: 'btn btn-primary btn-flat'},
+    {name: 'publish', iconName: 'fa fa-cloud-upload', className: 'btn btn-primary btn-flat', isShow: this.isUnpublish},
+    {name: 'unpublish', iconName: 'fa fa-cloud-download', className: 'btn btn-primary btn-flat', isShow: this.isPublish},
     {name: 'delete', iconName: 'fa fa-trash-o', className: 'btn btn-primary btn-flat'}
   ];
 
@@ -71,6 +72,14 @@ class Country extends Vue {
     });
   }
 
+  isUnpublish(data) {
+    return data.status === 'isUnpublished';
+  }
+
+  isPublish(data) {
+    return data.status === 'isPublished';
+  }
+
   async mounted() {
     this.isLoading = true;
     await this.$store.dispatch('country/getCountryList');
@@ -82,7 +91,11 @@ class Country extends Vue {
   }
 
   publishCountry(event, country) {
-    console.log(event, country);
+    this.$store.dispatch('country/publishCountry', country._id);
+  }
+
+  unpublishCountry(event, country) {
+    this.$store.dispatch('country/unpublishCountry', country._id);
   }
 
   deleteCountry(event, country) {

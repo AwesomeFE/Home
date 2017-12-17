@@ -16,5 +16,13 @@ export function create(countryData) {
 }
 
 export function updateById(id, countryData) {
-  return Country.update({_id: id}, countryData);
+  return Country.findByIdAndUpdate(id, countryData, { new: true });
+}
+
+export function publishById(id) {
+  return Country.findByIdAndUpdate(id, { status: 'isPublished' }, { new: true });
+}
+
+export function unpublishById(id) {
+  return Country.findByIdAndUpdate(id, { status: 'isUnpublished' }, { new: true });
 }

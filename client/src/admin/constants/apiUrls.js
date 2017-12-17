@@ -9,6 +9,8 @@ export const CREATE_COUNTRY = () => `/api/country`;
 export const GET_COUNTRY_LIST = () => `/api/country`;
 export const EDIT_COUNTRY = countryId => `/api/country/${countryId}`;
 export const GET_COUNTRY_DETAIL = countryId => `/api/country/${countryId}`;
+export const PUBLISH_COUNTRY = countryId => `/api/country/${countryId}/publish`;
+export const UNPUBLISH_COUNTRY = countryId => `/api/country/${countryId}/unpublish`;
 
 
 

@@ -21,6 +21,7 @@
             v-for="action in actions"
             :key="item.id + action.name"
             :class="action.className"
+            v-show="isActionButtonShow(item, action)"
             @click="clickHandler($event, action.name, item)"
           >
             <i class="vTable__body--action-icon" :class="action.iconName"></i>
@@ -48,6 +49,14 @@
   class vTable extends Vue {
     clickHandler(event, action, item) {
       this.$emit(action, event, item);
+    }
+
+    isActionButtonShow(item, action) {
+      if(action.isShow) {
+        return action.isShow(item);
+      } else {
+        return true;
+      }
     }
   }
 

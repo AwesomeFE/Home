@@ -34,6 +34,6 @@ export default () => {
   axios.interceptors.response.use(responseSuccess, responseFailed);
 
   Vue.config.errorHandler = (error, vm, info) => {
-    console.log(312)
+    console.log(error)
   };
 }

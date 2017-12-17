@@ -12,5 +12,7 @@ export default [
   middlewares.AuthCheck,
   { path: '/country', method: 'post', ...CountryRoutes.createCountry },
   { path: '/country/:countryId', method: 'get', ...CountryRoutes.getCountryDetail },
-  { path: '/country/:countryId', method: 'post', ...CountryRoutes.editCountry }
+  { path: '/country/:countryId', method: 'post', ...CountryRoutes.editCountry },
+  { path: '/country/:countryId/publish', method: 'get', ...CountryRoutes.publishCountry },
+  { path: '/country/:countryId/unpublish', method: 'get', ...CountryRoutes.unpublishCountry },
 ];

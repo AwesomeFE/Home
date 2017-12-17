@@ -27,5 +27,19 @@ export const actions = {
     const { data, type } = await CountryService.editCountry(countryId, formData);
     
     return { data, type };
+  },
+
+  async publishCountry({ commit, state }, countryId) {
+    const { data, type } = await CountryService.publishCountry(countryId);
+    commit('updateCountry', data);
+
+    return { data, type };
+  },
+
+  async unpublishCountry({ commit, state }, countryId) {
+    const { data, type } = await CountryService.unpublishCountry(countryId);
+    commit('updateCountry', data);
+
+    return { data, type };
   }
 };
