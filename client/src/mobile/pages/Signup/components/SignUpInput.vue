@@ -14,7 +14,8 @@
       :name="name"
       :value="value"
       :placeholder="placeholder"
-      v-validate="validator(name)"
+      v-validate="validator"
+      @input="inputHandler"
     />
     <span
       class="Signup__tips"
@@ -36,13 +37,14 @@ import Component from 'vue-class-component';
     value: String,
     placeholder: String,
     errorString: String,
-    validator: Function
+    validator: String
   },
   inject: ['$validator']
 })
 class input extends Vue {
-  getValidateRules(name) {
-    return this.validator && this.validator(name);
+  inputHandler(event) {
+    const currentValue = event.target.value;
+    this.$emit('input', currentValue);
   }
 }
 

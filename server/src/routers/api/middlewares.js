@@ -9,7 +9,7 @@ export async function GetLoginUser (req, res, next) {
   next();
 }
 
-export function ensureLogin(req, res, next) {
+export function EnsureLogin(req, res, next) {
   const { userId } = req.session;
   
   if(!userId) {

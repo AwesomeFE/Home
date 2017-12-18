@@ -8,7 +8,7 @@ export default [
   { path: '/user/signout', method: 'get', ...UserRouters.signout },
   { path: '/user/session', method: 'get', ...UserRouters.getSessionUser },
   { path: '/country', method: 'get', ...CountryRoutes.getAllCountries },
-  middlewares.ensureLogin,
+  middlewares.EnsureLogin,
   middlewares.AuthCheck,
   { path: '/country', method: 'post', ...CountryRoutes.createCountry },
   { path: '/country/:countryId', method: 'get', ...CountryRoutes.getCountryDetail },

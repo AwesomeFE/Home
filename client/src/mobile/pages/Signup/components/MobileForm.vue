@@ -9,19 +9,19 @@
     <sign-up-input
       type="text"
       name="mobile"
+      validator="required"
       v-model="mobile"
       :title="$t('mobile.title')"
       :placeholder="$t('mobile.placeholder')"
-      :validator="getValidateRules"
       errorString="" />
 
     <sign-up-input
       type="password"
       name="password"
+      validator="required"
       v-model="password"
       :title="$t('password.title')"
       :placeholder="$t('password.placeholder')"
-      :validator="getValidateRules"
       errorString="" />
   </div>
 </template>
