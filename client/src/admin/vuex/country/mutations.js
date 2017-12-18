@@ -6,7 +6,5 @@ export const mutations = {
     state.countryArray = state.countryArray.map(country => {
       return country._id === data._id ? data : country;
     });
-
-    console.log(state.countryArray)
   }
 };

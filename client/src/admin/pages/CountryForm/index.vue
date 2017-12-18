@@ -38,18 +38,18 @@
     <v-content-box
       :title="$t('i18nForm')"
     >
-      <div v-for="name in formData.names" :key="name.id">
+      <div v-for="name in formData.names" :key="name.guid">
         <v-input
           type="text"
           v-model="name.lang"
-          :name="name._id"
+          :name="name.guid"
           :label="$t('label_lang')"
           :disabled="disabled"
         />
         <v-input
           type="text"
           v-model="name.title"
-          :name="name._id"
+          :name="name.guid"
           :label="$t('label_title')"
           :placeholder="$t('placeholder_title')"
           :disabled="disabled"
@@ -69,7 +69,7 @@ class CountryForm extends Vue {
     desc: null,
     code: null,
     names: [{
-      _id: uuid.v4(),
+      guid: uuid.v4(),
       lang: null,
       title: null
     }]
