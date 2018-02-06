@@ -17,11 +17,11 @@
       v-validate="validator"
       @input="inputHandler"
     />
-    <span
+    <div
       class="Signup__tips"
       v-show="errors.has(name)">
-      {{$t(errorString)}}
-    </span>
+      {{errorString}}
+    </div>
   </div>
 </template>
 
@@ -51,7 +51,7 @@ class input extends Vue {
 export default input;
 </script>
 
-<style type="text/scss" lang="scss" scoped>
+<style type="text/scss" lang="scss">
 .Signup__formInput {
   margin-bottom: 12px;
   .Signup__title {
@@ -73,7 +73,9 @@ export default input;
     box-sizing: border-box;
   }
   .Signup__tips {
-
+    margin: 6px 12px 15px;
+    font-size: 14px;
+    color: #e24123;
   }
 }
 </style>
