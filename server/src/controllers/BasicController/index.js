@@ -15,9 +15,9 @@ class BasicController {
   }
 
   async find(query) {
-    if(this.BasicModel) {
+    const { BasicModel } = this;
 
-    }
+    const docs = await BasicModel.find(query);
   }
 
   async findById(_id) {
